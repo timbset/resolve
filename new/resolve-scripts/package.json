@@ -1,0 +1,43 @@
+{
+  "name": "resolve-scripts",
+  "version": "1.0.0",
+  "description": "This package create server with resolve.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reimagined/resolve.git"
+  },
+  "author": "reimagined team",
+  "license": "MIT",
+  "keywords": [
+    "cqrs",
+    "eventsourcing",
+    "es",
+    "ddd"
+  ],
+  "private": true,
+  "bin": {
+    "resolve-scripts": "resolve-scripts.js"
+  },
+  "scripts": {
+    "test": "exit 0",
+    "resolve-scripts": "node bin/resolve-scripts.js"
+  },
+  "bugs": {
+    "url": "https://github.com/reimagined/resolve/issues"
+  },
+  "homepage": "https://github.com/reimagined/resolve/tree/master/packages/resolve-redux#readme",
+  "peerDependencies": {
+    "react": "^15.3.0 || ^16.0.0",
+    "react-dom": "^15.3.0 || ^16.0.0"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "ip": "^1.1.5",
+    "table": "^4.0.2",
+    "yargs": "^11.0.0"
+  }
+}
