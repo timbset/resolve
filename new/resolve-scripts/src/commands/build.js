@@ -48,7 +48,8 @@ export const builder = yargs =>
         validators.mode(argv) &&
         validators.inspect(argv) &&
         validators.start(argv) &&
-        validators.watch(argv)
+        validators.watch(argv) &&
+        validators.config(argv)
     )
 
 export const handler = argv => {

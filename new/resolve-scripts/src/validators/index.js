@@ -1,3 +1,5 @@
+import fs from 'fs'
+import path from 'path'
 import { isV4Format } from 'ip'
 
 export default {
@@ -97,5 +99,16 @@ export default {
     process.env.START = argv.start
 
     return true
+  },
+
+  config(argv) {
+    if (argv.config === 'resolve.config.json' || fs.existsSync(argv.config)) {
+      process.env.CONFIG_PATH = argv.config
+      return true
+    }
+
+    return new Error(
+      `File does not exist: ${path.resolve(process.cwd(), argv.config)}`
+    )
   }
 }
