@@ -21,18 +21,81 @@ export default {
     return true
   },
 
-  inpect(argv) {
-    const inpectArgs = argv.debug.split(':')
-    if (inpectArgs.length === 1) {
-      inpectArgs[1] = inpectArgs[0] || 9229
-      inpectArgs[0] = '127.0.0.1'
+  inspect(argv) {
+    if (
+      process.env.INSPECT_PORT &&
+      !Number.isInteger(+process.env.INSPECT_PORT)
+    ) {
+      return new Error(
+        'Invalid environment variables: \n' +
+          `INSPECT_PORT, Given: "${
+            process.env.INSPECT_PORT
+          }", Value must be an integer`
+      )
     }
-    const [ip, port] = inpectArgs
+    if (process.env.INSPECT_HOST && !isV4Format(process.env.INSPECT_HOST)) {
+      return new Error(
+        'Invalid environment variables: \n' +
+          `INSPECT_HOST, Given: "${
+            process.env.INSPECT_HOST
+          }", Value must be an IP v4"`
+      )
+    }
+
+    if (argv.inspect === undefined) {
+      if (process.env.INSPECT_PORT || process.env.INSPECT_HOST) {
+        argv.inspect = ''
+      } else {
+        delete argv.inspect
+        return true
+      }
+    }
+
+    const inspectArgs = argv.inspect.split(':')
+    if (inspectArgs.length === 1) {
+      inspectArgs[1] = inspectArgs[0] || process.env.INSPECT_PORT || 9229
+      inspectArgs[0] = process.env.INSPECT_HOST || '127.0.0.1'
+    }
+    const [ip, port] = inspectArgs
 
     delete argv.inspect
     argv.inspectHost = ip
     argv.inspectPort = +port
+    process.env.INSPECT_HOST = argv.inspectHost
+    process.env.INSPECT_PORT = argv.inspectPort
 
     return isV4Format(ip) && Number.isInteger(+port)
+  },
+
+  watch(argv) {
+    if (
+      process.env.WATCH &&
+      ['false', 'true'].indexOf(process.env.WATCH) === -1
+    ) {
+      return new Error(
+        'Invalid environment variables: \n' +
+          `WATCH, Given: "${process.env.WATCH}", Choices: "false", "true"`
+      )
+    }
+    argv.watch = argv.watch || process.env.WATCH === 'true'
+    process.env.WATCH = argv.watch
+
+    return true
+  },
+
+  start(argv) {
+    if (
+      process.env.START &&
+      ['false', 'true'].indexOf(process.env.START) === -1
+    ) {
+      return new Error(
+        'Invalid environment variables: \n' +
+          `START, Given: "${process.env.START}", Choices: "false", "true"`
+      )
+    }
+    argv.start = argv.start || process.env.START === 'true'
+    process.env.START = argv.start
+
+    return true
   }
 }

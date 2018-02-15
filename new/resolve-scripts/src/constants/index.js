@@ -33,7 +33,7 @@ module.exports = {
       type: 'boolean'
     },
     inspect: {
-      default: '127.0.0.1:9229',
+      default: undefined,
       describe: 'Activate inspector on [host:]port',
       type: 'string'
     },
@@ -50,13 +50,34 @@ module.exports = {
       'Sets production/development mode',
       '[default: "development"]'
     ],
+    WATCH: ['WATCH', 'Watch the filesystem for changes', '[default: "false"]'],
+    START: [
+      'START',
+      `Automatically start your server once Webpack's build completes`,
+      '[default: "false"]'
+    ],
     ROOT_PATH: [
       'ROOT_PATH',
       "Sets the application's root path",
       '[default: ""]'
     ],
+    ENTRY_POINT: [
+      'ENTRY_POINT',
+      'Sets the path to the static route configuration or the root component)',
+      '[default: "client/entryPoint.js"]'
+    ],
+    INDEX_PATH: [
+      'INDEX_PATH',
+      'Sets the path to the application entry file',
+      '[default: "client/index.js"]'
+    ],
     HOST: ['HOST', 'Sets the IP address', '[default: "127.0.0.1"]'],
     PORT: ['PORT', 'Sets the port', '[default: "3000"]'],
+    CONFIG_PATH: [
+      'CONFIG_PATH',
+      'Path to the resolve config',
+      '[default: "resolve.config.json"]'
+    ],
     DIST_DIR: ['DIST_DIR', 'Sets the dist directory', '[default: "dist"]'],
     STATIC_DIR: [
       'STATIC_DIR',
@@ -82,6 +103,16 @@ module.exports = {
       'READ_MODELS_DIR',
       'Sets the read models directory',
       '[default: "common/view-models"]'
+    ],
+    INSPECT_HOST: [
+      'INSPECT_HOST',
+      'Sets the inspector host',
+      '[default: "127.0.0.1"]'
+    ],
+    INSPECT_PORT: [
+      'INSPECT_PORT',
+      'Sets the inspector port',
+      '[default: 9229]'
     ],
     REGISTRY: [
       'REGISTRY',

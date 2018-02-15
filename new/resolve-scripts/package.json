@@ -21,7 +21,7 @@
   },
   "scripts": {
     "test": "exit 0",
-    "resolve-scripts": "node bin/resolve-scripts.js"
+    "prepublish": "babel --out-dir ./dist ./src"
   },
   "bugs": {
     "url": "https://github.com/reimagined/resolve/issues"
@@ -33,11 +33,11 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-register": "^6.26.0",
     "ip": "^1.1.5",
     "table": "^4.0.2",
     "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
   }
 }

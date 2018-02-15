@@ -19,12 +19,19 @@ export const builder = yargs =>
       `${envTitle}:\n` +
         `${table([
           env.NODE_ENV,
+          env.WATCH,
+          env.START,
+          env.CONFIG_PATH,
+          env.ENTRY_POINT,
+          env.INDEX_PATH,
           env.DIST_DIR,
           env.STATIC_DIR,
           env.STATIC_PATH,
           env.AGGREGATES_DIR,
           env.VIEW_MODELS_DIR,
-          env.READ_MODELS_DIR
+          env.READ_MODELS_DIR,
+          env.INSPECT_HOST,
+          env.INSPECT_PORT
         ])}\n` +
         `${customEnvTitle}:\n` +
         `  ${customEnvText}`
@@ -35,9 +42,14 @@ export const builder = yargs =>
     .option('start', options.start)
     .option('inspect', options.inspect)
     .option('config', options.config)
-    .demandOption(['start', 'inspect'])
     .conflicts('dev', 'prod')
-    .check(argv => validators.mode(argv) && validators.inpect(argv))
+    .check(
+      argv =>
+        validators.mode(argv) &&
+        validators.inspect(argv) &&
+        validators.start(argv) &&
+        validators.watch(argv)
+    )
 
 export const handler = argv => {
   // eslint-disable-next-line
