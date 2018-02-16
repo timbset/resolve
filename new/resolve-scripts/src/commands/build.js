@@ -9,6 +9,7 @@ import {
   customEnvTitle
 } from '../constants/'
 import validators from '../validators/'
+import validate from '../helpers/validate'
 
 export const command = 'build'
 export const desc = commands.build
@@ -40,19 +41,32 @@ export const builder = yargs =>
     .option('prod', options.prod)
     .option('watch', options.watch)
     .option('start', options.start)
+    .option('host', options.host)
+    .option('port', options.port)
     .option('inspect', options.inspect)
     .option('config', options.config)
+    .option('print-config', options.printConfig)
     .conflicts('dev', 'prod')
-    .check(
-      argv =>
-        validators.mode(argv) &&
-        validators.inspect(argv) &&
-        validators.start(argv) &&
-        validators.watch(argv) &&
-        validators.config(argv)
-    )
+    .check(argv => {
+      argv.build = true
+      return validate(
+        [
+          validators.mode,
+          validators.start,
+          validators.watch,
+          validators.config,
+          validators.inspect,
+          validators.host,
+          validators.port
+        ],
+        argv
+      )
+    })
 
 export const handler = argv => {
-  // eslint-disable-next-line
-  console.log(JSON.stringify(argv, null, 3))
+  if (argv.printConfig) {
+    // eslint-disable-next-line
+    console.log(JSON.stringify(argv, null, 3))
+    return
+  }
 }

@@ -37,10 +37,25 @@ module.exports = {
       describe: 'Activate inspector on [host:]port',
       type: 'string'
     },
+    host: {
+      default: undefined,
+      describe: `Sets the application's hostname`,
+      type: 'string'
+    },
+    port: {
+      default: undefined,
+      describe: `Sets the application's port`,
+      type: 'number'
+    },
     config: {
       default: 'resolve.config.json',
       describe: 'Path to the resolve config',
       type: 'string'
+    },
+    printConfig: {
+      default: undefined,
+      describe: 'Print the full configuration',
+      type: 'boolean'
     }
   },
   envTitle: 'Environment variables',

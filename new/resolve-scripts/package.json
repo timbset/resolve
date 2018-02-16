@@ -20,7 +20,7 @@
     "resolve-scripts": "resolve-scripts.js"
   },
   "scripts": {
-    "test": "exit 0",
+    "test": "jest",
     "prepublish": "babel --out-dir ./dist ./src"
   },
   "bugs": {
@@ -38,6 +38,7 @@
     "yargs": "^11.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0"
+    "babel-cli": "^6.26.0",
+    "jest": "^22.3.0"
   }
 }

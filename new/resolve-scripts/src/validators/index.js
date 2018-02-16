@@ -6,20 +6,19 @@ export default {
   mode(argv) {
     if (
       process.env.NODE_ENV &&
-      ['development', 'production'].indexOf(process.env.NODE_ENV) === -1
+      ['development', 'production', 'test'].indexOf(process.env.NODE_ENV) === -1
     ) {
       return new Error(
         'Invalid environment variables: \n' +
           `NODE_ENV, Given: "${
             process.env.NODE_ENV
-          }", Choices: "development", "production"`
+          }", Choices: "development", "production", "test"`
       )
     }
-    process.env.NODE_ENV = process.env.NODE_ENV || 'development'
+    process.env.NODE_ENV =
+      process.env.NODE_ENV === 'production' ? 'production' : 'development'
     argv.mode = argv.prod ? 'production' : process.env.NODE_ENV
     process.env.NODE_ENV = argv.mode
-    delete argv.dev
-    delete argv.prod
     return true
   },
 
@@ -66,6 +65,10 @@ export default {
     process.env.INSPECT_HOST = argv.inspectHost
     process.env.INSPECT_PORT = argv.inspectPort
 
+    if (!argv.start) {
+      return new Error('Implications failed:\nhost -> start')
+    }
+
     return isV4Format(ip) && Number.isInteger(+port)
   },
 
@@ -110,5 +113,19 @@ export default {
     return new Error(
       `File does not exist: ${path.resolve(process.cwd(), argv.config)}`
     )
+  },
+
+  host(argv) {
+    if (argv.host && !argv.start) {
+      return new Error('Implications failed:\nhost -> start')
+    }
+    return true
+  },
+
+  port(argv) {
+    if (argv.port && !argv.start) {
+      return new Error('Implications failed:\nport -> start')
+    }
+    return true
   }
 }
