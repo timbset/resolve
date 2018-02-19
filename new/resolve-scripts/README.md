@@ -1,42 +1,28 @@
 # resolve-scripts
 
 ## Config
-```TypeScript
+```ts
 type ConfigSchema = {
-    entryPoint: Path = 'client/entryPoint.js', // RootComponent or Routes
-    index: Path = 'client/index.js', // Template react.render() or react-native.render()
-    distDir: Path = 'dist', // Path to the dist directory
-    staticDir: Path = 'static', // Path to the static directory
-    staticPath: Path = 'static', // Path to the static
-    aggregates: Path = 'common/aggregates', // Path to the aggregates directory
-    viewModels: Path = 'common/view-models', // Path to the view models directory
-    readModels: Path = 'common/read-models', // Path to the read models directory
-    bus?: BusAdapter,
-    storage?: StorageAdapter,
-    subscribe?: SubscribeAdapter,
-    auth?: Array<AuthAdapter>,
-    env?: Map<String, ConfigSchema> = {}
-}
-```
+    entryPoint?: Path, // RootComponent or Routes [default: 'client/entryPoint.js']
+    index?: Path, // Template react.render() or reactNative.render() [default: 'client/index.js']
+    distDir?: Path, // Path to the dist directory [default: 'dist']
+    rootPath?: Path', // Path to the root directory [default: '']
+    staticDir?: Path, // Path to the static directory [default: 'static']
+    staticPath?: Path', // Path to the static [default: '/static']
+    aggregates?: Path, // Path to the aggregates directory [default: 'common/aggregates']
+    viewModels?: Path, // Path to the view models directory [default: 'common/view-models']
+    readModels?: Path, // Path to the read models directory [default: 'common/read-models']
+    bus?: Adapter, // [default: { adapter: 'resolve-bus-memory' }]
+    storage?: Adapter, // [default: { adapter: 'resolve-storage-lite' }]
+    subscribe?: Adapter, // [default: { adapter: 'resolve-subscribe-socket-io' }]
+    auth?: Array<Adapter>, // [default: { adapter: 'resolve-auth-local' }]
+    env?: Map<String, ConfigSchema> // [default: {}]
+};
 
-```
-type BusAdapter = {
-    adapter: String = 'memory', // find node_modules/resolve-bus-${adapter} or absolute path to file
+type Adapter = {
+    adapter: String, // find node_modules/${adapter} or absolute path to file
     options: Object = {}
-}
+};
 
-type StorageAdapter = {
-    adapter: String = 'lite', // find node_modules/resolve-storage-${adapter} or absolute path to file
-    options: Object = {}
-}
-
-type SubscribeAdapter = {
-    adapter: String = 'socket-io', // find node_modules/resolve-subscribe-${adapter} or absolute path to file
-    options: Object = {}
-}
-
-type AuthAdapter = {
-    adapter: String = 'local', // find node_modules/resolve-auth-${adapter} or absolute path to file
-    options: Object = {}
-}
+type Path = String;
 ```
