@@ -1,6 +1,8 @@
 # resolve-scripts
 
-## Config
+## Configuration File
+The resolve.config.json file contains information for your application. 
+
 ```ts
 type ConfigSchema = {
     entryPoint?: Path, // RootComponent or Routes [default: 'client/entryPoint.js']
@@ -14,9 +16,10 @@ type ConfigSchema = {
     readModels?: Path, // Path to the read models directory [default: 'common/read-models']
     bus?: Adapter, // [default: { adapter: 'resolve-bus-memory' }]
     storage?: Adapter, // [default: { adapter: 'resolve-storage-lite' }]
-    subscribe?: Adapter, // [default: { adapter: 'resolve-subscribe-socket-io' }]
+    subscribe?: Adapter, // [default: { adapter: 'resolve-subscribe-socket-io' }],
     auth?: Array<Adapter>, // [default: { adapter: 'resolve-auth-local' }]
-    env?: Map<String, ConfigSchema> // [default: {}]
+    jwt?: JWT, // [default: { cookieName: 'authenticationToken', secret: 'auth-secret', options: { maxAge: 1000 * 60 * 60 * 24 * 365 } }]
+    env?: Map<EnvKey, ConfigSchema> // [default: {}]
 };
 
 type Adapter = {
@@ -24,5 +27,15 @@ type Adapter = {
     options: Object = {}
 };
 
+type JWT = {
+    cookieName? : String, // [default: 'authenticationToken'] 
+    secret?: String, // [default: 'auth-secret']
+    options: {
+        maxAge?: Integer, // [default: 1000 * 60 * 60 * 24 * 365 ] // 1 year
+    }
+}
+
 type Path = String;
+
+type EnvKey = String;
 ```
