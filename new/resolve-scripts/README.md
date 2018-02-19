@@ -8,7 +8,7 @@ type ConfigSchema = {
     entryPoint?: Path, // RootComponent or Routes [default: 'client/entryPoint.js']
     index?: Path, // Template react.render() or reactNative.render() [default: 'client/index.js']
     distDir?: Path, // Path to the dist directory [default: 'dist']
-    rootPath?: Path', // Path to the root directory [default: '']
+    rootPath?: Path, // Path to the root directory [default: '']
     staticDir?: Path, // Path to the static directory [default: 'static']
     staticPath?: Path', // Path to the static [default: '/static']
     aggregates?: Path, // Path to the aggregates directory [default: 'common/aggregates']
