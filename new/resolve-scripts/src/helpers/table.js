@@ -2,7 +2,7 @@ import { table, getBorderCharacters } from 'table'
 
 const config = {
   border: getBorderCharacters('void'),
-  columnCount: 3,
+  columnCount: 2,
   columns: {
     0: {
       width: 16,
@@ -10,14 +10,7 @@ const config = {
       paddingRight: 1
     },
     1: {
-      width: 32,
-      wrapWord: true,
-      paddingLeft: 1,
-      paddingRight: 1
-    },
-    2: {
-      alignment: 'right',
-      width: 26,
+      width: 59,
       wrapWord: true,
       paddingLeft: 1,
       paddingRight: 0

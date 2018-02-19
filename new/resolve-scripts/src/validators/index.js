@@ -105,6 +105,9 @@ export default {
   },
 
   config(argv) {
+    if (argv.config === undefined) {
+      argv.config = 'resolve.config.json'
+    }
     if (argv.config === 'resolve.config.json' || fs.existsSync(argv.config)) {
       process.env.CONFIG_PATH = argv.config
       return true

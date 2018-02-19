@@ -6,7 +6,9 @@ import {
   env,
   envTitle,
   customEnvText,
-  customEnvTitle
+  customEnvTitle,
+  defaults,
+  defaultsTitle
 } from '../constants/'
 import validators from '../validators/'
 
@@ -17,20 +19,20 @@ export const builder = yargs =>
     .help('help')
     .epilogue(
       `${envTitle}:\n` +
-        `${table([
-          env.HOST,
-          env.PORT,
-          env.ROOT_PATH,
-          env.INSPECT_HOST,
-          env.INSPECT_PORT
-        ])}\n` +
+        `${table([env.HOST, env.PORT, env.INSPECT_HOST, env.INSPECT_PORT])}\n` +
         `${customEnvTitle}:\n` +
-        `  ${customEnvText}`
+        `  ${customEnvText}\n\n` +
+        `${defaultsTitle}:\n` +
+        `${table([
+          defaults.host,
+          defaults.port,
+          defaults.inspectHost,
+          defaults.inspectPort
+        ])}`
     )
     .option('host', options.host)
     .option('port', options.port)
     .option('inspect', options.inspect)
-    .option('config', options.config)
     .option('print-config', options.printConfig)
     .check(argv => {
       argv.build = false

@@ -6,7 +6,9 @@ import {
   env,
   envTitle,
   customEnvText,
-  customEnvTitle
+  customEnvTitle,
+  defaults,
+  defaultsTitle
 } from '../constants/'
 import validators from '../validators/'
 
@@ -21,17 +23,44 @@ export const builder = yargs =>
           env.CONFIG_PATH,
           env.ENTRY_POINT,
           env.INDEX_PATH,
+          env.ROOT_PATH,
           env.DIST_DIR,
           env.STATIC_DIR,
           env.STATIC_PATH,
           env.AGGREGATES_DIR,
           env.VIEW_MODELS_DIR,
           env.READ_MODELS_DIR,
+          env.HOST,
+          env.PORT,
           env.INSPECT_HOST,
           env.INSPECT_PORT
         ])}\n` +
         `${customEnvTitle}:\n` +
-        `  ${customEnvText}`
+        `  ${customEnvText}\n\n` +
+        `${defaultsTitle}:\n` +
+        `${table([
+          defaults.mode,
+          ['watch', 'true'],
+          ['start', 'true'],
+          defaults.config,
+          defaults.entryPoint,
+          defaults.index,
+          defaults.rootPath,
+          defaults.distDir,
+          defaults.staticDir,
+          defaults.staticPath,
+          defaults.aggregates,
+          defaults.viewModels,
+          defaults.readModels,
+          defaults.host,
+          defaults.port,
+          defaults.inspectHost,
+          defaults.inspectPort,
+          defaults.storageAdapter,
+          defaults.busAdapter,
+          defaults.subscribeAdapter,
+          defaults.registry
+        ])}`
     )
     .option('host', options.host)
     .option('port', options.port)

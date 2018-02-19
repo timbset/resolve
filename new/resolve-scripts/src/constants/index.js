@@ -13,12 +13,12 @@ module.exports = {
   options: {
     dev: {
       default: undefined,
-      describe: "Sets process.env.NODE_ENV to 'development'",
+      describe: "Sets options.mode and process.env.NODE_ENV to 'development'",
       type: 'boolean'
     },
     prod: {
       default: undefined,
-      describe: "Sets process.env.NODE_ENV to 'production'",
+      describe: "Sets options.mode and process.env.NODE_ENV to 'production'",
       type: 'boolean'
     },
     watch: {
@@ -48,7 +48,7 @@ module.exports = {
       type: 'number'
     },
     config: {
-      default: 'resolve.config.json',
+      default: undefined,
       describe: 'Path to the resolve config',
       type: 'string'
     },
@@ -58,83 +58,55 @@ module.exports = {
       type: 'boolean'
     }
   },
+  defaultsTitle: 'Defaults',
+  defaults: {
+    mode: ['mode', '"development"'],
+    config: ['config', '"resolve.config.json"'],
+    rootPath: ['rootPath', '""'],
+    staticDir: ['staticDir', '"static"'],
+    staticPath: ['staticPath', '"/static"'],
+    distDir: ['distDir', '"dist"'],
+    host: ['host', '"127.0.0.1"'],
+    port: ['port', 3000],
+    inspectHost: ['inspectHost', '"127.0.0.1"'],
+    inspectPort: ['inspectPort', 9229],
+    aggregates: ['aggregates', '"common/aggregates"'],
+    readModels: ['readModels', '"common/read-models"'],
+    viewModels: ['viewModels', '"common/view-models"'],
+    index: ['index', '"client/index.js"'],
+    entryPoint: ['entryPoint', '"client/entryPoint.js"'],
+    storageAdapter: ['storageAdapter', '"lite"'],
+    busAdapter: ['busAdapter', '"memory"'],
+    subscribeAdapter: ['subscribeAdapter', '"socket-io"'],
+    registry: ['registry', '"https://registry.resolve.com"']
+  },
   envTitle: 'Environment variables',
   env: {
-    NODE_ENV: [
-      'NODE_ENV',
-      'Sets production/development mode',
-      '[default: "development"]'
-    ],
-    WATCH: ['WATCH', 'Watch the filesystem for changes', '[default: "false"]'],
+    NODE_ENV: ['NODE_ENV', 'Sets production/development mode'],
+    WATCH: ['WATCH', 'Watch the filesystem for changes'],
     START: [
       'START',
-      `Automatically start your server once Webpack's build completes`,
-      '[default: "false"]'
+      `Automatically start your server once Webpack's build completes`
     ],
-    ROOT_PATH: [
-      'ROOT_PATH',
-      "Sets the application's root path",
-      '[default: ""]'
-    ],
+    ROOT_PATH: ['ROOT_PATH', "Sets the application's root path"],
     ENTRY_POINT: [
       'ENTRY_POINT',
-      'Sets the path to the static route configuration or the root component)',
-      '[default: "client/entryPoint.js"]'
+      'Sets the path to the static route configuration or the root component)'
     ],
-    INDEX_PATH: [
-      'INDEX_PATH',
-      'Sets the path to the application entry file',
-      '[default: "client/index.js"]'
-    ],
-    HOST: ['HOST', 'Sets the IP address', '[default: "127.0.0.1"]'],
-    PORT: ['PORT', 'Sets the port', '[default: "3000"]'],
-    CONFIG_PATH: [
-      'CONFIG_PATH',
-      'Path to the resolve config',
-      '[default: "resolve.config.json"]'
-    ],
-    DIST_DIR: ['DIST_DIR', 'Sets the dist directory', '[default: "dist"]'],
-    STATIC_DIR: [
-      'STATIC_DIR',
-      'Sets the static directory',
-      '[default: "static"]'
-    ],
-    STATIC_PATH: [
-      'STATIC_PATH',
-      'Sets the static path',
-      '[default: "$ROOT_PATH/static"]'
-    ],
-    AGGREGATES_DIR: [
-      'AGGREGATES_DIR',
-      'Sets the aggregates directory',
-      '[default: "common/aggregates"]'
-    ],
-    VIEW_MODELS_DIR: [
-      'VIEW_MODELS_DIR',
-      'Sets the view models directory',
-      '[default: "common/read-models"]'
-    ],
-    READ_MODELS_DIR: [
-      'READ_MODELS_DIR',
-      'Sets the read models directory',
-      '[default: "common/view-models"]'
-    ],
-    INSPECT_HOST: [
-      'INSPECT_HOST',
-      'Sets the inspector host',
-      '[default: "127.0.0.1"]'
-    ],
-    INSPECT_PORT: [
-      'INSPECT_PORT',
-      'Sets the inspector port',
-      '[default: 9229]'
-    ],
-    REGISTRY: [
-      'REGISTRY',
-      'Sets the resolve registry',
-      '[default: "https://registry.resolve.com"]'
-    ],
-    TOKEN: ['  TOKEN', 'Sets the authorization token']
+    INDEX_PATH: ['INDEX_PATH', 'Sets the path to the application entry file'],
+    HOST: ['HOST', 'Sets the IP address'],
+    PORT: ['PORT', 'Sets the port'],
+    CONFIG_PATH: ['CONFIG_PATH', 'Path to the resolve config'],
+    DIST_DIR: ['DIST_DIR', 'Sets the dist directory'],
+    STATIC_DIR: ['STATIC_DIR', 'Sets the static directory'],
+    STATIC_PATH: ['STATIC_PATH', 'Sets the static path'],
+    AGGREGATES_DIR: ['AGGREGATES_DIR', 'Sets the aggregates directory'],
+    VIEW_MODELS_DIR: ['VIEW_MODELS_DIR', 'Sets the view models directory'],
+    READ_MODELS_DIR: ['READ_MODELS_DIR', 'Sets the read models directory'],
+    INSPECT_HOST: ['INSPECT_HOST', 'Sets the inspector host'],
+    INSPECT_PORT: ['INSPECT_PORT', 'Sets the inspector port'],
+    REGISTRY: ['REGISTRY', 'Sets the resolve registry'],
+    TOKEN: ['TOKEN', 'Sets the authorization token']
   },
   customEnvTitle: 'Custom Environment Variables',
   customEnvText:
