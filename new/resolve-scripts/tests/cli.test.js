@@ -169,4 +169,56 @@ describe('resolve-scripts build', () => {
       throw new Error()
     })
   })
+
+  describe('argv.inspect', () => {
+    it('resolve-scripts build --start --inspect', async () => {
+      const json = await exec('resolve-scripts build --start --inspect')
+
+      expect(json).toHaveProperty('inspectHost', '127.0.0.1')
+      expect(json).toHaveProperty('inspectPort', 9229)
+    })
+
+    it('resolve-scripts build --start --inspect=1234', async () => {
+      const json = await exec('resolve-scripts build --start --inspect=1234')
+
+      expect(json).toHaveProperty('inspectHost', '127.0.0.1')
+      expect(json).toHaveProperty('inspectPort', 1234)
+    })
+
+    it('resolve-scripts build --start --inspect=0.0.0.0:1234', async () => {
+      const json = await exec(
+        'resolve-scripts build --start --inspect=0.0.0.0:1234'
+      )
+
+      expect(json).toHaveProperty('inspectHost', '0.0.0.0')
+      expect(json).toHaveProperty('inspectPort', 1234)
+    })
+
+    it('resolve-scripts build --inspect=INCORRECT_PORT (fail)', async () => {
+      try {
+        await exec('resolve-scripts build --inspect=INCORRECT_PORT')
+      } catch (error) {
+        return
+      }
+      throw new Error()
+    })
+
+    it('resolve-scripts build --inspect=INCORRECT_HOST (fail)', async () => {
+      try {
+        await exec('resolve-scripts build --inspect=1.2.3.4.5:1234')
+      } catch (error) {
+        return
+      }
+      throw new Error()
+    })
+
+    it('resolve-scripts build --inspect (fail)', async () => {
+      try {
+        await exec('resolve-scripts build --inspect')
+      } catch (error) {
+        return
+      }
+      throw new Error()
+    })
+  })
 })

@@ -74,6 +74,9 @@ export const builder = yargs =>
     .option('inspect', options.inspect)
     .option('config', options.config)
     .option('print-config', options.printConfig)
+    .implies('host', 'start')
+    .implies('port', 'start')
+    .implies('inspect', 'start')
     .conflicts('dev', 'prod')
     .check(argv => {
       argv.build = true
@@ -83,9 +86,7 @@ export const builder = yargs =>
           validators.start,
           validators.watch,
           validators.config,
-          validators.inspect,
-          validators.host,
-          validators.port
+          validators.inspect
         ],
         argv
       )

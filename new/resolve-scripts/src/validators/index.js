@@ -116,19 +116,5 @@ export default {
     return new Error(
       `File does not exist: ${path.resolve(process.cwd(), argv.config)}`
     )
-  },
-
-  host(argv) {
-    if (argv.host && !argv.start) {
-      return new Error('Implications failed:\nhost -> start')
-    }
-    return true
-  },
-
-  port(argv) {
-    if (argv.port && !argv.start) {
-      return new Error('Implications failed:\nport -> start')
-    }
-    return true
   }
 }
