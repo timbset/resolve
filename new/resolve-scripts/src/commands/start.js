@@ -11,6 +11,7 @@ import {
   defaultsTitle
 } from '../constants/'
 import validators from '../validators/'
+import validate from '../helpers/validate'
 
 export const command = 'start'
 export const desc = commands.build
@@ -35,17 +36,14 @@ export const builder = yargs =>
     .option('inspect', options.inspect)
     .option('print-config', options.printConfig)
     .check(argv => {
-      argv.build = false
-      return (
-        validators.mode(argv) &&
-        validators.inspect(argv) &&
-        validators.watch(argv) &&
-        validators.config(argv)
-      )
+      process.env.BUILD = argv.build = false
+      process.env.START = argv.start = true
+      process.env.WATCH = argv.watch = false
+      return validate([validators.inspect, validators.config], argv)
     })
 
 export const handler = argv => {
-  if (argv.argv.printConfig) {
+  if (argv.printConfig) {
     // eslint-disable-next-line
     console.log(JSON.stringify(argv, null, 3))
     return

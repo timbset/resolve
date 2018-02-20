@@ -24,14 +24,14 @@ type ConfigSchema = {
 
 type Adapter = {
     adapter: String, // find node_modules/${adapter} or absolute path to file
-    options: Object = {}
+    options: Object // [default: {}]
 };
 
 type JWT = {
     cookieName? : String, // [default: 'authenticationToken'] 
     secret?: String, // [default: 'auth-secret']
     options: {
-        maxAge?: Integer, // [default: 1000 * 60 * 60 * 24 * 365 ] // 1 year
+        maxAge?: Integer, // [default: 1000 * 60 * 60 * 24 * 365] // 1 year
     }
 }
 

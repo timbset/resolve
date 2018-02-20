@@ -79,7 +79,7 @@ export const builder = yargs =>
     .implies('inspect', 'start')
     .conflicts('dev', 'prod')
     .check(argv => {
-      argv.build = true
+      process.env.BUILD = argv.build = true
       return validate(
         [
           validators.mode,
