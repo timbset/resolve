@@ -3,12 +3,7 @@ import validateConfig from './validate_config'
 
 export default function buildOptions(optionBuilders, argv) {
   const config = getConfig(argv.config)
-
-  try {
-    validateConfig(config)
-  } catch (error) {
-    return error
-  }
+  validateConfig(config)
 
   for (const optionBuilder of optionBuilders) {
     const result = optionBuilder(argv, config)

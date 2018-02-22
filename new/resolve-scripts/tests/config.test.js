@@ -49,6 +49,7 @@ describe('validate schema', () => {
       })
     ).toBeTruthy()
   })
+
   it('custom static path', () => {
     expect(
       validateСonfig({
@@ -61,6 +62,14 @@ describe('validate schema', () => {
     expect(
       validateСonfig({
         routes: 'src/client/entryPoint.js'
+      })
+    ).toBeTruthy()
+  })
+
+  it('custom index path', () => {
+    expect(
+      validateСonfig({
+        index: 'src/client/index.js'
       })
     ).toBeTruthy()
   })
@@ -123,6 +132,23 @@ describe('validate schema', () => {
           secret: 'some-secret',
           options: {
             maxAge: 1000 * 60 * 60 * 24 * 365
+          }
+        }
+      })
+    ).toBeTruthy()
+  })
+
+  it('custom env', () => {
+    expect(
+      validateСonfig({
+        subscribe: {
+          adapter: 'resolve-subscribe-socket-io'
+        },
+        env: {
+          production: {
+            subscribe: {
+              adapter: 'resolve-subscribe-mqtt'
+            }
           }
         }
       })
@@ -257,9 +283,9 @@ describe('resolve-scripts build --config=resolve-test-config.json', () => {
   const resolveConfigPath = path.resolve(__dirname, 'resolve-test-config.json')
 
   const resolveTestConfig = {
-    aggregates: 1,
-    viewModels: 'customViewModels',
-    readModels: 'customReadModels'
+    index: 'client/custom-index.js',
+    viewModels: 'common/customViewModels',
+    readModels: 'common/customReadModels'
   }
 
   beforeEach(() => {
@@ -274,8 +300,8 @@ describe('resolve-scripts build --config=resolve-test-config.json', () => {
     fs.unlinkSync(resolveConfigPath)
   })
 
-  test('validate resolve.config.json should works correctly', () => {
-    expect(getConfig(resolveTestConfig)).toBeTruthy()
+  test('getConfig("resolve-test-config.json") should works correctly', () => {
+    expect(getConfig(resolveConfigPath)).toEqual(resolveTestConfig)
   })
 
   test(
