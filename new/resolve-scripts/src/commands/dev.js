@@ -10,8 +10,8 @@ import {
   defaults,
   defaultsTitle
 } from '../constants/'
-import validators from '../validators/'
-import validate from '../helpers/validate'
+import optionBuilders from '../option_builders/'
+import buildOptions from '../helpers/build_options'
 
 export const command = 'dev'
 export const desc = commands.dev
@@ -22,7 +22,7 @@ export const builder = yargs =>
       `${envTitle}:\n` +
         `${table([
           env.CONFIG_PATH,
-          env.ENTRY_POINT,
+          env.ROUTES_PATH,
           env.INDEX_PATH,
           env.ROOT_PATH,
           env.DIST_DIR,
@@ -44,7 +44,7 @@ export const builder = yargs =>
           ['watch', 'true'],
           ['start', 'true'],
           defaults.config,
-          defaults.entryPoint,
+          defaults.routes,
           defaults.index,
           defaults.rootPath,
           defaults.distDir,
@@ -73,7 +73,7 @@ export const builder = yargs =>
       process.env.START = argv.start = true
       process.env.BUILD = argv.build = true
       process.env.WATCH = argv.watch = true
-      return validate([validators.config, validators.inspect], argv)
+      return buildOptions([optionBuilders.config, optionBuilders.inspect], argv)
     })
 
 export const handler = argv => {

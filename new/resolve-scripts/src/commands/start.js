@@ -10,8 +10,8 @@ import {
   defaults,
   defaultsTitle
 } from '../constants/'
-import validators from '../validators/'
-import validate from '../helpers/validate'
+import optionBuilders from '../option_builders/'
+import buildOptions from '../helpers/build_options'
 
 export const command = 'start'
 export const desc = commands.build
@@ -39,7 +39,7 @@ export const builder = yargs =>
       process.env.BUILD = argv.build = false
       process.env.START = argv.start = true
       process.env.WATCH = argv.watch = false
-      return validate([validators.inspect, validators.config], argv)
+      return buildOptions([optionBuilders.inspect, optionBuilders.config], argv)
     })
 
 export const handler = argv => {

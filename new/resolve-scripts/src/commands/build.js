@@ -10,8 +10,8 @@ import {
   defaults,
   defaultsTitle
 } from '../constants/'
-import validators from '../validators/'
-import validate from '../helpers/validate'
+import optionBuilders from '../option_builders/'
+import buildOptions from '../helpers/build_options'
 
 export const command = 'build'
 export const desc = commands.build
@@ -25,7 +25,7 @@ export const builder = yargs =>
           env.WATCH,
           env.START,
           env.CONFIG_PATH,
-          env.ENTRY_POINT,
+          env.ROUTES_PATH,
           env.INDEX_PATH,
           env.ROOT_PATH,
           env.DIST_DIR,
@@ -47,7 +47,7 @@ export const builder = yargs =>
           ['watch', 'false'],
           ['start', 'false'],
           defaults.config,
-          defaults.entryPoint,
+          defaults.routes,
           defaults.index,
           defaults.rootPath,
           defaults.distDir,
@@ -80,13 +80,13 @@ export const builder = yargs =>
     .conflicts('dev', 'prod')
     .check(argv => {
       process.env.BUILD = argv.build = true
-      return validate(
+      return buildOptions(
         [
-          validators.mode,
-          validators.start,
-          validators.watch,
-          validators.config,
-          validators.inspect
+          optionBuilders.mode,
+          optionBuilders.start,
+          optionBuilders.watch,
+          optionBuilders.config,
+          optionBuilders.inspect
         ],
         argv
       )

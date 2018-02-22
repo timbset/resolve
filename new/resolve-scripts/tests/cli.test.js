@@ -1,40 +1,29 @@
-import { exec as nativeExec } from 'child_process'
-
-function exec(cmd, env) {
-  return new Promise((resolve, reject) => {
-    nativeExec(
-      cmd.replace('resolve-scripts', 'node bin/resolve-scripts.js') +
-        ' --print-config',
-      { env },
-      (err, stdout) => (!err ? resolve(JSON.parse(stdout)) : reject(err))
-    )
-  })
-}
+import exec from './exec'
 
 describe('resolve-scripts build', () => {
   describe('argv.mode', () => {
-    it('resolve-scripts build', async () => {
+    test('resolve-scripts build', async () => {
       const json = await exec('resolve-scripts build')
 
       expect(json).toHaveProperty('build', true)
       expect(json).toHaveProperty('mode', 'development')
     })
 
-    it('resolve-scripts build --dev', async () => {
+    test('resolve-scripts build --dev', async () => {
       const json = await exec('resolve-scripts build --dev')
 
       expect(json).toHaveProperty('build', true)
       expect(json).toHaveProperty('mode', 'development')
     })
 
-    it('resolve-scripts build --prod', async () => {
+    test('resolve-scripts build --prod', async () => {
       const json = await exec('resolve-scripts build --prod')
 
       expect(json).toHaveProperty('build', true)
       expect(json).toHaveProperty('mode', 'production')
     })
 
-    it('resolve-scripts build --dev --prod (fail)', async () => {
+    test('resolve-scripts build --dev --prod (fail)', async () => {
       try {
         await exec('resolve-scripts build --dev --prod')
       } catch (error) {
@@ -43,7 +32,7 @@ describe('resolve-scripts build', () => {
       throw new Error()
     })
 
-    it('NODE_ENV=production resolve-scripts build', async () => {
+    test('NODE_ENV=production resolve-scripts build', async () => {
       const json = await exec('resolve-scripts build', {
         NODE_ENV: 'production'
       })
@@ -52,7 +41,7 @@ describe('resolve-scripts build', () => {
       expect(json).toHaveProperty('mode', 'production')
     })
 
-    it('NODE_ENV=development resolve-scripts build', async () => {
+    test('NODE_ENV=development resolve-scripts build', async () => {
       const json = await exec('resolve-scripts build', {
         NODE_ENV: 'development'
       })
@@ -61,7 +50,7 @@ describe('resolve-scripts build', () => {
       expect(json).toHaveProperty('mode', 'development')
     })
 
-    it('NODE_ENV=test resolve-scripts build', async () => {
+    test('NODE_ENV=test resolve-scripts build', async () => {
       const json = await exec('resolve-scripts build', {
         NODE_ENV: 'development'
       })
@@ -70,7 +59,7 @@ describe('resolve-scripts build', () => {
       expect(json).toHaveProperty('mode', 'development')
     })
 
-    it('NODE_ENV=INCORRECT_VALUE resolve-scripts build (fail)', async () => {
+    test('NODE_ENV=INCORRECT_VALUE resolve-scripts build (fail)', async () => {
       try {
         await exec('resolve-scripts build', { NODE_ENV: 'INCORRECT_VALUE' })
       } catch (error) {
@@ -81,25 +70,25 @@ describe('resolve-scripts build', () => {
   })
 
   describe('argv.watch', () => {
-    it('resolve-scripts build', async () => {
+    test('resolve-scripts build', async () => {
       const json = await exec('resolve-scripts build')
 
       expect(json).toHaveProperty('watch', false)
     })
 
-    it('resolve-scripts build --watch', async () => {
+    test('resolve-scripts build --watch', async () => {
       const json = await exec('resolve-scripts build --watch')
 
       expect(json).toHaveProperty('watch', true)
     })
 
-    it('WATCH=false resolve-scripts build', async () => {
+    test('WATCH=false resolve-scripts build', async () => {
       const json = await exec('resolve-scripts build', { WATCH: false })
 
       expect(json).toHaveProperty('watch', false)
     })
 
-    it('WATCH=true resolve-scripts build', async () => {
+    test('WATCH=true resolve-scripts build', async () => {
       const json = await exec('resolve-scripts build', { WATCH: true })
 
       expect(json).toHaveProperty('watch', true)
@@ -107,25 +96,25 @@ describe('resolve-scripts build', () => {
   })
 
   describe('argv.start', () => {
-    it('resolve-scripts build', async () => {
+    test('resolve-scripts build', async () => {
       const json = await exec('resolve-scripts build')
 
       expect(json).toHaveProperty('start', false)
     })
 
-    it('resolve-scripts build --start', async () => {
+    test('resolve-scripts build --start', async () => {
       const json = await exec('resolve-scripts build --start')
 
       expect(json).toHaveProperty('start', true)
     })
 
-    it('START=false resolve-scripts build', async () => {
+    test('START=false resolve-scripts build', async () => {
       const json = await exec('resolve-scripts build', { START: false })
 
       expect(json).toHaveProperty('start', false)
     })
 
-    it('START=true resolve-scripts build', async () => {
+    test('START=true resolve-scripts build', async () => {
       const json = await exec('resolve-scripts build', { START: true })
 
       expect(json).toHaveProperty('start', true)
@@ -133,7 +122,7 @@ describe('resolve-scripts build', () => {
   })
 
   describe('argv.host', () => {
-    it('resolve-scripts build --start --host=http://test.test', async () => {
+    test('resolve-scripts build --start --host=http://test.test', async () => {
       const json = await exec(
         'resolve-scripts build --start --host=http://test.test'
       )
@@ -142,7 +131,7 @@ describe('resolve-scripts build', () => {
       expect(json).toHaveProperty('host', 'http://test.test')
     })
 
-    it('resolve-scripts build --host=http://test.test (fail)', async () => {
+    test('resolve-scripts build --host=http://test.test (fail)', async () => {
       try {
         await exec('resolve-scripts build --host=http://test.test')
       } catch (error) {
@@ -153,14 +142,14 @@ describe('resolve-scripts build', () => {
   })
 
   describe('argv.port', () => {
-    it('resolve-scripts build --start --port=1234', async () => {
+    test('resolve-scripts build --start --port=1234', async () => {
       const json = await exec('resolve-scripts build --start --port=1234')
 
       expect(json).toHaveProperty('start', true)
       expect(json).toHaveProperty('port', 1234)
     })
 
-    it('resolve-scripts build --port=1234 (fail)', async () => {
+    test('resolve-scripts build --port=1234 (fail)', async () => {
       try {
         await exec('resolve-scripts build --port=1234')
       } catch (error) {
@@ -171,21 +160,21 @@ describe('resolve-scripts build', () => {
   })
 
   describe('argv.inspect', () => {
-    it('resolve-scripts build --start --inspect', async () => {
+    test('resolve-scripts build --start --inspect', async () => {
       const json = await exec('resolve-scripts build --start --inspect')
 
       expect(json).toHaveProperty('inspectHost', '127.0.0.1')
       expect(json).toHaveProperty('inspectPort', 9229)
     })
 
-    it('resolve-scripts build --start --inspect=1234', async () => {
+    test('resolve-scripts build --start --inspect=1234', async () => {
       const json = await exec('resolve-scripts build --start --inspect=1234')
 
       expect(json).toHaveProperty('inspectHost', '127.0.0.1')
       expect(json).toHaveProperty('inspectPort', 1234)
     })
 
-    it('resolve-scripts build --start --inspect=0.0.0.0:1234', async () => {
+    test('resolve-scripts build --start --inspect=0.0.0.0:1234', async () => {
       const json = await exec(
         'resolve-scripts build --start --inspect=0.0.0.0:1234'
       )
@@ -194,7 +183,7 @@ describe('resolve-scripts build', () => {
       expect(json).toHaveProperty('inspectPort', 1234)
     })
 
-    it('resolve-scripts build --inspect=INCORRECT_PORT (fail)', async () => {
+    test('resolve-scripts build --inspect=INCORRECT_PORT (fail)', async () => {
       try {
         await exec('resolve-scripts build --inspect=INCORRECT_PORT')
       } catch (error) {
@@ -203,7 +192,7 @@ describe('resolve-scripts build', () => {
       throw new Error()
     })
 
-    it('resolve-scripts build --inspect=INCORRECT_HOST (fail)', async () => {
+    test('resolve-scripts build --inspect=INCORRECT_HOST (fail)', async () => {
       try {
         await exec('resolve-scripts build --inspect=1.2.3.4.5:1234')
       } catch (error) {
@@ -212,7 +201,7 @@ describe('resolve-scripts build', () => {
       throw new Error()
     })
 
-    it('resolve-scripts build --inspect (fail)', async () => {
+    test('resolve-scripts build --inspect (fail)', async () => {
       try {
         await exec('resolve-scripts build --inspect')
       } catch (error) {
@@ -223,19 +212,19 @@ describe('resolve-scripts build', () => {
   })
 
   describe('argv.config', () => {
-    it('resolve-scripts build', async () => {
+    test('resolve-scripts build', async () => {
       const json = await exec('resolve-scripts build')
 
       expect(json).toHaveProperty('config', 'resolve.config.json')
     })
 
-    it('resolve-scripts build --config=package.json', async () => {
+    test('resolve-scripts build --config=package.json', async () => {
       const json = await exec('resolve-scripts build --config=package.json')
 
       expect(json).toHaveProperty('config', 'package.json')
     })
 
-    it('resolve-scripts build --config=NONEXISTENT_FILE (fail)', async () => {
+    test('resolve-scripts build --config=NONEXISTENT_FILE (fail)', async () => {
       try {
         await exec('resolve-scripts build --config=NONEXISTENT_FILE')
       } catch (error) {
@@ -248,7 +237,7 @@ describe('resolve-scripts build', () => {
 
 describe('resolve-scripts dev', () => {
   describe('argv.mode', () => {
-    it('resolve-scripts dev', async () => {
+    test('resolve-scripts dev', async () => {
       const json = await exec('resolve-scripts dev')
 
       expect(json).toHaveProperty('build', true)
@@ -258,7 +247,7 @@ describe('resolve-scripts dev', () => {
   })
 
   describe('argv.host', () => {
-    it('resolve-scripts dev --host=http://test.test', async () => {
+    test('resolve-scripts dev --host=http://test.test', async () => {
       const json = await exec('resolve-scripts dev --host=http://test.test')
 
       expect(json).toHaveProperty('start', true)
@@ -267,7 +256,7 @@ describe('resolve-scripts dev', () => {
   })
 
   describe('argv.port', () => {
-    it('resolve-scripts dev --port=1234', async () => {
+    test('resolve-scripts dev --port=1234', async () => {
       const json = await exec('resolve-scripts dev --port=1234')
 
       expect(json).toHaveProperty('start', true)
@@ -276,28 +265,28 @@ describe('resolve-scripts dev', () => {
   })
 
   describe('argv.inspect', () => {
-    it('resolve-scripts dev --inspect', async () => {
+    test('resolve-scripts dev --inspect', async () => {
       const json = await exec('resolve-scripts dev --inspect')
 
       expect(json).toHaveProperty('inspectHost', '127.0.0.1')
       expect(json).toHaveProperty('inspectPort', 9229)
     })
 
-    it('resolve-scripts dev --inspect=1234', async () => {
+    test('resolve-scripts dev --inspect=1234', async () => {
       const json = await exec('resolve-scripts dev --inspect=1234')
 
       expect(json).toHaveProperty('inspectHost', '127.0.0.1')
       expect(json).toHaveProperty('inspectPort', 1234)
     })
 
-    it('resolve-scripts dev --inspect=0.0.0.0:1234', async () => {
+    test('resolve-scripts dev --inspect=0.0.0.0:1234', async () => {
       const json = await exec('resolve-scripts dev --inspect=0.0.0.0:1234')
 
       expect(json).toHaveProperty('inspectHost', '0.0.0.0')
       expect(json).toHaveProperty('inspectPort', 1234)
     })
 
-    it('resolve-scripts dev --inspect=INCORRECT_PORT (fail)', async () => {
+    test('resolve-scripts dev --inspect=INCORRECT_PORT (fail)', async () => {
       try {
         await exec('resolve-scripts dev --inspect=INCORRECT_PORT')
       } catch (error) {
@@ -306,7 +295,7 @@ describe('resolve-scripts dev', () => {
       throw new Error()
     })
 
-    it('resolve-scripts dev --inspect=INCORRECT_HOST (fail)', async () => {
+    test('resolve-scripts dev --inspect=INCORRECT_HOST (fail)', async () => {
       try {
         await exec('resolve-scripts dev --inspect=1.2.3.4.5:1234')
       } catch (error) {
@@ -317,19 +306,19 @@ describe('resolve-scripts dev', () => {
   })
 
   describe('argv.config', () => {
-    it('resolve-scripts dev', async () => {
+    test('resolve-scripts dev', async () => {
       const json = await exec('resolve-scripts dev')
 
       expect(json).toHaveProperty('config', 'resolve.config.json')
     })
 
-    it('resolve-scripts dev --config=package.json', async () => {
+    test('resolve-scripts dev --config=package.json', async () => {
       const json = await exec('resolve-scripts dev --config=package.json')
 
       expect(json).toHaveProperty('config', 'package.json')
     })
 
-    it('resolve-scripts dev --config=NONEXISTENT_FILE (fail)', async () => {
+    test('resolve-scripts dev --config=NONEXISTENT_FILE (fail)', async () => {
       try {
         await exec('resolve-scripts dev --config=NONEXISTENT_FILE')
       } catch (error) {
@@ -342,7 +331,7 @@ describe('resolve-scripts dev', () => {
 
 describe('resolve-scripts start', () => {
   describe('argv.host', () => {
-    it('resolve-scripts start --host=http://test.test', async () => {
+    test('resolve-scripts start --host=http://test.test', async () => {
       const json = await exec('resolve-scripts start --host=http://test.test')
 
       expect(json).toHaveProperty('build', false)
@@ -353,7 +342,7 @@ describe('resolve-scripts start', () => {
   })
 
   describe('argv.port', () => {
-    it('resolve-scripts start --port=1234', async () => {
+    test('resolve-scripts start --port=1234', async () => {
       const json = await exec('resolve-scripts start --port=1234')
 
       expect(json).toHaveProperty('build', false)
@@ -364,28 +353,28 @@ describe('resolve-scripts start', () => {
   })
 
   describe('argv.inspect', () => {
-    it('resolve-scripts start --inspect', async () => {
+    test('resolve-scripts start --inspect', async () => {
       const json = await exec('resolve-scripts start --inspect')
 
       expect(json).toHaveProperty('inspectHost', '127.0.0.1')
       expect(json).toHaveProperty('inspectPort', 9229)
     })
 
-    it('resolve-scripts start --inspect=1234', async () => {
+    test('resolve-scripts start --inspect=1234', async () => {
       const json = await exec('resolve-scripts start --inspect=1234')
 
       expect(json).toHaveProperty('inspectHost', '127.0.0.1')
       expect(json).toHaveProperty('inspectPort', 1234)
     })
 
-    it('resolve-scripts start --inspect=0.0.0.0:1234', async () => {
+    test('resolve-scripts start --inspect=0.0.0.0:1234', async () => {
       const json = await exec('resolve-scripts start --inspect=0.0.0.0:1234')
 
       expect(json).toHaveProperty('inspectHost', '0.0.0.0')
       expect(json).toHaveProperty('inspectPort', 1234)
     })
 
-    it('resolve-scripts start --inspect=INCORRECT_PORT (fail)', async () => {
+    test('resolve-scripts start --inspect=INCORRECT_PORT (fail)', async () => {
       try {
         await exec('resolve-scripts start --inspect=INCORRECT_PORT')
       } catch (error) {
@@ -394,7 +383,7 @@ describe('resolve-scripts start', () => {
       throw new Error()
     })
 
-    it('resolve-scripts start --inspect=INCORRECT_HOST (fail)', async () => {
+    test('resolve-scripts start --inspect=INCORRECT_HOST (fail)', async () => {
       try {
         await exec('resolve-scripts start --inspect=1.2.3.4.5:1234')
       } catch (error) {

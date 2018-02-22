@@ -74,7 +74,7 @@ module.exports = {
     readModels: ['readModels', '"common/read-models"'],
     viewModels: ['viewModels', '"common/view-models"'],
     index: ['index', '"client/index.js"'],
-    entryPoint: ['entryPoint', '"client/entryPoint.js"'],
+    routes: ['routes', '"client/routes.js"'],
     storageAdapter: ['storageAdapter', '"resolve-storage-lite"'],
     busAdapter: ['busAdapter', '"resolve-bus-memory"'],
     subscribeAdapter: ['subscribeAdapter', '"resolve-subscribe-socket-io"'],
@@ -89,9 +89,9 @@ module.exports = {
       `Automatically start your server once Webpack's build completes`
     ],
     ROOT_PATH: ['ROOT_PATH', "Sets the application's root path"],
-    ENTRY_POINT: [
-      'ENTRY_POINT',
-      'Sets the path to the static route configuration or the root component)'
+    ROUTES_PATH: [
+      'ROUTES_PATH',
+      'Sets the path to the static route configuration)'
     ],
     INDEX_PATH: ['INDEX_PATH', 'Sets the path to the application entry file'],
     HOST: ['HOST', 'Sets the IP address'],
