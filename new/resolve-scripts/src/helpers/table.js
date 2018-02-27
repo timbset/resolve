@@ -5,12 +5,12 @@ const config = {
   columnCount: 2,
   columns: {
     0: {
-      width: 16,
+      width: 17,
       paddingLeft: 2,
       paddingRight: 1
     },
     1: {
-      width: 59,
+      width: 58,
       wrapWord: true,
       paddingLeft: 1,
       paddingRight: 0

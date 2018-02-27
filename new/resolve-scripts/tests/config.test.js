@@ -285,7 +285,25 @@ describe('resolve-scripts build --config=resolve-test-config.json', () => {
   const resolveTestConfig = {
     index: 'client/custom-index.js',
     viewModels: 'common/customViewModels',
-    readModels: 'common/customReadModels'
+    readModels: 'common/customReadModels',
+    storage: {
+      adapter: 'custom-storage'
+    },
+    bus: {
+      adapter: 'custom-bus'
+    },
+    env: {
+      development: {
+        bus: {
+          adapter: 'custom-development-bus'
+        }
+      },
+      production: {
+        subscribe: {
+          adapter: 'custom-subscribe-adapter'
+        }
+      }
+    }
   }
 
   beforeEach(() => {
@@ -301,14 +319,55 @@ describe('resolve-scripts build --config=resolve-test-config.json', () => {
   })
 
   test('getConfig("resolve-test-config.json") should works correctly', () => {
-    expect(getConfig(resolveConfigPath)).toEqual(resolveTestConfig)
+    expect(getConfig(resolveConfigPath)).toMatchObject(resolveTestConfig)
   })
 
   test(
     'merge options should work correctly ' +
-      '[{} <- defaults <- resolve.config.json <- cli]',
+      '[{} <- defaults <- resolve.config.json <- cli] (mode=development)',
     async () => {
-      await exec(`resolve-scripts build --config=${resolveConfigPath}`)
+      const json = await exec(
+        `resolve-scripts build --config=${resolveConfigPath} --start`
+      )
+
+      expect(json).toMatchObject({
+        index: 'client/custom-index.js',
+        viewModels: 'common/customViewModels',
+        readModels: 'common/customReadModels',
+        storage: {
+          adapter: 'custom-storage'
+        },
+        bus: {
+          adapter: 'custom-development-bus'
+        },
+        start: true
+      })
+    }
+  )
+
+  test(
+    'merge options should work correctly ' +
+      '[{} <- defaults <- resolve.config.json <- cli] (mode=production)',
+    async () => {
+      const json = await exec(
+        `resolve-scripts build --config=${resolveConfigPath} --start --prod`
+      )
+
+      expect(json).toMatchObject({
+        index: 'client/custom-index.js',
+        viewModels: 'common/customViewModels',
+        readModels: 'common/customReadModels',
+        storage: {
+          adapter: 'custom-storage'
+        },
+        bus: {
+          adapter: 'custom-bus'
+        },
+        subscribe: {
+          adapter: 'custom-subscribe-adapter'
+        },
+        start: true
+      })
     }
   )
 })

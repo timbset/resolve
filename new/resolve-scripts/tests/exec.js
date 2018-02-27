@@ -6,7 +6,19 @@ export default function exec(cmd, env) {
       cmd.replace('resolve-scripts', 'node bin/resolve-scripts.js') +
         ' --print-config',
       { env },
-      (err, stdout) => (!err ? resolve(JSON.parse(stdout)) : reject(err))
+      (error, stdout) => {
+        if (error) {
+          reject(error)
+        } else {
+          try {
+            resolve(JSON.parse(stdout))
+          } catch (parseError) {
+            // eslint-disable-next-line
+            console.error(stdout)
+            throw parseError
+          }
+        }
+      }
     )
   })
 }

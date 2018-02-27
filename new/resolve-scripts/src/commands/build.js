@@ -86,7 +86,9 @@ export const builder = yargs =>
           optionBuilders.start,
           optionBuilders.watch,
           optionBuilders.config,
-          optionBuilders.inspect
+          optionBuilders.inspect,
+          optionBuilders.host,
+          optionBuilders.port
         ],
         argv
       )

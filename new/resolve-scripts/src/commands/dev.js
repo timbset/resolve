@@ -73,7 +73,15 @@ export const builder = yargs =>
       process.env.START = argv.start = true
       process.env.BUILD = argv.build = true
       process.env.WATCH = argv.watch = true
-      return buildOptions([optionBuilders.config, optionBuilders.inspect], argv)
+      return buildOptions(
+        [
+          optionBuilders.config,
+          optionBuilders.inspect,
+          optionBuilders.host,
+          optionBuilders.port
+        ],
+        argv
+      )
     })
 
 export const handler = argv => {

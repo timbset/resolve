@@ -3,48 +3,40 @@ import path from 'path'
 import { isV4Format } from 'ip'
 
 export default {
-  mode(argv) {
+  mode(argv, env, config) {
     if (
-      process.env.NODE_ENV &&
-      ['development', 'production', 'test'].indexOf(process.env.NODE_ENV) === -1
+      env.NODE_ENV &&
+      ['development', 'production', 'test'].indexOf(env.NODE_ENV) === -1
     ) {
       return new Error(
         'Invalid environment variables: \n' +
           `NODE_ENV, Given: "${
-            process.env.NODE_ENV
+            env.NODE_ENV
           }", Choices: "development", "production", "test"`
       )
     }
-    process.env.NODE_ENV =
-      process.env.NODE_ENV === 'production' ? 'production' : 'development'
-    argv.mode = argv.prod ? 'production' : process.env.NODE_ENV
-    process.env.NODE_ENV = argv.mode
+    env.NODE_ENV = env.NODE_ENV === 'production' ? 'production' : 'development'
+    argv.mode = argv.prod ? 'production' : env.NODE_ENV
+    env.NODE_ENV = argv.mode
     return true
   },
 
-  inspect(argv) {
-    if (
-      process.env.INSPECT_PORT &&
-      !Number.isInteger(+process.env.INSPECT_PORT)
-    ) {
+  inspect(argv, env, config) {
+    if (env.INSPECT_PORT && !Number.isInteger(+env.INSPECT_PORT)) {
       return new Error(
         'Invalid environment variables: \n' +
-          `INSPECT_PORT, Given: "${
-            process.env.INSPECT_PORT
-          }", Value must be an integer`
+          `INSPECT_PORT, Given: "${env.INSPECT_PORT}", Value must be an integer`
       )
     }
-    if (process.env.INSPECT_HOST && !isV4Format(process.env.INSPECT_HOST)) {
+    if (env.INSPECT_HOST && !isV4Format(env.INSPECT_HOST)) {
       return new Error(
         'Invalid environment variables: \n' +
-          `INSPECT_HOST, Given: "${
-            process.env.INSPECT_HOST
-          }", Value must be an IP v4"`
+          `INSPECT_HOST, Given: "${env.INSPECT_HOST}", Value must be an IP v4"`
       )
     }
 
     if (argv.inspect === undefined) {
-      if (process.env.INSPECT_PORT || process.env.INSPECT_HOST) {
+      if (env.INSPECT_PORT || env.INSPECT_HOST) {
         argv.inspect = ''
       } else {
         delete argv.inspect
@@ -54,16 +46,16 @@ export default {
 
     const inspectArgs = argv.inspect.split(':')
     if (inspectArgs.length === 1) {
-      inspectArgs[1] = inspectArgs[0] || process.env.INSPECT_PORT || 9229
-      inspectArgs[0] = process.env.INSPECT_HOST || '127.0.0.1'
+      inspectArgs[1] = inspectArgs[0] || env.INSPECT_PORT || 9229
+      inspectArgs[0] = env.INSPECT_HOST || '127.0.0.1'
     }
     const [ip, port] = inspectArgs
 
     delete argv.inspect
     argv.inspectHost = ip
     argv.inspectPort = +port
-    process.env.INSPECT_HOST = argv.inspectHost
-    process.env.INSPECT_PORT = argv.inspectPort
+    env.INSPECT_HOST = argv.inspectHost
+    env.INSPECT_PORT = argv.inspectPort
 
     if (!argv.start) {
       return new Error('Implications failed:\nhost -> start')
@@ -72,44 +64,70 @@ export default {
     return isV4Format(ip) && Number.isInteger(+port)
   },
 
-  watch(argv) {
-    if (
-      process.env.WATCH &&
-      ['false', 'true'].indexOf(process.env.WATCH) === -1
-    ) {
-      return new Error(
-        'Invalid environment variables: \n' +
-          `WATCH, Given: "${process.env.WATCH}", Choices: "false", "true"`
-      )
+  host(argv, env, config) {
+    if (!argv.start) {
+      return true
     }
-    argv.watch = argv.watch || process.env.WATCH === 'true'
-    process.env.WATCH = argv.watch
+    argv.host = env.HOST = argv.host || env.HOST
 
     return true
   },
 
-  start(argv) {
-    if (
-      process.env.START &&
-      ['false', 'true'].indexOf(process.env.START) === -1
-    ) {
+  port(argv, env, config) {
+    if (!argv.start) {
+      return true
+    }
+    if (env.PORT && !Number.isInteger(+env.PORT)) {
       return new Error(
         'Invalid environment variables: \n' +
-          `START, Given: "${process.env.START}", Choices: "false", "true"`
+          `PORT, Given: "${env.PORT}", Value must be an integer`
       )
     }
-    argv.start = argv.start || process.env.START === 'true'
-    process.env.START = argv.start
+
+    if (argv.port && !Number.isInteger(+argv.port)) {
+      return new Error(
+        'Invalid arguments: \n' +
+          `port, Given: "${argv.port}", Value must be an integer`
+      )
+    }
+
+    argv.port = env.PORT = +(argv.port || env.PORT) || 3000
 
     return true
   },
 
-  config(argv) {
+  watch(argv, env, config) {
+    if (env.WATCH && ['false', 'true'].indexOf(env.WATCH) === -1) {
+      return new Error(
+        'Invalid environment variables: \n' +
+          `WATCH, Given: "${env.WATCH}", Choices: "false", "true"`
+      )
+    }
+    argv.watch = argv.watch || env.WATCH === 'true'
+    env.WATCH = argv.watch
+
+    return true
+  },
+
+  start(argv, env, config) {
+    if (env.START && ['false', 'true'].indexOf(env.START) === -1) {
+      return new Error(
+        'Invalid environment variables: \n' +
+          `START, Given: "${env.START}", Choices: "false", "true"`
+      )
+    }
+    argv.start = argv.start || env.START === 'true'
+    env.START = argv.start
+
+    return true
+  },
+
+  config(argv, env, config) {
     if (argv.config === undefined) {
       argv.config = 'resolve.config.json'
     }
     if (argv.config === 'resolve.config.json' || fs.existsSync(argv.config)) {
-      process.env.CONFIG_PATH = argv.config
+      env.CONFIG_PATH = argv.config
       return true
     }
 

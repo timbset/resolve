@@ -75,9 +75,9 @@ module.exports = {
     viewModels: ['viewModels', '"common/view-models"'],
     index: ['index', '"client/index.js"'],
     routes: ['routes', '"client/routes.js"'],
-    storageAdapter: ['storageAdapter', '"resolve-storage-lite"'],
-    busAdapter: ['busAdapter', '"resolve-bus-memory"'],
-    subscribeAdapter: ['subscribeAdapter', '"resolve-subscribe-socket-io"'],
+    storageAdapter: ['storage.adapter', '"resolve-storage-lite"'],
+    busAdapter: ['bus.adapter', '"resolve-bus-memory"'],
+    subscribeAdapter: ['subscribe.adapter', '"resolve-subscribe-socket-io"'],
     registry: ['registry', '"https://registry.resolve.com"']
   },
   envTitle: 'Environment variables',
