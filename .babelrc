@@ -5,6 +5,7 @@
     "transform-runtime",
     "transform-object-rest-spread",
     "transform-class-properties",
-    "transform-decorators-legacy"
+    "transform-decorators-legacy",
+    "transform-export-default"
   ]
 }
