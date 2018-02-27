@@ -15,7 +15,6 @@
     "es",
     "ddd"
   ],
-  "private": true,
   "bin": {
     "resolve-scripts": "resolve-scripts.js"
   },

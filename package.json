@@ -29,10 +29,7 @@
     "prettier-eslint-cli": "^4.7.1"
   },
   "workspaces": [
-    "packages/*",
-    "packages/bus-adapters/*",
-    "packages/storage-adapters/*",
-    "packages/readmodel-adapters/*",
+    "new/*",
     "examples/*"
   ],
   "scripts": {
