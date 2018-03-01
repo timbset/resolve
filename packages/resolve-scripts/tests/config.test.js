@@ -1,8 +1,8 @@
 import fs from 'fs'
 import path from 'path'
 import exec from './exec'
-import getConfig from '../src/helpers/get_config'
-import validateСonfig from '../src/helpers/validate_config'
+import getConfig from '../src/get_config'
+import validateСonfig from '../src/validate_config'
 
 describe('validate schema', () => {
   it('empty', () => {

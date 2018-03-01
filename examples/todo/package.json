@@ -13,7 +13,7 @@
     "resolve-storage-lite": "^0.5.0"
   },
   "scripts": {
-    "build": "resolve-scripts build --print-config",
+    "build": "resolve-scripts build",
     "dev": "resolve-scripts dev",
     "start": "resolve-scripts start",
     "test": "exit 0",

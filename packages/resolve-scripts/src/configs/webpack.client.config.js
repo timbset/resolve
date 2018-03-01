@@ -1,9 +1,9 @@
 import webpack from 'webpack'
 import path from 'path'
-import babelConfig from '../../../../.babelrc'
+import babelConfig from '../constants/babelrc'
 
 export default {
-  name: 'client',
+  name: 'Client',
   devtool: 'source-map',
   target: 'web',
   output: {
@@ -22,8 +22,8 @@ export default {
           }
         ],
         exclude: [
-          path.join(__dirname, '../../node_modules'),
-          path.join(process.cwd(), 'node_modules')
+          path.resolve(__dirname, '../../node_modules'),
+          path.resolve(process.cwd(), 'node_modules')
         ]
       }
     ]
@@ -33,8 +33,5 @@ export default {
       'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
       'process.env': 'window.__PROCESS_ENV__'
     })
-  ],
-  performance: {
-    hints: false
-  }
+  ]
 }

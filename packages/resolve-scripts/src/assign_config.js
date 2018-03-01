@@ -1,4 +1,4 @@
-import optionBuilders from '../option_builders'
+import optionBuilders from './option_builders'
 
 export default function assignConfig(argv, config) {
   const options = { ...argv }

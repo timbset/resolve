@@ -1,4 +1,4 @@
-import table from '../helpers/table'
+import table from '../table'
 
 import {
   commands,
@@ -10,8 +10,9 @@ import {
   defaults,
   defaultsTitle
 } from '../constants/'
-import optionBuilders from '../option_builders/'
-import buildOptions from '../helpers/build_options'
+import optionBuilders from '../option_builders'
+import buildOptions from '../build_options'
+import webpack from '../webpack'
 
 export const command = 'dev'
 export const desc = commands.dev
@@ -84,12 +85,4 @@ export const builder = yargs =>
       )
     })
 
-export const handler = argv => {
-  if (argv.printConfig) {
-    // eslint-disable-next-line
-    console.log(JSON.stringify(argv, null, 3))
-    return
-  }
-
-  console.log('DEV1111')
-}
+export const handler = options => webpack(options)

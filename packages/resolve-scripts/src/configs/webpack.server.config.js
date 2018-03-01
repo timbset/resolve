@@ -1,9 +1,10 @@
+import webpack from 'webpack'
 import nodeExternals from 'webpack-node-externals'
 import path from 'path'
-import babelConfig from '../../../../.babelrc'
+import babelConfig from '../constants/babelrc'
 
 export default {
-  name: 'server',
+  name: 'Server',
   devtool: 'source-map',
   target: 'node',
   node: {
@@ -24,8 +25,8 @@ export default {
           }
         ],
         exclude: [
-          path.join(__dirname, '../../node_modules'),
-          path.join(process.cwd(), '/node_modules')
+          path.resolve(__dirname, '../../node_modules'),
+          path.resolve(process.cwd(), '/node_modules')
         ]
       }
     ]
@@ -35,8 +36,5 @@ export default {
       'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`
     })
   ],
-  externals: [nodeExternals()],
-  performance: {
-    hints: false
-  }
+  externals: [nodeExternals()]
 }

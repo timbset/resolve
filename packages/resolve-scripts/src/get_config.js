@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import defaultConfig from '../configs/resolve.config'
+import defaultConfig from './configs/resolve.config'
 
 export default function getConfig(configPath) {
   let localConfig = '{}'

@@ -12,5 +12,7 @@ export default {
   errors: true,
   errorDetails: true,
   warnings: true,
-  publicPath: false
+  publicPath: false,
+  entrypoints: false,
+  performance: false
 }

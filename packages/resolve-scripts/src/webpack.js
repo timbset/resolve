@@ -3,19 +3,33 @@ import path from 'path'
 import respawn from 'respawn'
 import webpack from 'webpack'
 
-import webpackClientConfig from '../configs/webpack.client.config'
-import webpackServerConfig from '../configs/webpack.server.config'
+import webpackClientConfig from './configs/webpack.client.config'
+import webpackServerConfig from './configs/webpack.server.config'
 import showBuildInfo from './show_build_info'
 import getRespawnConfig from './get_respawn_config'
 
 export default options => {
-  const serverIndexPath = path.resolve(__dirname, '../server/index.js')
+  if (options.printConfig) {
+    // eslint-disable-next-line
+    console.log(JSON.stringify(options, null, 3))
+    return
+  }
+
+  const serverIndexPath = path.resolve(__dirname, './server/index.js')
   const clientIndexPath = fs.existsSync(options.index)
-    ? path.resolve(options.index)
-    : path.resolve(__dirname, '../client/index.js')
+    ? path.resolve(process.cwd(), options.index)
+    : path.resolve(__dirname, './client/index.js')
+
+  const clientDistDir = path.resolve(process.cwd(), options.distDir, 'client')
+  const serverDistDir = path.resolve(process.cwd(), options.distDir, 'server')
+
+  webpackClientConfig.entry = clientIndexPath
+  webpackClientConfig.output.path = clientDistDir
+  webpackClientConfig.mode = options.mode
 
   webpackServerConfig.entry = serverIndexPath
-  webpackClientConfig.entry = clientIndexPath
+  webpackServerConfig.output.path = serverDistDir
+  webpackServerConfig.mode = options.mode
 
   const compiler = webpack([webpackClientConfig, webpackServerConfig])
 
@@ -28,7 +42,9 @@ export default options => {
     })
 
   process.on('exit', () => {
-    server.stop()
+    if (server && server.stop) {
+      server.stop()
+    }
   })
 
   if (options.watch) {
