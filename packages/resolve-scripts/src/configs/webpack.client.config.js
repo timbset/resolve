@@ -11,10 +11,17 @@ export default {
     devtoolModuleFilenameTemplate: '[resource-path]',
     devtoolFallbackModuleFilenameTemplate: '[resource-path]?[hash]'
   },
+  resolve: {
+    modules: [
+      'node_modules',
+      path.resolve(process.cwd(), 'node_modules'),
+      path.resolve(__dirname, '../../node_modules')
+    ]
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         loaders: [
           {
             loader: 'babel-loader',
@@ -22,8 +29,9 @@ export default {
           }
         ],
         exclude: [
-          path.resolve(__dirname, '../../node_modules'),
-          path.resolve(process.cwd(), 'node_modules')
+          'node_modules',
+          path.resolve(process.cwd(), 'node_modules'),
+          path.resolve(__dirname, '../../node_modules')
         ]
       }
     ]

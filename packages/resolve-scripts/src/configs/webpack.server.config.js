@@ -11,13 +11,22 @@ export default {
     __dirname: true,
     __filename: true
   },
+  resolve: {
+    modules: [
+      'node_modules',
+      path.resolve(process.cwd(), 'node_modules'),
+      path.resolve(__dirname, '../../node_modules')
+    ]
+  },
   output: {
-    filename: 'server.js'
+    filename: 'server.js',
+    devtoolModuleFilenameTemplate: '[resource-path]',
+    devtoolFallbackModuleFilenameTemplate: '[resource-path]?[hash]'
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         loaders: [
           {
             loader: 'babel-loader',
@@ -25,8 +34,9 @@ export default {
           }
         ],
         exclude: [
-          path.resolve(__dirname, '../../node_modules'),
-          path.resolve(process.cwd(), '/node_modules')
+          'node_modules',
+          path.resolve(process.cwd(), 'node_modules'),
+          path.resolve(__dirname, '../../node_modules')
         ]
       }
     ]
@@ -36,5 +46,9 @@ export default {
       'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`
     })
   ],
-  externals: [nodeExternals()]
+  externals: [
+    nodeExternals(),
+    nodeExternals({ modulesDir: path.resolve(process.cwd(), 'node_modules') }),
+    nodeExternals({ modulesDir: path.resolve(__dirname, '../../node_modules') })
+  ]
 }

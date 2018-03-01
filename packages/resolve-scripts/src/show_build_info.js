@@ -2,9 +2,12 @@ import chalk from 'chalk'
 
 import statsConfig from './constants/stats_config'
 
-export default function showBuildInfo(buildName, err, stats) {
+export default function showBuildInfo({ name }, err, stats) {
+  if (!stats) {
+    return
+  }
   // eslint-disable-next-line
-  console.log('[', chalk.green(buildName), ']', stats.toString(statsConfig))
+  console.log('[', chalk.green(name), ']', stats.toString(statsConfig))
   if (err) {
     // eslint-disable-next-line
     console.error(err)

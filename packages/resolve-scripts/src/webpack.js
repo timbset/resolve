@@ -7,6 +7,7 @@ import webpackClientConfig from './configs/webpack.client.config'
 import webpackServerConfig from './configs/webpack.server.config'
 import showBuildInfo from './show_build_info'
 import getRespawnConfig from './get_respawn_config'
+import createMockServer from './create_mock_server'
 
 export default options => {
   if (options.printConfig) {
@@ -23,28 +24,37 @@ export default options => {
   const clientDistDir = path.resolve(process.cwd(), options.distDir, 'client')
   const serverDistDir = path.resolve(process.cwd(), options.distDir, 'server')
 
-  webpackClientConfig.entry = clientIndexPath
+  webpackClientConfig.entry = [clientIndexPath]
   webpackClientConfig.output.path = clientDistDir
   webpackClientConfig.mode = options.mode
 
-  webpackServerConfig.entry = serverIndexPath
+  webpackServerConfig.entry = [serverIndexPath]
   webpackServerConfig.output.path = serverDistDir
   webpackServerConfig.mode = options.mode
 
+  webpackClientConfig.resolve.alias = webpackServerConfig.resolve.alias = {
+    $RESOLVE_ROUTES: path.resolve(process.cwd(), options.routes)
+  }
+
   const compiler = webpack([webpackClientConfig, webpackServerConfig])
 
-  const server =
-    options.start &&
-    respawn(getRespawnConfig(/* TODO */), {
-      maxRestarts: 0,
-      kill: 5000,
-      stdio: 'inherit'
-    })
+  const server = options.start
+    ? respawn(
+        getRespawnConfig(
+          `${webpackServerConfig.output.path}/${
+            webpackServerConfig.output.filename
+          }`
+        ),
+        {
+          maxRestarts: 0,
+          kill: 5000,
+          stdio: 'inherit'
+        }
+      )
+    : createMockServer()
 
   process.on('exit', () => {
-    if (server && server.stop) {
-      server.stop()
-    }
+    server.stop()
   })
 
   if (options.watch) {
@@ -56,34 +66,42 @@ export default options => {
     })
     compiler.watch(
       {
-        aggregateTimeout: 300,
+        aggregateTimeout: 1000,
         poll: 1000
       },
       (err, { stats: [clientStats, serverStats] }) => {
-        if (options.run) {
-          if (serverStats.hasErrors() || clientStats.hasErrors()) {
+        showBuildInfo(webpackClientConfig, err, clientStats)
+        showBuildInfo(webpackServerConfig, err, serverStats)
+        if (options.start) {
+          if (
+            (serverStats && serverStats.hasErrors()) ||
+            (clientStats && clientStats.hasErrors())
+          ) {
             server.stop()
           } else {
-            if (server) {
+            if (server.status === 'running') {
               server.stop(() => server.start())
             } else {
               server.start()
             }
           }
         }
-        showBuildInfo(webpackClientConfig.name, err, clientStats)
-        showBuildInfo(webpackServerConfig.name, err, serverStats)
       }
     )
   } else {
     compiler.run((err, { stats: [clientStats, serverStats] }) => {
-      if (options.run) {
-        if (!serverStats.hasErrors() && !clientStats.hasErrors()) {
+      showBuildInfo(webpackClientConfig, err, clientStats)
+      showBuildInfo(webpackServerConfig, err, serverStats)
+      if (options.start) {
+        if (
+          serverStats &&
+          clientStats &&
+          !serverStats.hasErrors() &&
+          !clientStats.hasErrors()
+        ) {
           server.start()
         }
       }
-      showBuildInfo(webpackClientConfig.name, err, clientStats)
-      showBuildInfo(webpackServerConfig.name, err, serverStats)
     })
   }
 }

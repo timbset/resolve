@@ -1,5 +1,5 @@
 export default {
-  presets: ['env', 'react'],
+  presets: [['env', { useBuiltIns: 'usage' }], 'react'],
   plugins: [
     'add-module-exports',
     'transform-runtime',
