@@ -2,9 +2,7 @@ import React from 'react'
 import { connect } from 'resolve-redux'
 import { bindActionCreators } from 'redux'
 
-import actions from '../actions'
-
-const viewModelName = 'Todos'
+const viewModelName = 'Todo'
 const aggregateId = 'root-id'
 
 const App = ({ todos, createItem, toggleItem, removeItem, aggregateId }) => {
@@ -51,6 +49,7 @@ const mapStateToProps = state => ({
   todos: state[viewModelName][aggregateId]
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch)
+const mapDispatchToProps = (dispatch, { aggregateActions }) =>
+  bindActionCreators(aggregateActions, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -1,11 +1,10 @@
 {
   "name": "todo",
-  "version": "0.5.0",
+  "version": "0.5.2",
   "private": true,
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "resolve-redux": "^0.5.2",
     "resolve-scripts": "^0.5.2"
@@ -14,12 +13,13 @@
     "build": "resolve-scripts build",
     "dev": "resolve-scripts dev",
     "start": "resolve-scripts start",
-    "test": "exit 0",
-    "testw": "exit 0",
-    "test:functional": "exit 0"
+    "test": "resolve-scripts test:unit && resolve-scripts test:functional",
+    "test:unit": "resolve-scripts test:unit",
+    "test:functional": "resolve-scripts test:functional"
   },
   "devDependencies": {
-    "testcafe": "^0.18.5",
-    "testcafe-browser-tools": "^1.4.6"
+    "testcafe": "^0.19.0",
+    "testcafe-browser-tools": "^1.5.1",
+    "jest": "^22.4.2"
   }
 }
