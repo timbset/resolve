@@ -3,7 +3,7 @@ import { connect } from 'resolve-redux'
 import { bindActionCreators } from 'redux'
 import { NavLink } from 'react-router-dom'
 
-const viewModelName = 'Todo'
+const viewModelName = 'Todos'
 
 const Todo = ({ todos, createItem, toggleItem, removeItem, aggregateId }) => {
   let newTodo

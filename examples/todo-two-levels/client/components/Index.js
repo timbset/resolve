@@ -3,9 +3,9 @@ import { connect } from 'resolve-redux'
 import { bindActionCreators } from 'redux'
 import { NavLink } from 'react-router-dom'
 
-const viewModelName = 'List'
+const viewModelName = 'Lists'
 
-const List = ({ lists, createList, removeList }) => {
+const Index = ({ lists, createList, removeList }) => {
   let newList
   return (
     <div>
@@ -46,4 +46,4 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, { aggregateActions }) =>
   bindActionCreators(aggregateActions, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(List)
+export default connect(mapStateToProps, mapDispatchToProps)(Index)

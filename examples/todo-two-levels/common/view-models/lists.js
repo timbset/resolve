@@ -1,5 +1,5 @@
 export default {
-  name: 'List',
+  name: 'Lists',
   projection: {
     Init: () => [],
     LIST_CREATED: (state, { aggregateId, payload: { title } }) => [

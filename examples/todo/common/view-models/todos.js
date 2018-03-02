@@ -1,5 +1,5 @@
 export default {
-  name: 'Todo',
+  name: 'Todos',
   projection: {
     Init: () => ({}),
     ITEM_CREATED: (state, { payload: { id, text } }) => ({

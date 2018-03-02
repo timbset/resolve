@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'resolve-redux'
 import { bindActionCreators } from 'redux'
 
-const viewModelName = 'Todo'
+const viewModelName = 'Todos'
 const aggregateId = 'root-id'
 
 const App = ({ todos, createItem, toggleItem, removeItem, aggregateId }) => {

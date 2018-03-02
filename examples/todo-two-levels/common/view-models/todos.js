@@ -1,5 +1,5 @@
 export default {
-  name: 'Todo',
+  name: 'Todos',
   projection: {
     LIST_CREATED: () => ({}),
     LIST_REMOVED: () => null,
