@@ -1,6 +1,7 @@
 import webpack from 'webpack'
 import path from 'path'
 import babelConfig from '../constants/babelrc'
+import getMonorepoNodeModules from '../get_monorepo_node_modules'
 
 export default {
   name: 'Client',
@@ -13,7 +14,7 @@ export default {
   },
   resolve: {
     modules: [
-      'node_modules',
+      ...getMonorepoNodeModules(),
       path.resolve(process.cwd(), 'node_modules'),
       path.resolve(__dirname, '../../node_modules')
     ]
@@ -29,7 +30,7 @@ export default {
           }
         ],
         exclude: [
-          'node_modules',
+          ...getMonorepoNodeModules(),
           path.resolve(process.cwd(), 'node_modules'),
           path.resolve(__dirname, '../../node_modules')
         ]

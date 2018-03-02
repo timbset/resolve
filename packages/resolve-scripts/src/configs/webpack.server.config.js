@@ -2,6 +2,7 @@ import webpack from 'webpack'
 import nodeExternals from 'webpack-node-externals'
 import path from 'path'
 import babelConfig from '../constants/babelrc'
+import getMonorepoNodeModules from '../get_monorepo_node_modules'
 
 export default {
   name: 'Server',
@@ -13,7 +14,7 @@ export default {
   },
   resolve: {
     modules: [
-      'node_modules',
+      ...getMonorepoNodeModules(),
       path.resolve(process.cwd(), 'node_modules'),
       path.resolve(__dirname, '../../node_modules')
     ]
@@ -34,7 +35,7 @@ export default {
           }
         ],
         exclude: [
-          'node_modules',
+          ...getMonorepoNodeModules(),
           path.resolve(process.cwd(), 'node_modules'),
           path.resolve(__dirname, '../../node_modules')
         ]
@@ -47,8 +48,10 @@ export default {
     })
   ],
   externals: [
-    nodeExternals(),
     nodeExternals({ modulesDir: path.resolve(process.cwd(), 'node_modules') }),
-    nodeExternals({ modulesDir: path.resolve(__dirname, '../../node_modules') })
+    nodeExternals({
+      modulesDir: path.resolve(__dirname, '../../node_modules')
+    }),
+    nodeExternals({ modulesDir: getMonorepoNodeModules()[0] })
   ]
 }
