@@ -74,6 +74,7 @@ module.exports = {
     readModels: ['readModels', '"common/read-models"'],
     viewModels: ['viewModels', '"common/view-models"'],
     index: ['index', '"client/index.js"'],
+    createStore: ['createStore', '"client/store/index.js"'],
     routes: ['routes', '"client/routes.js"'],
     storage: [
       'storage',

@@ -1,7 +1,9 @@
+import emptyFunction from './emtpy_function'
+
 export default function createMockServer() {
   return {
-    start() {},
-    stop() {},
+    start: emptyFunction,
+    stop: emptyFunction,
     status: 'stopping'
   }
 }

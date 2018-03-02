@@ -33,7 +33,8 @@ export default options => {
   webpackServerConfig.mode = options.mode
 
   webpackClientConfig.resolve.alias = webpackServerConfig.resolve.alias = {
-    $RESOLVE_ROUTES: path.resolve(process.cwd(), options.routes)
+    '$resolve.routes': path.resolve(process.cwd(), options.routes),
+    '$resolve.createStore': path.resolve(process.cwd(), options.createStore)
   }
 
   const compiler = webpack([webpackClientConfig, webpackServerConfig])

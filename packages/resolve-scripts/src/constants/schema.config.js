@@ -37,6 +37,9 @@ export default {
         index: {
           type: 'string'
         },
+        createStore: {
+          type: 'string'
+        },
         routes: {
           type: 'string'
         },

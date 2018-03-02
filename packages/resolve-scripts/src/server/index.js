@@ -1,4 +1,4 @@
-import routes from '$RESOLVE_ROUTES'
+import routes from '$resolve.routes'
 
 // eslint-disable-next-line
 console.log('Server')

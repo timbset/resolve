@@ -5,7 +5,8 @@ The resolve.config.json file contains information for your application.
 
 ```ts
 type ConfigSchema = {
-    index?: Path, // Template react.render() or reactNative.render() [default: 'client/index.js']
+    index?: Path, // Template react.render() or reactNative.render() [default: 'client/index.js'],
+    createStore?: Path, // Path to the redux store
     routes?: Path, // Path to the static route configuration [default: 'client/routes.js']
     distDir?: Path, // Path to the dist directory [default: 'dist']
     rootPath?: Path, // Path to the root directory [default: '']
