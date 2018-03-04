@@ -42,6 +42,8 @@ export default options => {
     '$resolve.redux.middlewares': JSON.stringify(
       pathResolve(options.redux.middlewares)
     ),
+    '$resolve.staticDir': JSON.stringify(pathResolve(options.staticDir)),
+    '$resolve.distDir': JSON.stringify(pathResolve(options.distDir)),
     '$resolve.viewModels': JSON.stringify(pathResolve(options.viewModels)),
     '$resolve.readModels': JSON.stringify(pathResolve(options.readModels)),
     '$resolve.aggregates': JSON.stringify(pathResolve(options.aggregates)),
