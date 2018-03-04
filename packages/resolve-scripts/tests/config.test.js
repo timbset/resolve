@@ -334,9 +334,9 @@ describe('resolve-scripts build --config=resolve-test-config.json', () => {
       port: 3000,
       inspectHost: '127.0.0.1',
       inspectPort: 9229,
-      aggregates: 'common/aggregates',
-      readModels: 'common/read-models',
-      viewModels: 'common/view-models',
+      aggregates: 'common/aggregates/index.js',
+      readModels: 'common/read-models/index.js',
+      viewModels: 'common/view-models/index.js',
       index: 'client/index.js',
       routes: 'client/routes.js',
       storage: {
@@ -349,7 +349,7 @@ describe('resolve-scripts build --config=resolve-test-config.json', () => {
         adapter: 'resolve-bus-memory'
       },
       subscribe: {
-        adapter: 'resolve-subscribe-socket-io'
+        adapter: 'resolve-redux/dist/subscribe_adapter'
       },
       env: {
         test: {

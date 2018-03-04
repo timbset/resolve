@@ -8,6 +8,7 @@ import webpackServerConfig from './configs/webpack.server.config'
 import showBuildInfo from './show_build_info'
 import getRespawnConfig from './get_respawn_config'
 import createMockServer from './create_mock_server'
+import pathResolve from './path_resolve'
 
 export default options => {
   if (options.printConfig) {
@@ -32,10 +33,25 @@ export default options => {
   webpackServerConfig.output.path = serverDistDir
   webpackServerConfig.mode = options.mode
 
-  webpackClientConfig.resolve.alias = webpackServerConfig.resolve.alias = {
-    '$resolve.routes': path.resolve(process.cwd(), options.routes),
-    '$resolve.createStore': path.resolve(process.cwd(), options.createStore)
-  }
+  const definePlugin = new webpack.DefinePlugin({
+    '$resolve.routes': JSON.stringify(pathResolve(options.routes)),
+    '$resolve.redux.store': JSON.stringify(pathResolve(options.redux.store)),
+    '$resolve.redux.reducers': JSON.stringify(
+      pathResolve(options.redux.reducers)
+    ),
+    '$resolve.redux.middlewares': JSON.stringify(
+      pathResolve(options.redux.middlewares)
+    ),
+    '$resolve.viewModels': JSON.stringify(pathResolve(options.viewModels)),
+    '$resolve.readModels': JSON.stringify(pathResolve(options.readModels)),
+    '$resolve.aggregates': JSON.stringify(pathResolve(options.aggregates)),
+    '$resolve.subscribe.adapter': JSON.stringify(
+      pathResolve(options.subscribe.adapter)
+    ),
+    '$resolve.rootPath': JSON.stringify(options.rootPath)
+  })
+  webpackClientConfig.plugins.push(definePlugin)
+  webpackServerConfig.plugins.push(definePlugin)
 
   const compiler = webpack([webpackClientConfig, webpackServerConfig])
 

@@ -1,13 +1,7 @@
 import React from 'react'
 import { Route, Redirect, Switch } from 'react-router'
 
-const ResolveRoutes = ({
-  path,
-  component: Component,
-  routes,
-  exact,
-  redirectTo
-}) => {
+const Routes = ({ path, component: Component, routes, exact, redirectTo }) => {
   if (redirectTo) {
     return <Redirect from={path} to={redirectTo} />
   }
@@ -19,9 +13,7 @@ const ResolveRoutes = ({
       render={props => {
         const content = (
           <Switch>
-            {routes.map((route, index) => (
-              <ResolveRoutes key={index} {...route} />
-            ))}
+            {routes.map((route, index) => <Routes key={index} {...route} />)}
           </Switch>
         )
         return Component ? <Component {...props}>{content}</Component> : content
@@ -31,3 +23,5 @@ const ResolveRoutes = ({
     <Route path={path} exact={exact} component={Component} />
   )
 }
+
+export default Routes

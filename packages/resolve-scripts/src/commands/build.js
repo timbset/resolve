@@ -76,6 +76,7 @@ export const builder = yargs =>
     .option('inspect', options.inspect)
     .option('config', options.config)
     .option('print-config', options.printConfig)
+    .option('root-path', options.rootPath)
     .implies('host', 'start')
     .implies('port', 'start')
     .implies('inspect', 'start')
@@ -90,7 +91,8 @@ export const builder = yargs =>
           optionBuilders.config,
           optionBuilders.inspect,
           optionBuilders.host,
-          optionBuilders.port
+          optionBuilders.port,
+          optionBuilders.rootPath
         ],
         argv
       )

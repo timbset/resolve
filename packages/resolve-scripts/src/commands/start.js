@@ -32,23 +32,13 @@ export const builder = yargs =>
           defaults.inspectPort
         ])}`
     )
-    .option('host', options.host)
-    .option('port', options.port)
     .option('inspect', options.inspect)
     .option('print-config', options.printConfig)
     .check(argv => {
       process.env.BUILD = argv.build = false
       process.env.START = argv.start = true
       process.env.WATCH = argv.watch = false
-      return buildOptions(
-        [
-          optionBuilders.inspect,
-          optionBuilders.config,
-          optionBuilders.host,
-          optionBuilders.port
-        ],
-        argv
-      )
+      return buildOptions([optionBuilders.inspect], argv)
     })
 
 export const handler = options => webpack(options)

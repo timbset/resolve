@@ -68,6 +68,7 @@ export const builder = yargs =>
     .option('port', options.port)
     .option('inspect', options.inspect)
     .option('config', options.config)
+    .option('root-path', options.rootPath)
     .option('print-config', options.printConfig)
     .check(argv => {
       process.env.NODE_ENV = argv.mode = 'development'
@@ -79,7 +80,8 @@ export const builder = yargs =>
           optionBuilders.config,
           optionBuilders.inspect,
           optionBuilders.host,
-          optionBuilders.port
+          optionBuilders.port,
+          optionBuilders.rootPath
         ],
         argv
       )

@@ -4,7 +4,6 @@ module.exports = {
     dev: 'Runs the app in the development mode',
     start: 'Runs the app from the build directory',
     lint: 'Check the source code for syntax errors and potential issues',
-    printConfig: 'Print the full configuration',
     testFunctional: 'Runs unit tests with TestCafe',
     testUnit: 'Runs unit tests with Jest',
     update:
@@ -49,7 +48,12 @@ module.exports = {
     },
     config: {
       default: undefined,
-      describe: 'Path to the resolve config',
+      describe: 'Sets the path to resolve config',
+      type: 'string'
+    },
+    rootPath: {
+      default: undefined,
+      describe: `Sets the application's root path`,
       type: 'string'
     },
     printConfig: {
@@ -70,18 +74,23 @@ module.exports = {
     port: ['port', 3000],
     inspectHost: ['inspectHost', '"127.0.0.1"'],
     inspectPort: ['inspectPort', 9229],
-    aggregates: ['aggregates', '"common/aggregates"'],
-    readModels: ['readModels', '"common/read-models"'],
-    viewModels: ['viewModels', '"common/view-models"'],
+    aggregates: ['aggregates', '"common/aggregates/index.js"'],
+    readModels: ['readModels', '"common/read-models/index.js"'],
+    viewModels: ['viewModels', '"common/view-models/index.js"'],
     index: ['index', '"client/index.js"'],
-    createStore: ['createStore', '"client/store/index.js"'],
+    reduxStore: ['redux.store', '"client/store/index.js"'],
+    reduxReducers: ['redux.reducers', '"client/reducers/index.js"'],
+    reduxMiddlewares: ['redux.middlewares', '"client/middlewares/index.js"'],
     routes: ['routes', '"client/routes.js"'],
     storage: [
       'storage',
       '{"adapter":"resolve-storage-lite","params":{"pathToFile":"storage.txt"}}'
     ],
     bus: ['bus', '{"adapter":"resolve-bus-memory"}'],
-    subscribe: ['subscribe', '{"adapter":"resolve-subscribe-socket-io"}'],
+    subscribe: [
+      'subscribe',
+      '{"adapter":"resolve-redux/dist/subscribe_adapter"}'
+    ],
     env: ['env', '{"test":{"storage":{"adapter":"resolve-storage-lite"}}}'],
     registry: ['registry', '"https://registry.resolve.coming.soon"']
   },

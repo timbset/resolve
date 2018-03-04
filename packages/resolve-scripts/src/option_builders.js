@@ -134,5 +134,29 @@ export default {
     return new Error(
       `File does not exist: ${path.resolve(process.cwd(), argv.config)}`
     )
+  },
+
+  rootPath(argv, env, config) {
+    if (argv.rootPath) {
+      env.ROOT_PATH = argv.rootPath
+    }
+
+    env.ROOT_PATH = env.ROOT_PATH || ''
+
+    if (/^https?:\/\//.test(env.ROOT_PATH)) {
+      return new Error('Incorrect env.ROOT_PATH or argv.rootPath')
+    }
+
+    if (env.ROOT_PATH && !/\/$/.test(env.ROOT_PATH)) {
+      env.ROOT_PATH = `${env.ROOT_PATH}/`
+    }
+
+    if (env.ROOT_PATH && !/^\//.test(env.ROOT_PATH)) {
+      env.ROOT_PATH = `/${env.ROOT_PATH}`
+    }
+
+    argv.rootPath = env.ROOT_PATH
+
+    return true
   }
 }

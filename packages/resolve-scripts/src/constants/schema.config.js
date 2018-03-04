@@ -31,14 +31,28 @@ export default {
         }
       }
     },
+    redux: {
+      type: 'object',
+      properties: {
+        store: {
+          type: 'string'
+        },
+        reducers: {
+          type: 'string'
+        },
+        middlewares: {
+          type: 'string'
+        }
+      }
+    },
     config: {
       type: 'object',
       properties: {
         index: {
           type: 'string'
         },
-        createStore: {
-          type: 'string'
+        redux: {
+          $ref: '#/definitions/redux'
         },
         routes: {
           type: 'string'
