@@ -1,7 +1,6 @@
 import webpack from 'webpack'
-import path from 'path'
 import babelConfig from '../constants/babelrc'
-import getMonorepoNodeModules from '../get_monorepo_node_modules'
+import modulesDirs from '../constants/modules_dirs'
 
 export default {
   name: 'Client',
@@ -13,11 +12,7 @@ export default {
     devtoolFallbackModuleFilenameTemplate: '[resource-path]?[hash]'
   },
   resolve: {
-    modules: [
-      ...getMonorepoNodeModules(),
-      path.resolve(process.cwd(), 'node_modules'),
-      path.resolve(__dirname, '../../node_modules')
-    ]
+    modules: modulesDirs
   },
   module: {
     rules: [
@@ -29,11 +24,7 @@ export default {
             query: babelConfig
           }
         ],
-        exclude: [
-          ...getMonorepoNodeModules(),
-          path.resolve(process.cwd(), 'node_modules'),
-          path.resolve(__dirname, '../../node_modules')
-        ]
+        exclude: modulesDirs
       }
     ]
   },
