@@ -68,7 +68,7 @@ module.exports = {
     config: ['config', '"resolve.config.json"'],
     rootPath: ['rootPath', '""'],
     staticDir: ['staticDir', '"static"'],
-    staticPath: ['staticPath', '"/static"'],
+    staticPath: ['staticPath', '""'],
     distDir: ['distDir', '"dist"'],
     host: ['host', '"127.0.0.1"'],
     port: ['port', 3000],

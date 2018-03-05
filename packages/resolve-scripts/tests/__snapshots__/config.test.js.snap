@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`resolve-scripts build --config=resolve-test-config.json getConfig() should return default config 1`] = `
+Object {
+  "aggregates": "common/aggregates/index.js",
+  "bus": Object {
+    "adapter": "resolve-bus-memory",
+  },
+  "config": "resolve.config.json",
+  "distDir": "dist",
+  "env": Object {
+    "test": Object {
+      "storage": Object {
+        "adapter": "resolve-storage-lite",
+      },
+    },
+  },
+  "host": "127.0.0.1",
+  "index": "client/index.js",
+  "inspectHost": "127.0.0.1",
+  "inspectPort": 9229,
+  "mode": "development",
+  "port": 3000,
+  "readModels": "common/read-models/index.js",
+  "redux": Object {
+    "middlewares": "client/middlewares/index.js",
+    "reducers": "client/reducers/index.js",
+    "store": "client/store/index.js",
+  },
+  "registry": "https://registry.resolve.coming.soon",
+  "rootPath": "",
+  "routes": "client/routes.js",
+  "staticDir": "static",
+  "staticPath": "",
+  "storage": Object {
+    "adapter": "resolve-storage-lite",
+    "params": Object {
+      "pathToFile": "storage.txt",
+    },
+  },
+  "subscribe": Object {
+    "adapter": "resolve-redux/dist/subscribe_adapter",
+  },
+  "viewModels": "common/view-models/index.js",
+}
+`;

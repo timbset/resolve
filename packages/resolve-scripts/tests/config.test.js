@@ -323,43 +323,7 @@ describe('resolve-scripts build --config=resolve-test-config.json', () => {
   })
 
   test('getConfig() should return default config', () => {
-    expect(getConfig()).toMatchObject({
-      mode: 'development',
-      config: 'resolve.config.json',
-      rootPath: '',
-      staticDir: 'static',
-      staticPath: '/static',
-      distDir: 'dist',
-      host: '127.0.0.1',
-      port: 3000,
-      inspectHost: '127.0.0.1',
-      inspectPort: 9229,
-      aggregates: 'common/aggregates/index.js',
-      readModels: 'common/read-models/index.js',
-      viewModels: 'common/view-models/index.js',
-      index: 'client/index.js',
-      routes: 'client/routes.js',
-      storage: {
-        adapter: 'resolve-storage-lite',
-        params: {
-          pathToFile: 'storage.txt'
-        }
-      },
-      bus: {
-        adapter: 'resolve-bus-memory'
-      },
-      subscribe: {
-        adapter: 'resolve-redux/dist/subscribe_adapter'
-      },
-      env: {
-        test: {
-          storage: {
-            adapter: 'resolve-storage-lite'
-          }
-        }
-      },
-      registry: 'https://registry.resolve.coming.soon'
-    })
+    expect(getConfig()).toMatchSnapshot()
   })
 
   test(

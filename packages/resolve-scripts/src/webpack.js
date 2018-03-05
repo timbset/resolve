@@ -50,7 +50,8 @@ export default options => {
     '$resolve.subscribe.adapter': JSON.stringify(
       pathResolve(options.subscribe.adapter)
     ),
-    '$resolve.rootPath': JSON.stringify(options.rootPath)
+    '$resolve.rootPath': JSON.stringify(options.rootPath),
+    '$resolve.staticPath': JSON.stringify(options.staticPath)
   })
   webpackClientConfig.plugins.push(definePlugin)
   webpackServerConfig.plugins.push(definePlugin)
