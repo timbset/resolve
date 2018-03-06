@@ -84,7 +84,7 @@ module.exports = {
     routes: ['routes', '"client/routes.js"'],
     storage: [
       'storage',
-      '{"adapter":"resolve-storage-lite","params":{"pathToFile":"storage.txt"}}'
+      '{"adapter":"resolve-storage-lite","options":{"pathToFile":"storage.txt"}}'
     ],
     bus: ['bus', '{"adapter":"resolve-bus-memory"}'],
     subscribe: [

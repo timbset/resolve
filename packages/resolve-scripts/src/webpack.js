@@ -50,6 +50,16 @@ export default options => {
     '$resolve.subscribe.adapter': JSON.stringify(
       pathResolve(options.subscribe.adapter)
     ),
+    '$resolve.subscribe.options': JSON.stringify(options.subscribe.options),
+
+    '$resolve.bus.adapter': JSON.stringify(pathResolve(options.bus.adapter)),
+    '$resolve.bus.options': JSON.stringify(options.bus.options),
+
+    '$resolve.storage.adapter': JSON.stringify(
+      pathResolve(options.storage.adapter)
+    ),
+    '$resolve.storage.options': JSON.stringify(options.storage.options),
+
     '$resolve.rootPath': JSON.stringify(options.rootPath),
     '$resolve.staticPath': JSON.stringify(options.staticPath)
   })

@@ -10,7 +10,8 @@ export default {
         options: {
           type: 'object'
         }
-      }
+      },
+      additionalProperties: false
     },
     jwt: {
       type: 'object',
@@ -29,7 +30,8 @@ export default {
             }
           }
         }
-      }
+      },
+      additionalProperties: false
     },
     redux: {
       type: 'object',
@@ -43,11 +45,16 @@ export default {
         middlewares: {
           type: 'string'
         }
-      }
+      },
+      additionalProperties: false
     },
     config: {
       type: 'object',
       properties: {
+        mode: {
+          type: 'string',
+          enum: ['development', 'production', 'test']
+        },
         index: {
           type: 'string'
         },
@@ -95,8 +102,12 @@ export default {
         },
         jwt: {
           $ref: '#/definitions/jwt'
+        },
+        registry: {
+          type: 'string'
         }
       }
+      //additionalProperties: false
     }
   },
   $ref: '#/definitions/config',
@@ -107,7 +118,8 @@ export default {
         development: { $ref: '#/definitions/config' },
         production: { $ref: '#/definitions/config' },
         test: { $ref: '#/definitions/config' }
-      }
+      },
+      additionalProperties: false
     }
   }
 }
