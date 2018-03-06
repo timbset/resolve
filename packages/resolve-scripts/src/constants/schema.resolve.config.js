@@ -55,6 +55,21 @@ export default {
           type: 'string',
           enum: ['development', 'production', 'test']
         },
+        build: {
+          type: 'boolean'
+        },
+        start: {
+          type: 'boolean'
+        },
+        watch: {
+          type: 'boolean'
+        },
+        inspectHost: {
+          type: 'string'
+        },
+        inspectPort: {
+          type: 'integer'
+        },
         index: {
           type: 'string'
         },

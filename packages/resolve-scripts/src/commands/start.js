@@ -10,8 +10,6 @@ import {
   defaults,
   defaultsTitle
 } from '../constants/'
-import optionBuilders from '../option_builders'
-import buildOptions from '../build_options'
 import webpack from '../webpack'
 
 export const command = 'start'
@@ -21,24 +19,18 @@ export const builder = yargs =>
     .help('help')
     .epilogue(
       `${envTitle}:\n` +
-        `${table([env.HOST, env.PORT, env.INSPECT_HOST, env.INSPECT_PORT])}\n` +
+        `${table([env.INSPECT_HOST, env.INSPECT_PORT])}\n` +
         `${customEnvTitle}:\n` +
         `  ${customEnvText}\n\n` +
         `${defaultsTitle}:\n` +
-        `${table([
-          defaults.host,
-          defaults.port,
-          defaults.inspectHost,
-          defaults.inspectPort
-        ])}`
+        `  ${defaults}`
     )
     .option('inspect', options.inspect)
     .option('print-config', options.printConfig)
-    .check(argv => {
-      process.env.BUILD = argv.build = false
-      process.env.START = argv.start = true
-      process.env.WATCH = argv.watch = false
-      return buildOptions([optionBuilders.inspect], argv)
-    })
 
-export const handler = options => webpack(options)
+export const handler = options => webpack({
+  ...options,
+  build: false,
+  start: true,
+  watch: false
+})

@@ -1,18 +1,16 @@
 import table from '../table'
 import webpack from '../webpack'
-
+import config from '../configs/resolve.config'
 import {
   commands,
   options,
   env,
   envTitle,
-  customEnvText,
-  customEnvTitle,
+  defaultsTitle,
   defaults,
-  defaultsTitle
-} from '../constants/'
-import optionBuilders from '../option_builders'
-import buildOptions from '../build_options'
+  customEnvText,
+  customEnvTitle
+} from '../constants/strings'
 
 export const command = 'build'
 export const desc = commands.build
@@ -43,29 +41,7 @@ export const builder = yargs =>
         `${customEnvTitle}:\n` +
         `  ${customEnvText}\n\n` +
         `${defaultsTitle}:\n` +
-        `${table([
-          defaults.mode,
-          ['watch', 'false'],
-          ['start', 'false'],
-          defaults.config,
-          defaults.routes,
-          defaults.index,
-          defaults.rootPath,
-          defaults.distDir,
-          defaults.staticDir,
-          defaults.staticPath,
-          defaults.aggregates,
-          defaults.viewModels,
-          defaults.readModels,
-          defaults.host,
-          defaults.port,
-          defaults.inspectHost,
-          defaults.inspectPort,
-          defaults.storage,
-          defaults.bus,
-          defaults.subscribe,
-          defaults.env
-        ])}`
+        `  ${defaults}`
     )
     .option('dev', options.dev)
     .option('prod', options.prod)
@@ -81,21 +57,8 @@ export const builder = yargs =>
     .implies('port', 'start')
     .implies('inspect', 'start')
     .conflicts('dev', 'prod')
-    .check(argv => {
-      process.env.BUILD = argv.build = true
-      return buildOptions(
-        [
-          optionBuilders.mode,
-          optionBuilders.start,
-          optionBuilders.watch,
-          optionBuilders.config,
-          optionBuilders.inspect,
-          optionBuilders.host,
-          optionBuilders.port,
-          optionBuilders.rootPath
-        ],
-        argv
-      )
-    })
 
-export const handler = options => webpack(options)
+export const handler = options => webpack({
+  ...options,
+  build: true
+})

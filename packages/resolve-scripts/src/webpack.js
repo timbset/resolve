@@ -7,16 +7,20 @@ import webpackClientConfig from './configs/webpack.client.config'
 import webpackServerConfig from './configs/webpack.server.config'
 import showBuildInfo from './show_build_info'
 import getRespawnConfig from './get_respawn_config'
+import getConfig from './get_config'
 import createMockServer from './create_mock_server'
 import pathResolve from './path_resolve'
 
 export default options => {
+  const config = getConfig(options,  process.env)
+
   if (options.printConfig) {
     // eslint-disable-next-line
-    console.log(JSON.stringify(options, null, 3))
+    console.log(JSON.stringify(config, null, 3))
     return
   }
-
+  
+  /*
   const serverIndexPath = path.resolve(__dirname, './server/index.js')
   const clientIndexPath = fs.existsSync(options.index)
     ? path.resolve(process.cwd(), options.index)
@@ -134,4 +138,5 @@ export default options => {
       }
     })
   }
+  */
 }

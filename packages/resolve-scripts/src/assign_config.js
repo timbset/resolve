@@ -1,16 +1,16 @@
 import optionBuilders from './option_builders'
 
-export default function assignConfig(argv, config) {
-  const options = { ...argv }
+export default function assignConfig(args, config) {
+  const options = { ...args }
   optionBuilders.mode(options, { ...process.env })
 
   const { env, ...other } = config
 
-  Object.assign(argv, other)
+  Object.assign(args, other)
 
   if (env && env[options.mode]) {
-    Object.assign(argv, env[options.mode])
+    Object.assign(args, env[options.mode])
   }
 
-  Object.assign(argv, options)
+  Object.assign(args, options)
 }

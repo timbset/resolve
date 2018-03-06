@@ -1,18 +1,48 @@
-import constants from '../constants'
-
-const config = {}
-
-Object.keys(constants.defaults).forEach(option => {
-  const [key, value] = constants.defaults[option]
-  const keys = key.split('.')
-  let pointer = config
-  for (let index = 0; index < keys.length - 1; index++) {
-    if (!(keys[index] in pointer)) {
-      pointer[keys[index]] = {}
+export default {
+  // Webpack mode
+  mode: 'development',
+  // Subdirectory on HOST:PORT
+  rootPath: '',
+  host: '127.0.0.1',
+  port: 3000,
+  // CDN assets
+  staticPath: '',
+  // Debug Server
+  inspectHost: '127.0.0.1',
+  inspectPort: 9229,
+  // Path to client files
+  staticDir: 'static',
+  distDir: 'dist',
+  routes: 'client/routes.js',
+  aggregates: 'common/aggregates/index.js',
+  readModels: 'common/read-models/index.js',
+  viewModels: 'common/view-models/index.js',
+  index: 'client/index.js',
+  redux: {
+    store: 'client/store/index.js',
+    reducers: 'client/reducers/index.js',
+    middlewares: 'client/middlewares/index.js'
+  },
+  // Adapters
+  storage: {
+    adapter: 'resolve-storage-lite',
+    options: {
+      pathToFile: 'storage.txt'
     }
-    pointer = pointer[keys[index]]
+  },
+  bus: {
+    adapter: 'resolve-bus-memory'
+  },
+  subscribe: {
+    adapter: 'resolve-redux/dist/subscribe_adapter'
+  },
+  registry: 'https://registry.resolve.coming.soon',
+  // Config extensions
+  env: {
+    test: {
+      storage: {
+        adapter: 'resolve-storage-lite'
+      }
+    }
   }
-  pointer[keys[keys.length - 1]] = JSON.parse(value)
-})
-
-export default config
+}

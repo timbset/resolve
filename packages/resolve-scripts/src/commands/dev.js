@@ -1,18 +1,16 @@
 import table from '../table'
-
+import webpack from '../webpack'
+import config from '../configs/resolve.config'
 import {
   commands,
   options,
   env,
   envTitle,
-  customEnvText,
-  customEnvTitle,
+  defaultsTitle,
   defaults,
-  defaultsTitle
-} from '../constants/'
-import optionBuilders from '../option_builders'
-import buildOptions from '../build_options'
-import webpack from '../webpack'
+  customEnvText,
+  customEnvTitle
+} from '../constants/strings'
 
 export const command = 'dev'
 export const desc = commands.dev
@@ -40,29 +38,7 @@ export const builder = yargs =>
         `${customEnvTitle}:\n` +
         `  ${customEnvText}\n\n` +
         `${defaultsTitle}:\n` +
-        `${table([
-          defaults.mode,
-          ['watch', 'true'],
-          ['start', 'true'],
-          defaults.config,
-          defaults.routes,
-          defaults.index,
-          defaults.rootPath,
-          defaults.distDir,
-          defaults.staticDir,
-          defaults.staticPath,
-          defaults.aggregates,
-          defaults.viewModels,
-          defaults.readModels,
-          defaults.host,
-          defaults.port,
-          defaults.inspectHost,
-          defaults.inspectPort,
-          defaults.storage,
-          defaults.bus,
-          defaults.subscribe,
-          defaults.env
-        ])}`
+        `  ${defaults}`
     )
     .option('host', options.host)
     .option('port', options.port)
@@ -70,21 +46,11 @@ export const builder = yargs =>
     .option('config', options.config)
     .option('root-path', options.rootPath)
     .option('print-config', options.printConfig)
-    .check(argv => {
-      process.env.NODE_ENV = argv.mode = 'development'
-      process.env.START = argv.start = true
-      process.env.BUILD = argv.build = true
-      process.env.WATCH = argv.watch = true
-      return buildOptions(
-        [
-          optionBuilders.config,
-          optionBuilders.inspect,
-          optionBuilders.host,
-          optionBuilders.port,
-          optionBuilders.rootPath
-        ],
-        argv
-      )
-    })
 
-export const handler = options => webpack(options)
+export const handler = options => webpack({
+  ...options,
+  mode: 'development',
+  start: true,
+  build: true,
+  watch: true
+})

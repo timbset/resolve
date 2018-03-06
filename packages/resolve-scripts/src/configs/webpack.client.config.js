@@ -1,5 +1,5 @@
 import webpack from 'webpack'
-import babelConfig from '../constants/babelrc'
+import babelConfig from './babelrc'
 import modulesDirs from '../constants/modules_dirs'
 
 export default {

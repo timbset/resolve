@@ -1,6 +1,6 @@
 import { validate } from 'jsonschema'
 
-import schema from './constants/schema.config.js'
+import schema from './constants/schema.resolve.config.js'
 
 export default function validateConfig(config) {
   try {
