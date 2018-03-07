@@ -1,6 +1,6 @@
 {
   "name": "resolve-readmodel-base",
-  "version": "0.5.2",
+  "version": "0.5.4",
   "description": "Base package for readModel adapters",
   "main": "./dist/index.js",
   "bugs": {
@@ -8,8 +8,8 @@
   },
   "scripts": {
     "prepublish": "babel --out-dir ./dist ./src",
-    "test": "echo OK && exit 0",
-    "testw": "echo OK && exit 0"
+    "test": "jest --testMatch=**/test/*.tests.js --verbose",
+    "testw": "jest --testMatch=**/test/*.tests.js --watchAll --verbose"
   },
   "repository": "https://github.com/reimagined/resolve.git",
   "author": "reimagined team",
