@@ -4,8 +4,8 @@ import { Provider } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
 import { ConnectedRouter } from 'react-router-redux'
 
-import Routes from './Routes'
-import createStore from './create_store'
+import Routes from './components/Routes'
+import createStore from './store/create_store'
 
 const routes = require($resolve.routes) // eslint-disable-line
 

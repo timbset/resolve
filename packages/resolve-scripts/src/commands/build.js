@@ -1,6 +1,5 @@
 import table from '../utils/table'
 import webpack from '../webpack'
-import config from '../configs/resolve.config'
 import {
   commands,
   options,
@@ -30,9 +29,9 @@ export const builder = yargs =>
           env.DIST_DIR,
           env.STATIC_DIR,
           env.STATIC_PATH,
-          env.AGGREGATES_DIR,
-          env.VIEW_MODELS_DIR,
-          env.READ_MODELS_DIR,
+          env.AGGREGATES_PATH,
+          env.VIEW_MODELS_PATH,
+          env.READ_MODELS_PATH,
           env.HOST,
           env.PORT,
           env.INSPECT_HOST,

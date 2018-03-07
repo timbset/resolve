@@ -10,8 +10,8 @@ import { ConnectedRouter } from 'react-router-redux'
 
 import getHtmlMarkup from './get_html_markup'
 import getClientEnv from './get_client_env'
-import Routes from '../client/Routes'
-import createStore from '../client/create_store'
+import Routes from '../client/components/Routes'
+import createStore from '../client/store/create_store'
 
 const routes = require($resolve.routes) // eslint-disable-line
 const rootPath = $resolve.rootPath // eslint-disable-line

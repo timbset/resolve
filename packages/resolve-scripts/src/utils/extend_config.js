@@ -1,8 +1,6 @@
-import path from 'path'
 import { isV4Format } from 'ip'
 
 import defaultConfig from '../configs/resolve.config'
-import resolveFile from './resolve_file'
 
 export const extenders = []
 
@@ -110,7 +108,7 @@ export function watch(config, options, env) {
         `WATCH, Given: "${env.WATCH}", Choices: "false", "true"`
     )
   } else if (env.WATCH) {
-    config.watch = env.WATCH == 'true'
+    config.watch = env.WATCH == 'true' // eslint-disable-line
   }
   if (options.watch) {
     config.watch = options.watch
@@ -126,7 +124,7 @@ export function start(config, options, env) {
         `START, Given: "${env.START}", Choices: "false", "true"`
     )
   } else if (env.START) {
-    config.start = env.START == 'true'
+    config.start = env.START == 'true' // eslint-disable-line
   }
   if (options.start) {
     config.start = options.start
@@ -142,7 +140,7 @@ export function build(config, options, env) {
         `START, Given: "${env.BUILD}", Choices: "false", "true"`
     )
   } else if (env.BUILD) {
-    config.build = env.BUILD == 'true'
+    config.build = env.BUILD == 'true' // eslint-disable-line
   }
   if (options.build) {
     config.build = options.build
@@ -169,14 +167,39 @@ export function index(config, options, env) {
   if (options.index) {
     config.index = options.index
   }
-  if (config.index === defaultConfig.index) {
-    try {
-      resolveFile(config.index)
-    } catch (e) {
-      config.index = path.resolve(__dirname, '../client/index.js')
-    }
-  }
   env.INDEX_PATH = config.index
+}
+
+extenders.push(viewModels)
+export function viewModels(config, options, env) {
+  if (env.VIEW_MODELS_PATH) {
+    config.viewModels = env.VIEW_MODELS_PATH
+  }
+  env.VIEW_MODELS_PATH = config.viewModels
+}
+
+extenders.push(readModels)
+export function readModels(config, options, env) {
+  if (env.READ_MODELS_PATH) {
+    config.readModels = env.READ_MODELS_PATH
+  }
+  env.READ_MODELS_PATH = config.readModels
+}
+
+extenders.push(aggregates)
+export function aggregates(config, options, env) {
+  if (env.AGGREGATES_PATH) {
+    config.aggregates = env.AGGREGATES_PATH
+  }
+  env.AGGREGATES_PATH = config.aggregates
+}
+
+extenders.push(auth)
+export function auth(config, options, env) {
+  if (env.AUTH_PATH) {
+    config.auth = env.AUTH_PATH
+  }
+  env.AUTH_PATH = config.auth
 }
 
 extenders.push(env)

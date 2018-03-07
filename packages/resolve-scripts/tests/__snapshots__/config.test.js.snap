@@ -10,7 +10,7 @@ Object {
   },
   "distDir": "dist",
   "host": "127.0.0.1",
-  "index": "/home/mrcheater/resolve/packages/resolve-scripts/src/client/index.js",
+  "index": "client/index.js",
   "inspectHost": "127.0.0.1",
   "inspectPort": 9229,
   "mode": "development",

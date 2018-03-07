@@ -10,5 +10,13 @@ export default function resolveFile(query) {
     }
   } catch (e) {}
 
+  try {
+    const customFilePath = path.resolve(__dirname, '../template', query)
+
+    if (fs.existsSync(customFilePath)) {
+      return customFilePath
+    }
+  } catch (e) {}
+
   throw new Error(`File "${query}" does not exist`)
 }
