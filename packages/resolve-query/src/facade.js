@@ -1,4 +1,3 @@
-import 'regenerator-runtime/runtime'
 import { makeExecutableSchema } from 'graphql-tools'
 import { parse, execute } from 'graphql'
 

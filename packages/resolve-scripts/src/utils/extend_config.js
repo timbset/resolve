@@ -83,8 +83,21 @@ export function host(config, options, env) {
     config.host = options.host
   }
   env.HOST = config.host
+}
 
-  // config.port
+extenders.push(protocol)
+export function protocol(config, options, env) {
+  if (env.PROTOCOL) {
+    config.protocol = env.PROTOCOL
+  }
+  if (options.protocol) {
+    config.protocol = options.protocol
+  }
+  env.PROTOCOL = config.protocol
+}
+
+extenders.push(port)
+export function port(config, options, env) {
   if (env.PORT) {
     config.port = +env.PORT
   }
@@ -156,6 +169,19 @@ export function rootPath(config, options, env) {
   if (options.rootPath) {
     config.rootPath = options.rootPath
   }
+
+  if (config.rootPath && /^https?:\/\//.test(config.rootPath)) {
+    return new Error('Incorrect env.ROOT_PATH or options.rootPath')
+  }
+
+  // if (config.rootPath && !/\/$/.test(config.rootPath)) {
+  //   config.rootPath = `${config.rootPath}/`
+  // }
+
+  if (!/^\//.test(config.rootPath)) {
+    config.rootPath = `/${config.rootPath}`
+  }
+
   env.ROOT_PATH = config.rootPath
 }
 

@@ -48,6 +48,7 @@ export const builder = yargs =>
     .option('start', options.start)
     .option('host', options.host)
     .option('port', options.port)
+    .option('protocol', options.protocol)
     .option('inspect', options.inspect)
     .option('config', options.config)
     .option('print-config', options.printConfig)

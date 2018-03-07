@@ -47,6 +47,11 @@ export const options = {
     describe: `Sets the application's port`,
     type: 'number'
   },
+  protocol: {
+    default: undefined,
+    describe: `Sets the application's protocol`,
+    type: 'string'
+  },
   config: {
     default: undefined,
     describe: 'Sets the path to resolve config',

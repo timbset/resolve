@@ -41,6 +41,7 @@ export const builder = yargs =>
     )
     .option('host', options.host)
     .option('port', options.port)
+    .option('protocol', options.protocol)
     .option('inspect', options.inspect)
     .option('config', options.config)
     .option('root-path', options.rootPath)

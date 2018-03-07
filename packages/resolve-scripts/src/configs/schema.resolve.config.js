@@ -70,6 +70,10 @@ export default {
         port: {
           type: 'integer'
         },
+        protocol: {
+          type: 'string',
+          enum: ['http', 'https']
+        },
         inspectHost: {
           type: 'string'
         },
