@@ -116,10 +116,7 @@ export default {
           $ref: '#/definitions/adapter'
         },
         auth: {
-          type: 'array',
-          items: {
-            $ref: '#/definitions/adapter'
-          }
+          type: 'string'
         },
         jwt: {
           $ref: '#/definitions/jwt'

@@ -53,17 +53,13 @@ export const builder = yargs =>
     .option('config', options.config)
     .option('print-config', options.printConfig)
     .option('root-path', options.rootPath)
-    // .implies('host', 'start')
-    // .implies('port', 'start')
-    // .implies('inspect', 'start')
-    .implies({
-        host: 'start',
-        port: 'start',
-        inspect: 'start'
-    })
+    .implies('host', 'start')
+    .implies('port', 'start')
+    .implies('inspect', 'start')
     .conflicts('dev', 'prod')
 
-export const handler = options => webpack({
-  ...options,
-  build: true
-})
+export const handler = options =>
+  webpack({
+    ...options,
+    build: true
+  })

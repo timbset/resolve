@@ -29,8 +29,7 @@ export const options = {
   },
   start: {
     default: undefined,
-    describe:
-      "Automatically start your server once Webpack's build completes",
+    describe: "Automatically start your server once Webpack's build completes",
     type: 'boolean'
   },
   inspect: {
@@ -67,10 +66,18 @@ export const options = {
 
 export const defaultsTitle = 'Default config'
 
-export const defaults = JSON.stringify({
-  ...config,
-  config: 'resolve.config.json'
-}, null, 3)
+export const defaults = JSON.stringify(
+  {
+    ...config,
+    mode: undefined,
+    build: undefined,
+    watch: undefined,
+    start: undefined,
+    registry: undefined
+  },
+  null,
+  3
+)
 
 export const envTitle = 'Environment variables'
 

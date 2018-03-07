@@ -15,7 +15,7 @@ import resolveFile from './utils/resolve_file'
 import { files, filesOrModules } from './configs/resolve.config'
 
 export default options => {
-  const config = getConfig(options,  process.env)
+  const config = getConfig(options, process.env)
 
   if (options.printConfig) {
     // eslint-disable-next-line
@@ -23,21 +23,27 @@ export default options => {
     return
   }
 
-
-
   const flatConfig = flat(config)
 
-  for(const key of files) {
+  for (const key of files) {
     flatConfig[key] = resolveFile(flatConfig[key])
   }
-  for(const key of filesOrModules) {
+  for (const key of filesOrModules) {
     flatConfig[key] = resolveFileOrModule(flatConfig[key])
   }
 
   const serverIndexPath = path.resolve(__dirname, './server/index.js')
-  const clientIndexPath = flatConfig.index;
-  const serverDistDir = path.resolve(process.cwd(), flatConfig.distDir, 'server')
-  const clientDistDir = path.resolve(process.cwd(), flatConfig.distDir, 'client')
+  const clientIndexPath = flatConfig.index
+  const serverDistDir = path.resolve(
+    process.cwd(),
+    flatConfig.distDir,
+    'server'
+  )
+  const clientDistDir = path.resolve(
+    process.cwd(),
+    flatConfig.distDir,
+    'client'
+  )
 
   webpackClientConfig.entry = clientIndexPath
   webpackClientConfig.output.path = clientDistDir
@@ -47,11 +53,11 @@ export default options => {
   webpackServerConfig.output.path = serverDistDir
   webpackServerConfig.mode = flatConfig.mode
 
-  const defineObject = {};
-  for(const key of Object.keys(flatConfig)) {
+  const defineObject = {}
+  for (const key of Object.keys(flatConfig)) {
     defineObject[`$resolve.${key}`] = JSON.stringify(flatConfig[key])
   }
-  const definePlugin = new webpack.DefinePlugin(defineObject);
+  const definePlugin = new webpack.DefinePlugin(defineObject)
 
   webpackClientConfig.plugins.push(definePlugin)
   webpackServerConfig.plugins.push(definePlugin)

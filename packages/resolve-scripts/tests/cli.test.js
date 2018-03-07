@@ -26,9 +26,7 @@ describe('resolve-scripts build', () => {
     })
 
     test('resolve-scripts build --dev --prod (fail)', async () => {
-      expect(
-        exec('resolve-scripts build --dev --prod')
-      ).rejects.toThrow()
+      expect(exec('resolve-scripts build --dev --prod')).rejects.toThrow()
     })
 
     test('NODE_ENV=production resolve-scripts build', async () => {
@@ -143,9 +141,7 @@ describe('resolve-scripts build', () => {
     })
 
     test('resolve-scripts build --port=1234 (fail)', async () => {
-      expect(
-        exec('resolve-scripts build --port=1234')
-      ).rejects.toThrow()
+      expect(exec('resolve-scripts build --port=1234')).rejects.toThrow()
     })
   })
 
@@ -186,17 +182,20 @@ describe('resolve-scripts build', () => {
     })
 
     test('resolve-scripts build --inspect (fail)', () => {
-      expect(
-        exec('resolve-scripts build --inspect')
-      ).rejects.toThrow()
+      expect(exec('resolve-scripts build --inspect')).rejects.toThrow()
     })
   })
 
   describe('argv.config', () => {
     test('resolve-scripts build --config=resolve.test.config.json', async () => {
-      const json = await exec(`resolve-scripts build --config=${path.resolve(__dirname, 'resolve.test.config.json')}`)
+      const json = await exec(
+        `resolve-scripts build --config=${path.resolve(
+          __dirname,
+          'resolve.test.config.json'
+        )}`
+      )
 
-      const { env, ...config } = require('./resolve.test.config.json');
+      const { env, ...config } = require('./resolve.test.config.json')
 
       expect(json).toMatchObject({
         ...config,
@@ -211,7 +210,6 @@ describe('resolve-scripts build', () => {
     })
   })
 })
-
 
 describe('resolve-scripts dev', () => {
   describe('argv.mode', () => {
@@ -279,9 +277,14 @@ describe('resolve-scripts dev', () => {
 
   describe('argv.config', () => {
     test('resolve-scripts dev --config=resolve.test.config.json', async () => {
-      const json = await exec(`resolve-scripts dev --config=${path.resolve(__dirname, 'resolve.test.config.json')}`)
+      const json = await exec(
+        `resolve-scripts dev --config=${path.resolve(
+          __dirname,
+          'resolve.test.config.json'
+        )}`
+      )
 
-      const { env, ...config } = require('./resolve.test.config.json');
+      const { env, ...config } = require('./resolve.test.config.json')
 
       expect(json).toMatchObject({
         ...config,

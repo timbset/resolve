@@ -9,11 +9,7 @@ export default function getConfig(options, env) {
   let localConfig = '{}'
 
   if (options.config) {
-    localConfig = fs.readFileSync(
-      resolveFile(
-        options.config
-      )
-    )
+    localConfig = fs.readFileSync(resolveFile(options.config))
   }
 
   localConfig = JSON.parse(localConfig)

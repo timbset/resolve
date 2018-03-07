@@ -27,6 +27,7 @@ const config = {
   @file('readModels') readModels: 'common/read-models/index.js',
   @file('viewModels') viewModels: 'common/view-models/index.js',
   @file('index') index: 'client/index.js',
+  @file('auth') auth: 'auth/index.js',
   redux: {
     @file('redux.store') store: 'client/store/index.js',
     @file('redux.reducers') reducers: 'client/reducers/index.js',
@@ -43,7 +44,8 @@ const config = {
     @fileOrModule('bus.adapter') adapter: 'resolve-bus-memory'
   },
   subscribe: {
-    @fileOrModule('subscribe.adapter') adapter: 'resolve-redux/dist/subscribe_adapter'
+    @fileOrModule('subscribe.adapter')
+    adapter: 'resolve-redux/dist/subscribe_adapter'
   },
   registry: 'https://registry.resolve.coming.soon',
   // Config extensions

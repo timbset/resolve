@@ -28,9 +28,10 @@ export const builder = yargs =>
     .option('inspect', options.inspect)
     .option('print-config', options.printConfig)
 
-export const handler = options => webpack({
-  ...options,
-  build: false,
-  start: true,
-  watch: false
-})
+export const handler = options =>
+  webpack({
+    ...options,
+    build: false,
+    start: true,
+    watch: false
+  })

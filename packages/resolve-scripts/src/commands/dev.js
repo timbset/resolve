@@ -47,10 +47,11 @@ export const builder = yargs =>
     .option('root-path', options.rootPath)
     .option('print-config', options.printConfig)
 
-export const handler = options => webpack({
-  ...options,
-  mode: 'development',
-  start: true,
-  build: true,
-  watch: true
-})
+export const handler = options =>
+  webpack({
+    ...options,
+    mode: 'development',
+    start: true,
+    build: true,
+    watch: true
+  })

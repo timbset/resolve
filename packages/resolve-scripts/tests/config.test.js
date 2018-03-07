@@ -1,20 +1,18 @@
-import fs from 'fs'
 import path from 'path'
 import exec from './exec'
 import getConfig from '../src/utils/get_config'
 import validateСonfig from '../src/utils/validate_config'
-
-test('', ()=>{})
-/*
+import defaultСonfig from '../src/configs/resolve.config'
 
 describe('validate schema', () => {
   it('empty', () => {
-    expect(validateСonfig({})).toBeTruthy()
+    expect(validateСonfig(defaultСonfig)).toBeTruthy()
   })
 
   it('custom storage adapter', () => {
     expect(
       validateСonfig({
+        ...defaultСonfig,
         storage: {
           adapter: 'resolve-storage-mongo',
           options: {
@@ -28,6 +26,7 @@ describe('validate schema', () => {
   it('custom bus adapter', () => {
     expect(
       validateСonfig({
+        ...defaultСonfig,
         storage: {
           adapter: 'resolve-bus-rabbitmq'
         }
@@ -38,6 +37,7 @@ describe('validate schema', () => {
   it('custom subscribe adapter', () => {
     expect(
       validateСonfig({
+        ...defaultСonfig,
         subscribe: {
           adapter: 'resolve-subscribe-mqtt'
         }
@@ -48,6 +48,7 @@ describe('validate schema', () => {
   it('custom root path', () => {
     expect(
       validateСonfig({
+        ...defaultСonfig,
         rootPath: '/my-app'
       })
     ).toBeTruthy()
@@ -56,6 +57,7 @@ describe('validate schema', () => {
   it('custom static path', () => {
     expect(
       validateСonfig({
+        ...defaultСonfig,
         staticPath: 'https://my-cdn'
       })
     ).toBeTruthy()
@@ -64,6 +66,7 @@ describe('validate schema', () => {
   it('custom routes path', () => {
     expect(
       validateСonfig({
+        ...defaultСonfig,
         routes: 'src/client/entryPoint.js'
       })
     ).toBeTruthy()
@@ -72,6 +75,7 @@ describe('validate schema', () => {
   it('custom index path', () => {
     expect(
       validateСonfig({
+        ...defaultСonfig,
         index: 'src/client/index.js'
       })
     ).toBeTruthy()
@@ -80,6 +84,7 @@ describe('validate schema', () => {
   it('custom aggregates dir', () => {
     expect(
       validateСonfig({
+        ...defaultСonfig,
         aggregates: 'my-aggregates'
       })
     ).toBeTruthy()
@@ -88,6 +93,7 @@ describe('validate schema', () => {
   it('custom view models dir', () => {
     expect(
       validateСonfig({
+        ...defaultСonfig,
         viewModels: 'my-view-models'
       })
     ).toBeTruthy()
@@ -96,6 +102,7 @@ describe('validate schema', () => {
   it('custom read models dir', () => {
     expect(
       validateСonfig({
+        ...defaultСonfig,
         readModels: 'my-read-models'
       })
     ).toBeTruthy()
@@ -104,6 +111,7 @@ describe('validate schema', () => {
   it('custom static dir', () => {
     expect(
       validateСonfig({
+        ...defaultСonfig,
         staticDir: 'my-static-dir'
       })
     ).toBeTruthy()
@@ -112,17 +120,8 @@ describe('validate schema', () => {
   it('custom auth', () => {
     expect(
       validateСonfig({
-        auth: [
-          {
-            adapter: 'resolve-auth-local',
-            options: {
-              hash: 'sha1024'
-            }
-          },
-          {
-            adapter: 'resolve-auth-google'
-          }
-        ]
+        ...defaultСonfig,
+        auth: 'custom-auth/index.js'
       })
     ).toBeTruthy()
   })
@@ -130,6 +129,7 @@ describe('validate schema', () => {
   it('custom jwt', () => {
     expect(
       validateСonfig({
+        ...defaultСonfig,
         jwt: {
           cookieName: 'authToken',
           secret: 'some-secret',
@@ -144,6 +144,7 @@ describe('validate schema', () => {
   it('custom env', () => {
     expect(
       validateСonfig({
+        ...defaultСonfig,
         subscribe: {
           adapter: 'resolve-subscribe-socket-io'
         },
@@ -163,6 +164,7 @@ describe('validate schema (fail)', () => {
   it('incorrect storage adapter', () => {
     expect(() =>
       validateСonfig({
+        ...defaultСonfig,
         storage: {
           adapter: 123,
           options: {
@@ -176,6 +178,7 @@ describe('validate schema (fail)', () => {
   it('incorrect bus adapter', () => {
     expect(() =>
       validateСonfig({
+        ...defaultСonfig,
         storage: {
           adapter: 123
         }
@@ -186,6 +189,7 @@ describe('validate schema (fail)', () => {
   it('incorrect subscribe adapter', () => {
     expect(() =>
       validateСonfig({
+        ...defaultСonfig,
         subscribe: {
           adapter: 123
         }
@@ -196,6 +200,7 @@ describe('validate schema (fail)', () => {
   it('incorrect root path', () => {
     expect(() =>
       validateСonfig({
+        ...defaultСonfig,
         rootPath: 123
       })
     ).toThrow()
@@ -204,6 +209,7 @@ describe('validate schema (fail)', () => {
   it('incorrect static path', () => {
     expect(() =>
       validateСonfig({
+        ...defaultСonfig,
         staticPath: 123
       })
     ).toThrow()
@@ -212,6 +218,7 @@ describe('validate schema (fail)', () => {
   it('incorrect routes path', () => {
     expect(() =>
       validateСonfig({
+        ...defaultСonfig,
         routes: 123
       })
     ).toThrow()
@@ -220,6 +227,7 @@ describe('validate schema (fail)', () => {
   it('incorrect aggregates dir', () => {
     expect(() =>
       validateСonfig({
+        ...defaultСonfig,
         aggregates: 123
       })
     ).toThrow()
@@ -228,6 +236,7 @@ describe('validate schema (fail)', () => {
   it('incorrect view models dir', () => {
     expect(() =>
       validateСonfig({
+        ...defaultСonfig,
         viewModels: 123
       })
     ).toThrow()
@@ -236,6 +245,7 @@ describe('validate schema (fail)', () => {
   it('incorrect read models dir', () => {
     expect(() =>
       validateСonfig({
+        ...defaultСonfig,
         readModels: 123
       })
     ).toThrow()
@@ -244,6 +254,7 @@ describe('validate schema (fail)', () => {
   it('incorrect static dir', () => {
     expect(() =>
       validateСonfig({
+        ...defaultСonfig,
         staticDir: 123
       })
     ).toThrow()
@@ -252,17 +263,8 @@ describe('validate schema (fail)', () => {
   it('incorrect auth', () => {
     expect(() =>
       validateСonfig({
-        auth: [
-          {
-            adapter: 123,
-            options: {
-              hash: 'sha1024'
-            }
-          },
-          {
-            adapter: 'resolve-auth-google'
-          }
-        ]
+        ...defaultСonfig,
+        auth: 123
       })
     ).toThrow()
   })
@@ -270,6 +272,7 @@ describe('validate schema (fail)', () => {
   it('incorrect jwt', () => {
     expect(() =>
       validateСonfig({
+        ...defaultСonfig,
         jwt: {
           cookieName: 123,
           secret: 'some-secret',
@@ -282,51 +285,19 @@ describe('validate schema (fail)', () => {
   })
 })
 
-describe('resolve-scripts build --config=resolve-test-config.json', () => {
-  const resolveConfigPath = path.resolve(__dirname, 'resolve-test-config.json')
-
-  const resolveTestConfig = {
-    index: 'client/custom-index.js',
-    viewModels: 'common/customViewModels',
-    readModels: 'common/customReadModels',
-    storage: {
-      adapter: 'custom-storage'
-    },
-    bus: {
-      adapter: 'custom-bus'
-    },
-    env: {
-      development: {
-        bus: {
-          adapter: 'custom-development-bus'
-        }
-      },
-      production: {
-        subscribe: {
-          adapter: 'custom-subscribe-adapter'
-        }
-      }
-    }
-  }
-
-  beforeEach(() => {
-    fs.writeFileSync(
-      resolveConfigPath,
-      JSON.stringify(resolveTestConfig, null, 3),
-      { flag: 'w+' }
-    )
-  })
-
-  afterEach(() => {
-    fs.unlinkSync(resolveConfigPath)
-  })
+describe('resolve-scripts build --config=resolve.test.config.json', () => {
+  const resolveConfigPath = path.resolve(__dirname, 'resolve.test.config.json')
+  const { env, config } = require(resolveConfigPath)
 
   test('getConfig("resolve-test-config.json") should works correctly', () => {
-    expect(getConfig(resolveConfigPath)).toMatchObject(resolveTestConfig)
+    expect(getConfig({ config: resolveConfigPath }, {})).toMatchObject({
+      ...config,
+      ...env.development
+    })
   })
 
   test('getConfig() should return default config', () => {
-    expect(getConfig()).toMatchSnapshot()
+    expect(getConfig({}, {})).toMatchSnapshot()
   })
 
   test(
@@ -338,16 +309,8 @@ describe('resolve-scripts build --config=resolve-test-config.json', () => {
       )
 
       expect(json).toMatchObject({
-        index: 'client/custom-index.js',
-        viewModels: 'common/customViewModels',
-        readModels: 'common/customReadModels',
-        storage: {
-          adapter: 'custom-storage'
-        },
-        bus: {
-          adapter: 'custom-development-bus'
-        },
-        start: true
+        ...config,
+        ...env.development
       })
     }
   )
@@ -361,21 +324,9 @@ describe('resolve-scripts build --config=resolve-test-config.json', () => {
       )
 
       expect(json).toMatchObject({
-        index: 'client/custom-index.js',
-        viewModels: 'common/customViewModels',
-        readModels: 'common/customReadModels',
-        storage: {
-          adapter: 'custom-storage'
-        },
-        bus: {
-          adapter: 'custom-bus'
-        },
-        subscribe: {
-          adapter: 'custom-subscribe-adapter'
-        },
-        start: true
+        ...config,
+        ...env.production
       })
     }
   )
 })
-*/
