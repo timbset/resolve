@@ -32,7 +32,7 @@ export default options => {
     flatConfig[key] = resolveFileOrModule(flatConfig[key])
   }
 
-  const serverIndexPath = path.resolve(__dirname, './server/index.js')
+  const serverIndexPath = path.resolve(__dirname, './template/server/index.js')
   const clientIndexPath = flatConfig.index
   const serverDistDir = path.resolve(
     process.cwd(),

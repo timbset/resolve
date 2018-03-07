@@ -67,7 +67,7 @@
     "resolve-storage-lite": "^0.5.2",
     "respawn": "^2.5.0",
     "table": "^4.0.2",
-    "webpack": "^4.0.1",
+    "webpack": "^4.1.0",
     "webpack-node-externals": "^1.6.0",
     "yargs": "^11.0.0"
   },
