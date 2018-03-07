@@ -1,4 +1,4 @@
-import config from '../configs/resolve.config'
+import config from './resolve.config'
 
 export const commands = {
   build: 'Builds the app to the build directory',
@@ -65,7 +65,7 @@ export const options = {
   }
 }
 
-export const defaultsTitle = 'Defaults'
+export const defaultsTitle = 'Default config'
 
 export const defaults = JSON.stringify({
   ...config,

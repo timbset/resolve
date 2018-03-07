@@ -1,4 +1,4 @@
-import table from '../table'
+import table from '../utils/table'
 
 import {
   commands,
@@ -9,7 +9,7 @@ import {
   customEnvTitle,
   defaults,
   defaultsTitle
-} from '../constants/'
+} from '../configs/strings'
 import webpack from '../webpack'
 
 export const command = 'start'
@@ -23,7 +23,7 @@ export const builder = yargs =>
         `${customEnvTitle}:\n` +
         `  ${customEnvText}\n\n` +
         `${defaultsTitle}:\n` +
-        `  ${defaults}`
+        `${defaults}`
     )
     .option('inspect', options.inspect)
     .option('print-config', options.printConfig)

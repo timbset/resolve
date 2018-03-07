@@ -3,7 +3,7 @@ import fs from 'fs'
 
 import getMonorepoNodeModules from './get_monorepo_node_modules'
 
-export default function pathResolve(query) {
+export default function resolveFileOrModule(query) {
   try {
     return require.resolve(query, {
       paths: [

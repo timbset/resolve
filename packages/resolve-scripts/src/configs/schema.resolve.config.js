@@ -64,6 +64,12 @@ export default {
         watch: {
           type: 'boolean'
         },
+        host: {
+          type: 'string'
+        },
+        port: {
+          type: 'integer'
+        },
         inspectHost: {
           type: 'string'
         },
@@ -120,21 +126,19 @@ export default {
         },
         registry: {
           type: 'string'
+        },
+        env: {
+          type: 'object',
+          properties: {
+            development: { $ref: '#/definitions/config' },
+            production: { $ref: '#/definitions/config' },
+            test: { $ref: '#/definitions/config' }
+          },
+          additionalProperties: false
         }
-      }
-      //additionalProperties: false
-    }
-  },
-  $ref: '#/definitions/config',
-  additionalProperties: {
-    env: {
-      type: 'object',
-      properties: {
-        development: { $ref: '#/definitions/config' },
-        production: { $ref: '#/definitions/config' },
-        test: { $ref: '#/definitions/config' }
       },
       additionalProperties: false
     }
-  }
+  },
+  $ref: '#/definitions/config'
 }

@@ -1,15 +1,18 @@
-import fs from 'fs'
 import path from 'path'
 import respawn from 'respawn'
 import webpack from 'webpack'
+import flat from 'flat'
 
 import webpackClientConfig from './configs/webpack.client.config'
 import webpackServerConfig from './configs/webpack.server.config'
-import showBuildInfo from './show_build_info'
-import getRespawnConfig from './get_respawn_config'
-import getConfig from './get_config'
-import createMockServer from './create_mock_server'
-import pathResolve from './path_resolve'
+import showBuildInfo from './utils/show_build_info'
+import getRespawnConfig from './utils/get_respawn_config'
+import getConfig from './utils/get_config'
+import createMockServer from './utils/create_mock_server'
+import resolveFileOrModule from './utils/resolve_file_or_module'
+import resolveFile from './utils/resolve_file'
+
+import { files, filesOrModules } from './configs/resolve.config'
 
 export default options => {
   const config = getConfig(options,  process.env)
@@ -19,54 +22,37 @@ export default options => {
     console.log(JSON.stringify(config, null, 3))
     return
   }
-  
-  /*
+
+
+
+  const flatConfig = flat(config)
+
+  for(const key of files) {
+    flatConfig[key] = resolveFile(flatConfig[key])
+  }
+  for(const key of filesOrModules) {
+    flatConfig[key] = resolveFileOrModule(flatConfig[key])
+  }
+
   const serverIndexPath = path.resolve(__dirname, './server/index.js')
-  const clientIndexPath = fs.existsSync(options.index)
-    ? path.resolve(process.cwd(), options.index)
-    : path.resolve(__dirname, './client/index.js')
+  const clientIndexPath = flatConfig.index;
+  const serverDistDir = path.resolve(process.cwd(), flatConfig.distDir, 'server')
+  const clientDistDir = path.resolve(process.cwd(), flatConfig.distDir, 'client')
 
-  const clientDistDir = path.resolve(process.cwd(), options.distDir, 'client')
-  const serverDistDir = path.resolve(process.cwd(), options.distDir, 'server')
-
-  webpackClientConfig.entry = [clientIndexPath]
+  webpackClientConfig.entry = clientIndexPath
   webpackClientConfig.output.path = clientDistDir
-  webpackClientConfig.mode = options.mode
+  webpackClientConfig.mode = flatConfig.mode
 
-  webpackServerConfig.entry = [serverIndexPath]
+  webpackServerConfig.entry = serverIndexPath
   webpackServerConfig.output.path = serverDistDir
-  webpackServerConfig.mode = options.mode
+  webpackServerConfig.mode = flatConfig.mode
 
-  const definePlugin = new webpack.DefinePlugin({
-    '$resolve.routes': JSON.stringify(pathResolve(options.routes)),
-    '$resolve.redux.store': JSON.stringify(pathResolve(options.redux.store)),
-    '$resolve.redux.reducers': JSON.stringify(
-      pathResolve(options.redux.reducers)
-    ),
-    '$resolve.redux.middlewares': JSON.stringify(
-      pathResolve(options.redux.middlewares)
-    ),
-    '$resolve.staticDir': JSON.stringify(pathResolve(options.staticDir)),
-    '$resolve.distDir': JSON.stringify(pathResolve(options.distDir)),
-    '$resolve.viewModels': JSON.stringify(pathResolve(options.viewModels)),
-    '$resolve.readModels': JSON.stringify(pathResolve(options.readModels)),
-    '$resolve.aggregates': JSON.stringify(pathResolve(options.aggregates)),
-    '$resolve.subscribe.adapter': JSON.stringify(
-      pathResolve(options.subscribe.adapter)
-    ),
-    '$resolve.subscribe.options': JSON.stringify(options.subscribe.options),
+  const defineObject = {};
+  for(const key of Object.keys(flatConfig)) {
+    defineObject[`$resolve.${key}`] = JSON.stringify(flatConfig[key])
+  }
+  const definePlugin = new webpack.DefinePlugin(defineObject);
 
-    '$resolve.bus.adapter': JSON.stringify(pathResolve(options.bus.adapter)),
-    '$resolve.bus.options': JSON.stringify(options.bus.options),
-
-    '$resolve.storage.adapter': JSON.stringify(
-      pathResolve(options.storage.adapter)
-    ),
-    '$resolve.storage.options': JSON.stringify(options.storage.options),
-
-    '$resolve.rootPath': JSON.stringify(options.rootPath),
-    '$resolve.staticPath': JSON.stringify(options.staticPath)
-  })
   webpackClientConfig.plugins.push(definePlugin)
   webpackServerConfig.plugins.push(definePlugin)
 
@@ -138,5 +124,4 @@ export default options => {
       }
     })
   }
-  */
 }

@@ -1,6 +1,6 @@
 import path from 'path'
 
-import getMonorepoNodeModules from '../get_monorepo_node_modules'
+import getMonorepoNodeModules from '../utils/get_monorepo_node_modules'
 
 export default [
   path.resolve(process.cwd(), 'node_modules'),

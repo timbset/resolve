@@ -1,4 +1,4 @@
-import table from '../table'
+import table from '../utils/table'
 import webpack from '../webpack'
 import config from '../configs/resolve.config'
 import {
@@ -10,7 +10,7 @@ import {
   defaults,
   customEnvText,
   customEnvTitle
-} from '../constants/strings'
+} from '../configs/strings'
 
 export const command = 'build'
 export const desc = commands.build
@@ -41,7 +41,7 @@ export const builder = yargs =>
         `${customEnvTitle}:\n` +
         `  ${customEnvText}\n\n` +
         `${defaultsTitle}:\n` +
-        `  ${defaults}`
+        `${defaults}`
     )
     .option('dev', options.dev)
     .option('prod', options.prod)
@@ -53,9 +53,14 @@ export const builder = yargs =>
     .option('config', options.config)
     .option('print-config', options.printConfig)
     .option('root-path', options.rootPath)
-    .implies('host', 'start')
-    .implies('port', 'start')
-    .implies('inspect', 'start')
+    // .implies('host', 'start')
+    // .implies('port', 'start')
+    // .implies('inspect', 'start')
+    .implies({
+        host: 'start',
+        port: 'start',
+        inspect: 'start'
+    })
     .conflicts('dev', 'prod')
 
 export const handler = options => webpack({

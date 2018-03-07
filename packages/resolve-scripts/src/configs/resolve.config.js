@@ -1,6 +1,14 @@
-export default {
-  // Webpack mode
+import validateConfig from '../utils/validate_config'
+
+export const files = []
+export const filesOrModules = []
+
+const config = {
+  // Webpack options
   mode: 'development',
+  build: false,
+  start: false,
+  watch: false,
   // Subdirectory on HOST:PORT
   rootPath: '',
   host: '127.0.0.1',
@@ -10,31 +18,32 @@ export default {
   // Debug Server
   inspectHost: '127.0.0.1',
   inspectPort: 9229,
-  // Path to client files
+  // Dirs
   staticDir: 'static',
   distDir: 'dist',
-  routes: 'client/routes.js',
-  aggregates: 'common/aggregates/index.js',
-  readModels: 'common/read-models/index.js',
-  viewModels: 'common/view-models/index.js',
-  index: 'client/index.js',
+  // Files
+  @file('routes') routes: 'client/routes.js',
+  @file('aggregates') aggregates: 'common/aggregates/index.js',
+  @file('readModels') readModels: 'common/read-models/index.js',
+  @file('viewModels') viewModels: 'common/view-models/index.js',
+  @file('index') index: 'client/index.js',
   redux: {
-    store: 'client/store/index.js',
-    reducers: 'client/reducers/index.js',
-    middlewares: 'client/middlewares/index.js'
+    @file('redux.store') store: 'client/store/index.js',
+    @file('redux.reducers') reducers: 'client/reducers/index.js',
+    @file('redux.middlewares') middlewares: 'client/middlewares/index.js'
   },
   // Adapters
   storage: {
-    adapter: 'resolve-storage-lite',
+    @fileOrModule('storage.adapter') adapter: 'resolve-storage-lite',
     options: {
       pathToFile: 'storage.txt'
     }
   },
   bus: {
-    adapter: 'resolve-bus-memory'
+    @fileOrModule('bus.adapter') adapter: 'resolve-bus-memory'
   },
   subscribe: {
-    adapter: 'resolve-redux/dist/subscribe_adapter'
+    @fileOrModule('subscribe.adapter') adapter: 'resolve-redux/dist/subscribe_adapter'
   },
   registry: 'https://registry.resolve.coming.soon',
   // Config extensions
@@ -45,4 +54,23 @@ export default {
       }
     }
   }
+}
+
+validateConfig(config)
+
+export default config
+
+function file(name) {
+  files.push(name)
+  return obj => obj
+}
+
+function fileOrModule(name) {
+  filesOrModules.push(name)
+  return obj => obj
+}
+
+export const decorators = {
+  file,
+  fileOrModule
 }

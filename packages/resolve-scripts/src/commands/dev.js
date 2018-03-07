@@ -1,4 +1,4 @@
-import table from '../table'
+import table from '../utils/table'
 import webpack from '../webpack'
 import config from '../configs/resolve.config'
 import {
@@ -10,7 +10,7 @@ import {
   defaults,
   customEnvText,
   customEnvTitle
-} from '../constants/strings'
+} from '../configs/strings'
 
 export const command = 'dev'
 export const desc = commands.dev
@@ -38,7 +38,7 @@ export const builder = yargs =>
         `${customEnvTitle}:\n` +
         `  ${customEnvText}\n\n` +
         `${defaultsTitle}:\n` +
-        `  ${defaults}`
+        `${defaults}`
     )
     .option('host', options.host)
     .option('port', options.port)
