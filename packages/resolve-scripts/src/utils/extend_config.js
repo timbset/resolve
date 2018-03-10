@@ -174,10 +174,6 @@ export function rootPath(config, options, env) {
     return new Error('Incorrect env.ROOT_PATH or options.rootPath')
   }
 
-  // if (config.rootPath && !/\/$/.test(config.rootPath)) {
-  //   config.rootPath = `${config.rootPath}/`
-  // }
-
   if (!/^\//.test(config.rootPath)) {
     config.rootPath = `/${config.rootPath}`
   }

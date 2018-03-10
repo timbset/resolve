@@ -7,6 +7,7 @@ Object {
   "build": false,
   "bus": Object {
     "adapter": "resolve-bus-memory",
+    "options": Object {},
   },
   "distDir": "dist",
   "host": "127.0.0.1",
@@ -15,6 +16,7 @@ Object {
   "inspectPort": 9229,
   "mode": "development",
   "port": 3000,
+  "protocol": "http",
   "readModels": "common/read-models/index.js",
   "redux": Object {
     "middlewares": "client/middlewares/index.js",
@@ -22,7 +24,7 @@ Object {
     "store": "client/store/index.js",
   },
   "registry": "https://registry.resolve.coming.soon",
-  "rootPath": "",
+  "rootPath": "/",
   "routes": "client/routes.js",
   "start": false,
   "staticDir": "static",
@@ -35,6 +37,7 @@ Object {
   },
   "subscribe": Object {
     "adapter": "resolve-redux/dist/subscribe_adapter",
+    "options": Object {},
   },
   "viewModels": "common/view-models/index.js",
   "watch": false,

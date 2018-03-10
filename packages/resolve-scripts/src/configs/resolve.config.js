@@ -42,18 +42,21 @@ const config = {
     }
   },
   bus: {
-    @fileOrModule('bus.adapter') adapter: 'resolve-bus-memory'
+    @fileOrModule('bus.adapter') adapter: 'resolve-bus-memory',
+    options: {}
   },
   subscribe: {
     @fileOrModule('subscribe.adapter')
-    adapter: 'resolve-redux/dist/subscribe_adapter'
+    adapter: 'resolve-redux/dist/subscribe_adapter',
+    options: {}
   },
   registry: 'https://registry.resolve.coming.soon',
   // Config extensions
   env: {
     test: {
       storage: {
-        adapter: 'resolve-storage-lite'
+        adapter: 'resolve-storage-lite',
+        options: {}
       }
     }
   }

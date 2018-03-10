@@ -1,13 +1,13 @@
 import createEventStore from 'resolve-es'
 
 const storageAdapter = require($resolve.storage.adapter) // eslint-disable-line
-const storageParams = $resolve.storage.params // eslint-disable-line
+const storageOptions = $resolve.storage.options // eslint-disable-line
 const busAdapter = require($resolve.bus.adapter) // eslint-disable-line
-const busParams = $resolve.bus.params // eslint-disable-line
+const busOptions = $resolve.bus.options // eslint-disable-line
 
-const storage = storageAdapter(storageParams)
+const storage = storageAdapter(storageOptions)
 
-const bus = busAdapter(busParams)
+const bus = busAdapter(busOptions)
 
 const eventStore = createEventStore({ storage, bus })
 

@@ -23,7 +23,7 @@ export default options => {
     return
   }
 
-  const flatConfig = flat(config)
+  const flatConfig = flat(config, { maxDepth: 2 })
 
   for (const key of files) {
     flatConfig[key] = resolveFile(flatConfig[key])
@@ -32,7 +32,16 @@ export default options => {
     flatConfig[key] = resolveFileOrModule(flatConfig[key])
   }
 
-  const serverIndexPath = path.resolve(__dirname, './template/server/index.js')
+  const { name: applicationName } = require(resolveFile('package.json'))
+  flatConfig.applicationName = applicationName
+
+  flatConfig.useYarn = false
+  try {
+    resolveFile('yarn.lock')
+    flatConfig.useYarn = true
+  } catch (error) {}
+
+  const serverIndexPath = resolveFile('server/index.js')
   const clientIndexPath = flatConfig.index
   const serverDistDir = path.resolve(
     process.cwd(),
@@ -45,11 +54,11 @@ export default options => {
     'client'
   )
 
-  webpackClientConfig.entry = clientIndexPath
+  webpackClientConfig.entry = ['babel-regenerator-runtime', clientIndexPath]
   webpackClientConfig.output.path = clientDistDir
   webpackClientConfig.mode = flatConfig.mode
 
-  webpackServerConfig.entry = serverIndexPath
+  webpackServerConfig.entry = ['babel-regenerator-runtime', serverIndexPath]
   webpackServerConfig.output.path = serverDistDir
   webpackServerConfig.mode = flatConfig.mode
 

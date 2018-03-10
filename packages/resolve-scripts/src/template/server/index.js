@@ -7,16 +7,11 @@ import jwt from 'jsonwebtoken' // eslint-disable-line
 
 import serverSideRendering from './server_side_rendering'
 import getRootableUrl from './get_rootable_url'
-import eventStore from './event_store'
+import startServer from './start_server'
+import println from './println'
 
-const rootPath = $resolve.rootPath // eslint-disable-line
-const staticDir = $resolve.staticDir // eslint-disable-line
-const distDir = $resolve.distDir // eslint-disable-line
-
-const port = $resolve.port // eslint-disable-line
-const host = $resolve.host // eslint-disable-line
-
-console.log(`${rootPath}socket`)
+const staticDir = $resolve.staticDir
+const distDir = $resolve.distDir
 
 const app = express()
 const server = new Server(app)
@@ -27,11 +22,7 @@ app.socketIO = createSocketServer(server, {
 })
 
 app.socketIO.on('connection', function(socket) {
-  console.log('connection')
-})
-
-server.listen(port, host, () => {
-  console.log(port, host)
+  println('connection')
 })
 
 app.use(bodyParser.json())
@@ -42,3 +33,5 @@ app.use(getRootableUrl('/'), express.static(`${distDir}/client`))
 app.use(getRootableUrl('/'), express.static(staticDir))
 
 app.get([getRootableUrl('/'), getRootableUrl('/*')], serverSideRendering)
+
+startServer(server)
