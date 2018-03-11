@@ -2,7 +2,7 @@ import chalk from 'chalk'
 import url from 'url'
 import address from 'address'
 
-import getRootableUrl from './get_rootable_url'
+import getRootableUrl from '../get_rootable_url'
 
 const prepareUrls = (protocol, host, port) => {
   const formatUrl = hostname =>

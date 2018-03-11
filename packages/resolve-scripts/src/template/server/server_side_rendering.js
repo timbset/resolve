@@ -6,7 +6,7 @@ import createHistory from 'history/createMemoryHistory'
 
 import createStore from '../client/store/create_store'
 import getHtmlMarkup from './get_html_markup'
-import getClientEnv from './get_client_env'
+import getClientEnv from './utils/get_client_env'
 import Routes from '../client/components/Routes'
 
 const staticPath = $resolve.staticPath // eslint-disable-line

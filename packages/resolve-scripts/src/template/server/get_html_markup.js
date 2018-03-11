@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet'
 
-import jsonUtfStringify from './json_utf_stringify'
+import jsonUtfStringify from './utils/json_utf_stringify'
 
 export default ({ markup, initialState, env, clientUrl }) => {
   const helmet = Helmet.renderStatic()

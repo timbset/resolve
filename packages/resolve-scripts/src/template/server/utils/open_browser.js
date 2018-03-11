@@ -3,15 +3,15 @@ import { execSync } from 'child_process'
 import spawn from 'cross-spawn'
 import opn from 'opn'
 
-const OSX_CHROME = 'google chrome'
+export const OSX_CHROME = 'google chrome'
 
-const Actions = Object.freeze({
+export const Actions = Object.freeze({
   NONE: 0,
   BROWSER: 1,
   SCRIPT: 2
 })
 
-function getBrowserEnv() {
+export const getBrowserEnv = () => {
   const value = process.env.BROWSER
   let action
   if (!value) {
@@ -26,7 +26,7 @@ function getBrowserEnv() {
   return { action, value }
 }
 
-function executeNodeScript(scriptPath, url) {
+export const executeNodeScript = (scriptPath, url) => {
   const extraArgs = process.argv.slice(2)
   const child = spawn('node', [scriptPath, ...extraArgs, url], {
     stdio: 'inherit'
@@ -50,7 +50,7 @@ function executeNodeScript(scriptPath, url) {
   return true
 }
 
-function startBrowserProcess(browser, url) {
+export const startBrowserProcess = (browser, url) => {
   const shouldTryOpenChromeWithAppleScript =
     process.platform === 'darwin' &&
     (typeof browser !== 'string' || browser === OSX_CHROME)
@@ -82,7 +82,7 @@ function startBrowserProcess(browser, url) {
   }
 }
 
-function openBrowser(url) {
+const openBrowser = url => {
   const { action, value } = getBrowserEnv()
   switch (action) {
     case Actions.NONE:

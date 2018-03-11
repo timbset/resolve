@@ -26,7 +26,14 @@ export default {
         loaders: [
           {
             loader: 'babel-loader',
-            query: babelConfig
+            query: {
+              ...babelConfig,
+              env: {
+                development: {
+                  plugins: ['babel-plugin-object-source']
+                }
+              }
+            }
           }
         ],
         exclude: modulesDirs
@@ -36,6 +43,11 @@ export default {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`
+    }),
+    new webpack.BannerPlugin({
+      banner: 'require("source-map-support").install();',
+      raw: true,
+      entryOnly: false
     })
   ],
   externals: modulesDirs.map(modulesDir => nodeExternals({ modulesDir }))

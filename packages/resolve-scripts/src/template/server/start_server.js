@@ -1,8 +1,8 @@
 import chalk from 'chalk'
 
-import openBrowser from './open_browser'
-import println from './println'
-import prepareUrls from './prepare_urls'
+import openBrowser from './utils/open_browser'
+import println from './utils/println'
+import prepareUrls from './utils/prepare_urls'
 
 const port = $resolve.port
 const host = $resolve.host
