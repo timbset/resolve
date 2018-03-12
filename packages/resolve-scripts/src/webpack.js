@@ -1,7 +1,6 @@
 import path from 'path'
 import respawn from 'respawn'
 import webpack from 'webpack'
-import flat from 'flat'
 
 import webpackClientConfig from './configs/webpack.client.config'
 import webpackServerConfig from './configs/webpack.server.config'
@@ -12,8 +11,6 @@ import createMockServer from './utils/create_mock_server'
 import resolveFileOrModule from './utils/resolve_file_or_module'
 import resolveFile from './utils/resolve_file'
 
-import { files, filesOrModules } from './configs/resolve.config'
-
 export default options => {
   const config = getConfig(options, process.env)
 
@@ -23,48 +20,38 @@ export default options => {
     return
   }
 
-  const flatConfig = flat(config, { maxDepth: 2 })
-
-  for (const key of files) {
-    flatConfig[key] = resolveFile(flatConfig[key])
+  for (const { obj, key } of config.meta.files) {
+    obj[key] = resolveFile(obj[key])
   }
-  for (const key of filesOrModules) {
-    flatConfig[key] = resolveFileOrModule(flatConfig[key])
+  for (const { obj, key } of config.meta.filesOrModules) {
+    obj[key] = resolveFileOrModule(obj[key])
   }
 
   const { name: applicationName } = require(resolveFile('package.json'))
-  flatConfig.applicationName = applicationName
+  config.applicationName = applicationName
 
-  flatConfig.useYarn = false
+  config.useYarn = false
   try {
     resolveFile('yarn.lock')
-    flatConfig.useYarn = true
+    config.useYarn = true
   } catch (error) {}
 
   const serverIndexPath = resolveFile('server/index.js')
-  const clientIndexPath = flatConfig.index
-  const serverDistDir = path.resolve(
-    process.cwd(),
-    flatConfig.distDir,
-    'server'
-  )
-  const clientDistDir = path.resolve(
-    process.cwd(),
-    flatConfig.distDir,
-    'client'
-  )
+  const clientIndexPath = config.index
+  const serverDistDir = path.resolve(process.cwd(), config.distDir, 'server')
+  const clientDistDir = path.resolve(process.cwd(), config.distDir, 'client')
 
   webpackClientConfig.entry = ['babel-regenerator-runtime', clientIndexPath]
   webpackClientConfig.output.path = clientDistDir
-  webpackClientConfig.mode = flatConfig.mode
+  webpackClientConfig.mode = config.mode
 
   webpackServerConfig.entry = ['babel-regenerator-runtime', serverIndexPath]
   webpackServerConfig.output.path = serverDistDir
-  webpackServerConfig.mode = flatConfig.mode
+  webpackServerConfig.mode = config.mode
 
   const defineObject = {}
-  for (const key of Object.keys(flatConfig)) {
-    defineObject[`$resolve.${key}`] = JSON.stringify(flatConfig[key])
+  for (const key of Object.keys(config)) {
+    defineObject[`$resolve.${key}`] = JSON.stringify(config[key])
   }
   const definePlugin = new webpack.DefinePlugin(defineObject)
 

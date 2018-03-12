@@ -1,4 +1,5 @@
 import webpack from 'webpack'
+
 import babelConfig from './babelrc'
 import modulesDirs from './modules_dirs'
 
