@@ -3,7 +3,6 @@ import createSocketServer from 'socket.io'
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
-import jwt from 'jsonwebtoken' // eslint-disable-line
 
 import serverSideRendering from './server_side_rendering'
 import getRootableUrl from './get_rootable_url'
@@ -14,7 +13,7 @@ import socketHandler from './socket_handler'
 
 const staticDir = $resolve.staticDir
 const distDir = $resolve.distDir
-const jwt = $resolve.jwt
+const jwtCookie = $resolve.jwtCookie
 
 const app = express()
 const server = new Server(app)
@@ -31,8 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 app.use((req, res, next) => {
-  req.jwtToken =
-    req.cookies && req.cookies[jwt.name] ? req.cookies[jwt.name] : null
+  req.jwtToken = req.cookies[jwtCookie.name]
 
   next()
 })

@@ -130,12 +130,9 @@ describe('validate schema', () => {
     expect(
       validateСonfig({
         ...defaultСonfig,
-        jwt: {
-          cookieName: 'authToken',
-          secret: 'some-secret',
-          options: {
-            maxAge: 1000 * 60 * 60 * 24 * 365
-          }
+        jwtCookie: {
+          name: 'authToken',
+          maxAge: 1000 * 60 * 60 * 24 * 365
         }
       })
     ).toBeTruthy()

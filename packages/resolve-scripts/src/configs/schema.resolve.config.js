@@ -13,22 +13,14 @@ export default {
       },
       additionalProperties: false
     },
-    jwt: {
+    jwtCookie: {
       type: 'object',
       properties: {
-        cookieName: {
+        name: {
           type: 'string'
         },
-        secret: {
-          type: 'string'
-        },
-        options: {
-          type: 'object',
-          properties: {
-            maxAge: {
-              type: 'integer'
-            }
-          }
+        maxAge: {
+          type: 'integer'
         }
       },
       additionalProperties: false
@@ -122,8 +114,8 @@ export default {
         auth: {
           type: 'string'
         },
-        jwt: {
-          $ref: '#/definitions/jwt'
+        jwtCookie: {
+          $ref: '#/definitions/jwtCookie'
         },
         registry: {
           type: 'string'

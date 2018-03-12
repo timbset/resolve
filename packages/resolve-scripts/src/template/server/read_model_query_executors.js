@@ -8,9 +8,7 @@ const readModels = require($resolve.readModels)
 const readModelQueryExecutors = {}
 
 readModels.forEach(readModel => {
-  if (!readModel.name && config.readModels.length === 1) {
-    readModel.name = 'graphql'
-  } else if (!readModel.name) {
+  if (!readModel.name) {
     raiseError(message.readModelMandatoryName, readModel)
   } else if (readModelQueryExecutors[readModel.name]) {
     raiseError(message.dublicateName, readModel)

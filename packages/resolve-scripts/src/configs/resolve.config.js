@@ -50,6 +50,10 @@ const config = {
     adapter: 'resolve-redux/dist/subscribe_adapter',
     options: {}
   },
+  jwtCookie: {
+    name: 'jwt',
+    maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year
+  },
   registry: 'https://registry.resolve.coming.soon',
   // Config extensions
   env: {

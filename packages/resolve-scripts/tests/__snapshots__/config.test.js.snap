@@ -14,6 +14,10 @@ Object {
   "index": "client/index.js",
   "inspectHost": "127.0.0.1",
   "inspectPort": 9229,
+  "jwtCookie": Object {
+    "maxAge": 31536000000,
+    "name": "jwt",
+  },
   "mode": "development",
   "port": 3000,
   "protocol": "http",
