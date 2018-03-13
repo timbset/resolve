@@ -10,7 +10,7 @@ export default {
   children: false,
   source: false,
   errors: true,
-  errorDetails: true,
+  errorDetails: false,
   warnings: true,
   publicPath: false,
   entrypoints: false,

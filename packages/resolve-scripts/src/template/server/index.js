@@ -1,6 +1,7 @@
+import path from 'path'
 import { Server } from 'http'
-import createSocketServer from 'socket.io'
 import express from 'express'
+import createSocketServer from 'socket.io'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 
@@ -40,6 +41,10 @@ app.use(getRootableUrl('/api/query/:modelName'), queryHandler)
 
 app.use(getRootableUrl('/'), express.static(`${distDir}/client`))
 app.use(getRootableUrl('/'), express.static(staticDir))
+app.use(
+  getRootableUrl('/'),
+  express.static(path.resolve(__dirname, '../static'))
+)
 
 app.get([getRootableUrl('/'), getRootableUrl('/*')], serverSideRendering)
 
