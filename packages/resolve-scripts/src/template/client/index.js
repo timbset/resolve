@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'react-router-redux'
 import Routes from './components/Routes'
 import createStore from './store/create_store'
 
-const routes = require($resolve.routes) // eslint-disable-line
+const routes = require($resolve.routes)
 
 const history = createHistory({
   basename: process.env.ROOT_PATH

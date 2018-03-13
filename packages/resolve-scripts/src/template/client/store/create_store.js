@@ -7,12 +7,13 @@ import {
 import { routerReducer, routerMiddleware } from 'react-router-redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-const reducers = require($resolve.redux.reducers) // eslint-disable-line
-const middlewares = require($resolve.redux.middlewares) // eslint-disable-line
-const setupStore = require($resolve.redux.store) // eslint-disable-line
-const viewModels = require($resolve.viewModels) // eslint-disable-line
-const readModels = require($resolve.readModels) // eslint-disable-line
-const subscribeAdapter = require($resolve.subscribe.adapter) // eslint-disable-line
+const reducers = require($resolve.redux.reducers)
+const middlewares = require($resolve.redux.middlewares)
+const setupStore = require($resolve.redux.store)
+const viewModels = require($resolve.viewModels)
+const readModels = require($resolve.readModels)
+const aggregates = require($resolve.aggregates)
+const subscribeAdapter = require($resolve.subscribe.adapter)
 
 export default (initialState, history) => {
   const store = createStore(
@@ -26,7 +27,12 @@ export default (initialState, history) => {
     composeWithDevTools(
       applyMiddleware(
         routerMiddleware(history),
-        createResolveMiddleware({ viewModels, readModels, subscribeAdapter }),
+        createResolveMiddleware({
+          viewModels,
+          readModels,
+          aggregates,
+          subscribeAdapter
+        }),
         ...middlewares
       )
     )

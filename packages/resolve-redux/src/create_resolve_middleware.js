@@ -3,6 +3,7 @@ import actions from './actions'
 import defaultSubscribeAdapter from './subscribe_adapter'
 import sendCommand from './send_command'
 import loadInitialState from './load_initial_state'
+import createActions from './create_actions'
 import { getKey } from './util'
 
 const REFRESH_TIMEOUT = 1000
@@ -122,7 +123,9 @@ export const mockSubscribeAdapter = {
 }
 
 export function createResolveMiddleware({
-  viewModels,
+  viewModels = [],
+  aggregates = [],
+  readModels = [],
   subscribeAdapter = defaultSubscribeAdapter
 }) {
   const subscribers = {
@@ -136,6 +139,11 @@ export function createResolveMiddleware({
     return acc
   }, {})
 
+  const aggregateActions = aggregates.reduce(
+    (result, aggregate) => ({ ...result, ...createActions(aggregate) }),
+    {}
+  )
+
   return store => {
     Object.defineProperty(store.getState, 'isLoadingViewModel', {
       enumerable: false,
@@ -143,6 +151,12 @@ export function createResolveMiddleware({
       writable: false,
       value: (viewModelName, aggregateId) =>
         !!loading[viewModelName][aggregateId]
+    })
+    Object.defineProperty(store.getState, 'aggregateActions', {
+      enumerable: false,
+      configurable: false,
+      writable: false,
+      value: aggregateActions
     })
 
     store.dispatch(actions.provideViewModels(viewModels))
