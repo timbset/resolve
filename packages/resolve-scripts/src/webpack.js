@@ -1,6 +1,8 @@
 import path from 'path'
 import respawn from 'respawn'
 import webpack from 'webpack'
+import lodash from 'lodash'
+import flat from 'flat'
 
 import webpackClientConfig from './configs/webpack.client.config'
 import webpackServerConfig from './configs/webpack.server.config'
@@ -10,6 +12,7 @@ import getConfig from './utils/get_config'
 import createMockServer from './utils/create_mock_server'
 import resolveFileOrModule from './utils/resolve_file_or_module'
 import resolveFile from './utils/resolve_file'
+import { meta } from './configs/resolve.config'
 
 export default options => {
   const config = getConfig(options, process.env)
@@ -20,11 +23,11 @@ export default options => {
     return
   }
 
-  for (const { obj, key } of config.meta.files) {
-    obj[key] = resolveFile(obj[key])
+  for (const key of meta.files) {
+    lodash.set(config, key, resolveFile(lodash.get(config, key)))
   }
-  for (const { obj, key } of config.meta.filesOrModules) {
-    obj[key] = resolveFileOrModule(obj[key])
+  for (const key of meta.filesOrModules) {
+    lodash.set(config, key, resolveFileOrModule(lodash.get(config, key)))
   }
 
   const { name: applicationName } = require(resolveFile('package.json'))
@@ -50,9 +53,13 @@ export default options => {
   webpackServerConfig.mode = config.mode
 
   const defineObject = {}
-  for (const key of Object.keys(config)) {
-    defineObject[`$resolve.${key}`] = JSON.stringify(config[key])
+  for (let maxDepth = 1; maxDepth < 5; maxDepth++) {
+    const flatConfig = flat(config, { maxDepth })
+    for (const key of Object.keys(flatConfig)) {
+      defineObject[`$resolve.${key}`] = JSON.stringify(flatConfig[key])
+    }
   }
+
   const definePlugin = new webpack.DefinePlugin(defineObject)
 
   webpackClientConfig.plugins.push(definePlugin)

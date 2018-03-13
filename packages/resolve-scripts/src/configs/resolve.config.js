@@ -1,5 +1,10 @@
 import validateConfig from '../utils/validate_config'
 
+export const meta = {
+  files: [],
+  filesOrModules: []
+}
+
 const config = {
   // Webpack options
   mode: 'development',
@@ -20,30 +25,32 @@ const config = {
   staticDir: 'static',
   distDir: 'dist',
   // Files
-  @file routes: 'client/routes.js',
-  @file aggregates: 'common/aggregates/index.js',
-  @file readModels: 'common/read-models/index.js',
-  @file viewModels: 'common/view-models/index.js',
-  @file index: 'client/index.js',
-  @file auth: 'auth/index.js',
+  /* meta */ @file('routes') routes: 'client/routes.js',
+  /* meta */ @file('aggregates') aggregates: 'common/aggregates/index.js',
+  /* meta */ @file('readModels') readModels: 'common/read-models/index.js',
+  /* meta */ @file('viewModels') viewModels: 'common/view-models/index.js',
+  /* meta */ @file('index') index: 'client/index.js',
+  /* meta */ @file('auth') auth: 'auth/index.js',
   redux: {
-    @file store: 'client/store/index.js',
-    @file reducers: 'client/reducers/index.js',
-    @file middlewares: 'client/middlewares/index.js'
+    /* meta */ @file('redux.store') store: 'client/store/index.js',
+    /* meta */ @file('redux.reducers') reducers: 'client/reducers/index.js',
+    /* meta */ @file('redux.middlewares')
+    middlewares: 'client/middlewares/index.js'
   },
   // Adapters
   storage: {
-    @fileOrModule adapter: 'resolve-storage-lite',
+    /* meta */ @fileOrModule('storage.adapter') adapter: 'resolve-storage-lite',
     options: {
       pathToFile: 'storage.txt'
     }
   },
   bus: {
-    @fileOrModule adapter: 'resolve-bus-memory',
+    /* meta */ @fileOrModule('bus.adapter') adapter: 'resolve-bus-memory',
     options: {}
   },
   subscribe: {
-    @fileOrModule adapter: 'resolve-redux/dist/subscribe_adapter',
+    /* meta */ @fileOrModule('subscribe.adapter')
+    adapter: 'resolve-redux/dist/subscribe_adapter',
     options: {}
   },
   jwtCookie: {
@@ -59,38 +66,21 @@ const config = {
         options: {}
       }
     }
-  },
-  meta: {
-    files: [],
-    filesOrModules: []
   }
 }
-
-Object.defineProperty(config, 'meta', {
-  enumerable: false,
-  configurable: false,
-  writable: false,
-  value: config.meta
-})
 
 validateConfig(config)
 
 export default config
 
-function file(obj, key, value) {
-  obj[key] = value
-
-  config.meta.files.push({ obj, key })
-
-  return obj
+function file(name) {
+  meta.files.push(name)
+  return obj => obj
 }
 
-function fileOrModule(obj, key, value) {
-  obj[key] = value
-
-  config.meta.filesOrModules.push({ obj, key })
-
-  return obj
+function fileOrModule(name) {
+  meta.filesOrModules.push(name)
+  return obj => obj
 }
 
 export const decorators = {
