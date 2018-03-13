@@ -12,12 +12,13 @@
     "dev": "resolve-scripts dev",
     "start": "resolve-scripts start",
     "update": "resolve-scripts update",
-    "test": "jest tests/unit/*",
-    "test:functional": "cross-env NODE_ENV=tests babel-node ./tests/functional/testcafe_runner.js --presets es2015,stage-0,react"
+    "test:unit": "jest tests/unit/*",
+    "test:functional": "resolve-scripts start --detached && testcafe ./test/functional/*"
   },
   "devDependencies": {
     "cross-env": "^5.1.3",
     "jest": "^22.4.2",
+    "react-test-renderer": "^16.2.0",
     "testcafe": "^0.18.6",
     "testcafe-browser-tools": "^1.5.1",
     "yargs": "^11.0.0"

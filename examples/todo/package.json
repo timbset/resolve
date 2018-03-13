@@ -6,8 +6,8 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "redux": "^3.7.2",
-    "resolve-redux": "^0.5.2",
-    "resolve-scripts": "^0.5.2"
+    "resolve-redux": "^0.5.4",
+    "resolve-scripts": "^0.5.4"
   },
   "scripts": {
     "build": "resolve-scripts build",
