@@ -193,7 +193,7 @@ const createResponse = () => {
   defineResponseMethod('setHeader', (key, value) => {
     validateResponseOpened()
     validateOptionShape('Header name', key, [String])
-    validateOptionShape('Header value', value, [String])
+    validateOptionShape('Header value', value, [String, Number])
 
     internalRes.headers[normalizeKey(key, 'upper-dash-case')] = value
     return res
