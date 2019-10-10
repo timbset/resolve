@@ -1,9 +1,6 @@
-import path from 'path'
-import fs from 'fs'
+import { parse } from 'url'
 
 import nextApp from '../../client/app'
-
-const nextStaticPath = path.join(__dirname, '../../client/.next')
 
 let preparePromise = null
 let handler = null
@@ -19,26 +16,38 @@ export default async (req, res) => {
 
   await preparePromise
 
-  // console.log(req)
-  // const parsedUrl = parse(req.url, true)
+  const parsedUrl = parse(req.rootBasedPath, true)
 
-  // await handler(req, res, parsedUrl)
-
-  let pagePath = req.rootBasedPath
-
-  if (pagePath.indexOf('/_next') >= 0) {
-    const staticFilePath = path.join(nextStaticPath, pagePath.replace('/_next', ''))
-    fs.readFileSync(staticFilePath)
-    res.setHeader('Content-Type', 'application/javascript; charset=UTF-8')
-    res.end(fs.readFileSync(staticFilePath))
-    return
+  const request = {
+    ...req,
+    url: req.rootBasedPath,
+    headers: {
+      origin: 'localhost'
+    },
+    socket: {
+      setKeepAlive() {}
+    }
   }
 
-  if (pagePath === '/') {
-    pagePath = '/index'
+  const response = {
+    ...res,
+    _implicitHeader() {},
+    setHeader(key, value) {
+      // TODO: fix it in resolve
+      res.setHeader(key, value.toString())
+    },
+    writeHead(code, headers) {
+      this.status(code)
+
+      for (const key in headers) {
+        this.setHeader(key, headers[key])
+      }
+    },
+    write() {
+
+    }
   }
 
-  console.log('pagePath', pagePath, req)
-
-  await nextApp.render(req, res, pagePath, {})
+  await handler(request, response, parsedUrl)
+  // await nextApp.render(req, response, pagePath, {})
 }

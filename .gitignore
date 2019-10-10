@@ -63,3 +63,4 @@ es
 bus.json
 lcov.info
 packages/core/resolve-zeromq/optional
+examples/next-js/static/_next

@@ -11,6 +11,9 @@ import {
   exportEventStore
 } from 'resolve-scripts'
 
+import path from 'path'
+import fs from 'fs-extra'
+
 import appConfig from './config.app'
 import cloudConfig from './config.cloud'
 import devConfig from './config.dev'
@@ -38,11 +41,23 @@ void (async () => {
 
       case 'build': {
         await build(merge(defaultResolveConfig, appConfig, prodConfig))
+
+        await fs.copy(
+          path.join(__dirname, 'static/_next'),
+          path.join(__dirname, 'dist/common/local-entry/static/_next')
+        )
+
         break
       }
 
       case 'cloud': {
         await build(merge(defaultResolveConfig, appConfig, cloudConfig))
+
+        await fs.copy(
+          path.join(__dirname, 'static/_next'),
+          path.join(__dirname, 'dist/common/cloud-entry/static/_next')
+        )
+
         break
       }
 

@@ -4,8 +4,8 @@
   "description": "used as an example using reSolve with Next.js",
   "private": true,
   "scripts": {
-    "build": "babel-node ./run.js build",
-    "cloud": "babel-node ./run.js cloud",
+    "build": "next build client && babel-node ./run.js build",
+    "cloud": "next build client && babel-node ./run.js cloud",
     "dev": "babel-node ./run.js dev",
     "dev:next": "next dev client",
     "start": "babel-node ./run.js start",
@@ -42,6 +42,7 @@
     "@babel/preset-env": "7.0.0",
     "@babel/preset-react": "7.0.0",
     "babel-jest": "24.1.0",
+    "fs-extra": "^8.1.0",
     "jest": "24.1.0",
     "react-test-renderer": "16.7.0",
     "resolve-cloud": "*",
