@@ -17,5 +17,16 @@ export default {
       tableName: declareRuntimeEnv('RESOLVE_ES_TABLE'),
       region: declareRuntimeEnv('AWS_REGION')
     }
+  },
+  readModelConnectors: {
+    default: {
+      module: 'resolve-readmodel-mysql',
+      options: {
+        host: declareRuntimeEnv('RESOLVE_READMODEL_SQL_HOST'),
+        database: declareRuntimeEnv('RESOLVE_READMODEL_SQL_DATABASE'),
+        user: declareRuntimeEnv('RESOLVE_READMODEL_SQL_USER'),
+        password: declareRuntimeEnv('RESOLVE_READMODEL_SQL_PASSWORD')
+      }
+    }
   }
 }

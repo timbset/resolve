@@ -14,6 +14,9 @@ export default async (req, res) => {
     handler = nextApp.getRequestHandler()
   }
 
+  const assetPrefix = process.env.RESOLVE_CLOUD_STATIC_URL || '/static'
+  nextApp.setAssetPrefix(assetPrefix)
+
   await preparePromise
 
   const parsedUrl = parse(req.rootBasedPath, true)
@@ -47,6 +50,16 @@ export default async (req, res) => {
 
     }
   }
+
+  Object.defineProperty(response, 'statusCode', {
+    set: function(value) {
+      this._statusCode = value
+      this.status(value)
+    },
+    get: function() {
+      return this._statusCode
+    }
+  })
 
   await handler(request, response, parsedUrl)
   // await nextApp.render(req, response, pagePath, {})
