@@ -10,9 +10,14 @@ const bootstrap = async resolve => {
     await resolve.storageAdapter.init()
   } catch (e) {}
 
+  try {
+    // TODO: invoke "init" only during first run
+    await resolve.snapshotAdapter.init()
+  } catch (e) {}
+
   const applicationPromises = []
-  for (const { name: readModelName } of resolve.readModels) {
-    applicationPromises.push(resolve.doUpdateRequest(readModelName))
+  for (const listenerName of resolve.eventListeners.keys()) {
+    applicationPromises.push(resolve.doUpdateRequest(listenerName))
   }
 
   await Promise.all(applicationPromises)

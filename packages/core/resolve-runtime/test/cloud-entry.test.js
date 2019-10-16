@@ -76,6 +76,7 @@ describe('Cloud entry', () => {
     }
 
     domain = {
+      eventListeners: new Map(),
       apiHandlers: [
         /*apiHandler1, apiHandler2*/
       ],
@@ -86,7 +87,8 @@ describe('Cloud entry', () => {
         /*readModel*/
       ],
       viewModels: [],
-      sagas: []
+      sagas: [],
+      schedulers: []
     }
 
     redux = {
@@ -149,7 +151,7 @@ describe('Cloud entry', () => {
       expect(result).toEqual({
         statusCode: 405,
         headers: {},
-        body: 'Access error: path "/" is not addressable by current executor'
+        body: 'Access error: GET "/" is not addressable by current executor'
       })
     })
 
@@ -642,6 +644,14 @@ describe('Cloud entry', () => {
     })
 
     test('should redirect from /"rootPath" to /"rootPath"/', async () => {
+      domain.apiHandlers.push({
+        method: 'POST',
+        path: '/',
+        controller: async (req, res) => {
+          res.end('Custom markup handler')
+        }
+      })
+
       const apiGatewayEvent = {
         path: '/root-path',
         httpMethod: 'POST',
@@ -662,6 +672,14 @@ describe('Cloud entry', () => {
     })
 
     test('should set header Bearer when jwt provided', async () => {
+      domain.apiHandlers.push({
+        method: 'POST',
+        path: '/',
+        controller: async (req, res) => {
+          res.end('Custom markup handler')
+        }
+      })
+
       const apiGatewayEvent = {
         path: '/root-path',
         httpMethod: 'POST',

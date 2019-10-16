@@ -8,12 +8,11 @@ import {
   stop,
   reset,
   importEventStore,
-  exportEventStore,
-  declareImportKey
+  exportEventStore
 } from 'resolve-scripts'
 import resolveModuleComments from 'resolve-module-comments'
 import resolveModuleAuth from 'resolve-module-auth'
-import resolveModuleReactRouter from 'resolve-module-react-router'
+import resolveModuleAdmin from 'resolve-module-admin'
 
 import appConfig from './config.app'
 import cloudConfig from './config.cloud'
@@ -57,48 +56,37 @@ void (async () => {
       }
     ])
 
-    const moduleReactRouter = resolveModuleReactRouter({
-      routes: 'client/routes.js',
-      redux: {
-        reducers: {
-          optimistic: 'client/reducers/optimistic.js',
-          comments: declareImportKey('comments')
-        },
-        sagas: [
-          'client/sagas/story-create-saga.js',
-          'client/sagas/optimistic-voting-saga.js'
-        ]
-      }
-    })
-
     const baseConfig = merge(
       defaultResolveConfig,
       appConfig,
-      moduleReactRouter,
       moduleComments,
       moduleAuth
     )
 
     switch (launchMode) {
       case 'dev': {
-        const resolveConfig = merge(baseConfig, devConfig)
+        const moduleAdmin = resolveModuleAdmin()
+        const resolveConfig = merge(baseConfig, devConfig, moduleAdmin)
         await reset(resolveConfig, {
           dropEventStore: false,
           dropSnapshots: true,
           dropReadModels: true,
           dropSagas: true
         })
+
         await watch(resolveConfig)
         break
       }
 
       case 'build': {
-        await build(merge(baseConfig, prodConfig))
+        const resolveConfig = merge(baseConfig, prodConfig)
+        await build(resolveConfig)
         break
       }
 
       case 'cloud': {
-        await build(merge(baseConfig, cloudConfig))
+        const resolveConfig = merge(baseConfig, cloudConfig)
+        await build(resolveConfig)
         break
       }
 
@@ -115,6 +103,7 @@ void (async () => {
           dropReadModels: true,
           dropSagas: true
         })
+
         break
       }
 
@@ -122,8 +111,8 @@ void (async () => {
         const resolveConfig = merge(baseConfig, devConfig)
 
         const importFile = process.argv[3]
-
         await importEventStore(resolveConfig, { importFile })
+
         break
       }
 
@@ -131,14 +120,13 @@ void (async () => {
         const resolveConfig = merge(baseConfig, devConfig)
 
         const exportFile = process.argv[3]
-
         await exportEventStore(resolveConfig, { exportFile })
+
         break
       }
 
       case 'test:functional': {
         const resolveConfig = merge(baseConfig, testFunctionalConfig)
-
         await reset(resolveConfig, {
           dropEventStore: true,
           dropSnapshots: true,
@@ -151,12 +139,12 @@ void (async () => {
           functionalTestsDir: 'test/functional',
           browser: process.argv[3]
         })
+
         break
       }
 
       case 'import': {
         const config = merge(baseConfig, devConfig)
-
         await reset(config, {
           dropEventStore: true,
           dropSnapshots: true,
@@ -164,47 +152,23 @@ void (async () => {
           dropSagas: true
         })
 
-        const importConfig = merge(config, {
-          eventBroker: { launchBroker: false }
-        })
-        Object.assign(importConfig, {
+        const importConfig = merge(defaultResolveConfig, devConfig, {
+          eventBroker: { launchBroker: false },
           apiHandlers: [
             {
               method: 'POST',
-              path: '/api/import_events',
+              path: 'import_events',
               controller: {
                 module: 'import/import_api_handler.js',
                 options: {}
               }
             }
-          ],
-          aggregates: [],
-          readModels: [],
-          viewModels: [],
-          sagas: [],
-          readModelConnectors: {},
-          schedulers: {}
-        })
-
-        if (process.env.hasOwnProperty(String(importConfig.port))) {
-          process.env.PORT = +String(process.env.PORT)
-        } else if (
-          process.env.PORT != null &&
-          process.env.PORT.defaultValue != null
-        ) {
-          process.env.PORT = +process.env.PORT.defaultValue
-        } else {
-          process.env.PORT = 3000
-        }
-
-        Object.assign(process.env, {
-          RESOLVE_SERVER_OPEN_BROWSER: 'false',
-          ROOT_PATH: importConfig.rootPath
+          ]
         })
 
         await build(importConfig)
 
-        await Promise.all([start(importConfig), runImport()])
+        await Promise.all([start(importConfig), runImport(importConfig)])
 
         break
       }

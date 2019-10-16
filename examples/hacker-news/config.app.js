@@ -1,4 +1,14 @@
 const appConfig = {
+  routes: 'client/routes.js',
+  redux: {
+    reducers: {
+      optimistic: 'client/reducers/optimistic.js'
+    },
+    sagas: [
+      'client/sagas/optimistic-voting-saga.js',
+      'client/sagas/story-create-saga.js'
+    ]
+  },
   aggregates: [
     {
       name: 'Story',
@@ -31,48 +41,6 @@ const appConfig = {
       source: 'common/sagas/user-confirmation.saga.js',
       connectorName: 'default',
       schedulerName: 'scheduler'
-    }
-  ],
-  apiHandlers: [
-    {
-      path: '/api/event-broker/status-all',
-      controller: 'common/api-handlers/event-broker-status-all.js',
-      method: 'GET'
-    },
-    {
-      path: '/api/event-broker/status',
-      controller: 'common/api-handlers/event-broker-status.js',
-      method: 'GET'
-    },
-    {
-      path: '/api/event-broker/pause',
-      controller: 'common/api-handlers/event-broker-pause.js',
-      method: 'GET'
-    },
-    {
-      path: '/api/event-broker/resume',
-      controller: 'common/api-handlers/event-broker-resume.js',
-      method: 'GET'
-    },
-    {
-      path: '/api/event-broker/list-properties',
-      controller: 'common/api-handlers/event-broker-list-properties.js',
-      method: 'GET'
-    },
-    {
-      path: '/api/event-broker/get-property',
-      controller: 'common/api-handlers/event-broker-get-property.js',
-      method: 'GET'
-    },
-    {
-      path: '/api/event-broker/set-property',
-      controller: 'common/api-handlers/event-broker-set-property.js',
-      method: 'GET'
-    },
-    {
-      path: '/api/event-broker/delete-property',
-      controller: 'common/api-handlers/event-broker-delete-property.js',
-      method: 'GET'
     }
   ]
 }
