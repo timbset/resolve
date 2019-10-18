@@ -14,16 +14,16 @@ export default async (req, res) => {
     handler = nextApp.getRequestHandler()
   }
 
-  const assetPrefix = process.env.RESOLVE_CLOUD_STATIC_URL || '/static'
-  nextApp.setAssetPrefix(assetPrefix)
+  // const assetPrefix = process.env.RESOLVE_CLOUD_STATIC_URL || '/static'
+  // nextApp.setAssetPrefix('https://static.resolve.sh/z0aev2swzy1e8z3e23y8xpt4sl')
 
   await preparePromise
 
-  const parsedUrl = parse(req.rootBasedPath, true)
+  const parsedUrl = parse(`https://z0aev2swzy1e8z3e23y8xpt4sl.resolve.sh/${req.matchedParams.page}`, true)
 
   const request = {
     ...req,
-    url: req.rootBasedPath,
+    url: req.matchedParams.page,
     headers: {
       origin: 'localhost'
     },

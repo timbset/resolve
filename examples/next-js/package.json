@@ -28,6 +28,7 @@
     "resolve-readmodel-mysql": "0.20.28",
     "resolve-redux": "0.20.28",
     "resolve-scripts": "0.20.28",
+    "resolve-snapshot-mysql": "0.20.28",
     "resolve-storage-lite": "0.20.28",
     "resolve-storage-postgresql-serverless": "0.20.28",
     "resolve-subscribe-mqtt": "0.20.28",

@@ -1,10 +1,13 @@
 import React from 'react';
 
 import useReadModel from '../hooks/useReadModel'
+import useViewModel from '../hooks/useViewModel';
 
 export default () => {
-  const res = useReadModel('counterReadModel', 'counterValue')
-  console.log('result', res)
+  const rmRes = useReadModel('counterReadModel', 'counterValue')
+  const vmRes = useViewModel('counterViewModel', 'ROOT_ID')
+  console.log('read model data', rmRes)
+  console.log('view model data', vmRes)
 
   return (
     <div>

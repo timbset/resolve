@@ -28,5 +28,14 @@ export default {
         password: declareRuntimeEnv('RESOLVE_READMODEL_SQL_PASSWORD')
       }
     }
+  },
+  snapshotAdapter: {
+    module: 'resolve-snapshot-mysql',
+    options: {
+      host: declareRuntimeEnv('RESOLVE_READMODEL_SQL_HOST'),
+      database: declareRuntimeEnv('RESOLVE_READMODEL_SQL_DATABASE'),
+      user: declareRuntimeEnv('RESOLVE_READMODEL_SQL_USER'),
+      password: declareRuntimeEnv('RESOLVE_READMODEL_SQL_PASSWORD')
+    }
   }
 }
