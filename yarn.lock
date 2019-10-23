@@ -14463,25 +14463,6 @@ reselect@^3.0.1:
   resolved "https://registry.yarnpkg.com/reselect/-/reselect-3.0.1.tgz#efdaa98ea7451324d092b2b2163a6a1d7a9a2147"
   integrity sha1-79qpjqdFEyTQkrKyFjpqHXqaIUc=
 
-"resolve-api-handler-awslambda@http://0.0.0.0:10080/resolve-api-handler-awslambda.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-api-handler-awslambda.tgz#77be1368d63de09868a90867e4305ad87d18d7ac"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    binary-case "1.1.4"
-    content-disposition "0.5.2"
-    cookie "0.3.1"
-
-"resolve-api-handler-express@http://0.0.0.0:10080/resolve-api-handler-express.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-api-handler-express.tgz#459332a198fcf40e616d0c03a908bfb0a453beba"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    binary-case "1.1.4"
-    content-disposition "0.5.2"
-    cookie "0.3.1"
-    raw-body "2.3.3"
-
 resolve-cloud@*:
   version "0.10.3"
   resolved "https://registry.yarnpkg.com/resolve-cloud/-/resolve-cloud-0.10.3.tgz#4ead6f38414c47f993b3e5e1456b7e102b6fc143"
@@ -14513,12 +14494,6 @@ resolve-cloud@*:
     semver "^6.3.0"
     yargs "^14.0.0"
 
-"resolve-command@http://0.0.0.0:10080/resolve-command.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-command.tgz#34e4cb37bbad271a1576657eaadb50fb90d5c522"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-
 resolve-cwd@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/resolve-cwd/-/resolve-cwd-1.0.0.tgz#4eaeea41ed040d1702457df64a42b2b07d246f9f"
@@ -14532,19 +14507,6 @@ resolve-cwd@^2.0.0:
   integrity sha1-AKn3OHVW4nA46uIyyqNypqWbZlo=
   dependencies:
     resolve-from "^3.0.0"
-
-"resolve-debug-levels@http://0.0.0.0:10080/resolve-debug-levels.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-debug-levels.tgz#2b90f79f4d20da8bc9f012554ec504478b001eba"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    debug "4.1.1"
-
-"resolve-es@http://0.0.0.0:10080/resolve-es.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-es.tgz#bd47a5854be9a90a178d0c56097ebd08abfd60dd"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
 
 resolve-from@^2.0.0:
   version "2.0.0"
@@ -14561,16 +14523,6 @@ resolve-from@^4.0.0:
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-4.0.0.tgz#4abcd852ad32dd7baabfe9b40e00a36db5f392e6"
   integrity sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==
 
-"resolve-local-event-broker@http://0.0.0.0:10080/resolve-local-event-broker.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-local-event-broker.tgz#a62a1690663bdea934aac31fe029906be78d43be"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    cuid "^2.1.6"
-    resolve-debug-levels "http://0.0.0.0:10080/resolve-debug-levels.tgz"
-    resolve-zeromq "http://0.0.0.0:10080/resolve-zeromq.tgz"
-    sqlite "^3.0.2"
-
 resolve-options@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/resolve-options/-/resolve-options-1.1.0.tgz#32bb9e39c06d67338dc9378c0d6d6074566ad131"
@@ -14583,217 +14535,10 @@ resolve-pathname@^3.0.0:
   resolved "https://registry.yarnpkg.com/resolve-pathname/-/resolve-pathname-3.0.0.tgz#99d02224d3cf263689becbb393bc560313025dcd"
   integrity sha512-C7rARubxI8bXFNB/hqcp/4iUeIXJhJZvFPFPiSPRnhU5UPxzMFIl+2E6yY6c4k9giDJAhtV+enfA+G89N6Csng==
 
-"resolve-query@http://0.0.0.0:10080/resolve-query.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-query.tgz#b383459ef308a6d799ebec5e47fee75612b9006d"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-
-"resolve-readmodel-base@http://0.0.0.0:10080/resolve-readmodel-base.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-readmodel-base.tgz#4d4440e590867f933fd12229e6f977e5972902ca"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    uuid "^3.3.2"
-
-"resolve-readmodel-lite@http://0.0.0.0:10080/resolve-readmodel-lite.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-readmodel-lite.tgz#3e12300a5a3e4712cd23f076fd00f723684b430e"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    resolve-readmodel-base "http://0.0.0.0:10080/resolve-readmodel-base.tgz"
-    sqlite "^3.0.2"
-    tmp "^0.1.0"
-    uuid "^3.3.2"
-
-"resolve-readmodel-mysql@http://0.0.0.0:10080/resolve-readmodel-mysql.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-readmodel-mysql.tgz#4caadf0852f2650a58d438823b34813125127ef0"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    mysql2 "^1.6.1"
-    resolve-readmodel-base "http://0.0.0.0:10080/resolve-readmodel-base.tgz"
-    sql-formatter "^2.3.1"
-    uuid "^3.3.2"
-
-"resolve-redux@http://0.0.0.0:10080/resolve-redux.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-redux.tgz#dcaa7f371dca993cf5223d17886adf6cee6405a3"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    hoist-non-react-statics "^3.2.1"
-    json-stable-stringify "^1.0.1"
-    jwt-decode "^2.2.0"
-    react-redux "^5.1.1"
-    react-router "^4.3.1"
-    react-router-redux "^5.0.0-alpha.9"
-    redux-saga "^1.0.0"
-    unfetch "^4.0.1"
-    uuid "^3.3.2"
-
-"resolve-runtime@http://0.0.0.0:10080/resolve-runtime.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-runtime.tgz#1f5ee3f4905da4eccf1a8560a92c46f1488aca0b"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    aws-sdk "^2.369.0"
-    aws-signature-v4 "^1.3.0"
-    aws-xray-sdk-core "^2.3.3"
-    cron "^1.5.0"
-    cuid "^2.1.6"
-    express "^4.16.4"
-    jsonwebtoken "^8.3.0"
-    mqtt-connection "^4.0.0"
-    proper-lockfile "^3.2.0"
-    resolve-api-handler-awslambda "http://0.0.0.0:10080/resolve-api-handler-awslambda.tgz"
-    resolve-api-handler-express "http://0.0.0.0:10080/resolve-api-handler-express.tgz"
-    resolve-command "http://0.0.0.0:10080/resolve-command.tgz"
-    resolve-debug-levels "http://0.0.0.0:10080/resolve-debug-levels.tgz"
-    resolve-es "http://0.0.0.0:10080/resolve-es.tgz"
-    resolve-local-event-broker "http://0.0.0.0:10080/resolve-local-event-broker.tgz"
-    resolve-query "http://0.0.0.0:10080/resolve-query.tgz"
-    resolve-saga "http://0.0.0.0:10080/resolve-saga.tgz"
-    resolve-scheduler-cloud "http://0.0.0.0:10080/resolve-scheduler-cloud.tgz"
-    resolve-scheduler-local "http://0.0.0.0:10080/resolve-scheduler-local.tgz"
-    resolve-snapshot-lite "http://0.0.0.0:10080/resolve-snapshot-lite.tgz"
-    resolve-storage-base "http://0.0.0.0:10080/resolve-storage-base.tgz"
-    resolve-storage-lite "http://0.0.0.0:10080/resolve-storage-lite.tgz"
-    resolve-subscribe-socket.io "http://0.0.0.0:10080/resolve-subscribe-socket.io.tgz"
-    resolve-zeromq "http://0.0.0.0:10080/resolve-zeromq.tgz"
-    route-trie "^3.0.0"
-    socket.io "^2.1.1"
-    source-map-support "^0.5.9"
-    url "^0.11.0"
-    uuid "^3.3.2"
-    websocket-stream "^5.1.2"
-    ws "^5.2.1"
-
-"resolve-saga@http://0.0.0.0:10080/resolve-saga.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-saga.tgz#2d5e01b6517479b302ca096bdc6251eeff315c02"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    resolve-command "http://0.0.0.0:10080/resolve-command.tgz"
-    resolve-debug-levels "http://0.0.0.0:10080/resolve-debug-levels.tgz"
-    resolve-query "http://0.0.0.0:10080/resolve-query.tgz"
-    uuid "^3.3.3"
-
-"resolve-scheduler-cloud@http://0.0.0.0:10080/resolve-scheduler-cloud.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-scheduler-cloud.tgz#5077a0087c01809f83e1ca540bfc100772506da0"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    aws-sdk "^2.436.0"
-    binary-case "1.1.4"
-    content-disposition "0.5.2"
-    cookie "0.3.1"
-    resolve-debug-levels "http://0.0.0.0:10080/resolve-debug-levels.tgz"
-
-"resolve-scheduler-local@http://0.0.0.0:10080/resolve-scheduler-local.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-scheduler-local.tgz#3a2bf73651c97a5a514842c0a19d64be74362bd1"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    binary-case "1.1.4"
-    content-disposition "0.5.2"
-    cookie "0.3.1"
-
-"resolve-scripts@http://0.0.0.0:10080/resolve-scripts.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-scripts.tgz#ff2177c2e7b4aa2bc418c5d782d08ff8b6473d95"
-  dependencies:
-    "@babel/core" "^7.0.0"
-    "@babel/plugin-proposal-class-properties" "^7.0.0"
-    "@babel/plugin-proposal-export-default-from" "^7.0.0"
-    "@babel/plugin-proposal-export-namespace-from" "^7.0.0"
-    "@babel/plugin-transform-runtime" "^7.0.0"
-    "@babel/preset-env" "^7.0.0"
-    "@babel/preset-react" "^7.0.0"
-    "@babel/register" "^7.0.0"
-    "@babel/runtime" "^7.0.0"
-    address "^1.1.0"
-    ajv "^6.10.0"
-    babel-loader "^8.0.5"
-    babel-plugin-module-resolver "^3.2.0"
-    chalk "^2.4.2"
-    deepmerge "^3.2.0"
-    fs-extra "^7.0.1"
-    glob "^7.1.3"
-    isomorphic-fetch "^2.2.1"
-    opn "^6.0.0"
-    replace-in-file-webpack-plugin "^1.0.6"
-    resolve-runtime "http://0.0.0.0:10080/resolve-runtime.tgz"
-    respawn "^2.6.0"
-    route-trie "^3.0.0"
-    socket.io-client "^2.2.0"
-    testcafe "^1.1.3"
-    testcafe-browser-tools "^1.6.8"
-    uuid "^3.3.2"
-    val-loader "^1.1.1"
-    webpack "^4.30.0"
-    webpack-node-externals "^1.7.2"
-
-"resolve-snapshot-lite@http://0.0.0.0:10080/resolve-snapshot-lite.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-snapshot-lite.tgz#c3531bc9be5277700a4a10ec72ff5b6fd62f1dbb"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    sqlite "^3.0.3"
-
-"resolve-snapshot-mysql@http://0.0.0.0:10080/resolve-snapshot-mysql.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-snapshot-mysql.tgz#8f0186c0ff666fe97400647b094bd4c374461d01"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    mysql2 "^1.6.4"
-
-"resolve-storage-base@http://0.0.0.0:10080/resolve-storage-base.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-storage-base.tgz#8009d0874f112bf5c037f862186327bfc0925f9e"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-
-"resolve-storage-lite@http://0.0.0.0:10080/resolve-storage-lite.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-storage-lite.tgz#6c4ab929c25e74fafe5ed511fb89886498432fbb"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    resolve-storage-base "http://0.0.0.0:10080/resolve-storage-base.tgz"
-    sqlite "^3.0.2"
-
-"resolve-storage-postgresql-serverless@http://0.0.0.0:10080/resolve-storage-postgresql-serverless.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-storage-postgresql-serverless.tgz#f1ed28c562b7baa08d1de236513b9765df95ede8"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    aws-sdk "^2.509.0"
-    resolve-storage-base "http://0.0.0.0:10080/resolve-storage-base.tgz"
-
-"resolve-subscribe-mqtt@http://0.0.0.0:10080/resolve-subscribe-mqtt.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-subscribe-mqtt.tgz#7fcf3f6d8b4c6bd74c7157ee36acaba30dc5fed3"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    mqtt "^2.18.8"
-
-"resolve-subscribe-socket.io@http://0.0.0.0:10080/resolve-subscribe-socket.io.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-subscribe-socket.io.tgz#b7778d929433828468bd6db5fcdcd9d3b52a22f7"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    socket.io-client "2.1.1"
-
 resolve-url@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
   integrity sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
-
-"resolve-zeromq@http://0.0.0.0:10080/resolve-zeromq.tgz":
-  version "0.20.28"
-  resolved "http://0.0.0.0:10080/resolve-zeromq.tgz#0242998feac8ac2c51c57b75f79c134efbb5589f"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    npm "6.10.3"
 
 resolve@1.1.7:
   version "1.1.7"
