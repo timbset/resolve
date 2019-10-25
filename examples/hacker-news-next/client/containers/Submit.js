@@ -2,7 +2,7 @@ import React from 'react'
 import uuid from 'uuid'
 import { connect } from 'react-redux'
 import { connectResolveAdvanced } from 'resolve-redux'
-import { Redirect } from 'react-router'
+import Router from 'next/router'
 import { bindActionCreators } from 'redux'
 import styled from 'styled-components'
 
@@ -32,6 +32,12 @@ export class Submit extends React.PureComponent {
     disabled: false
   }
 
+  componentDidMount() {
+    if (!this.props.me || this.props.me.id) {
+      Router.push('/login?redirect=/submit')
+    }
+  }
+
   handleChange = (event, name) => this.setState({ [name]: event.target.value })
 
   handleSubmit = () => {
@@ -47,8 +53,8 @@ export class Submit extends React.PureComponent {
   }
 
   render() {
-    if (!this.props.me.id) {
-      return <Redirect to="/login?redirect=/submit" />
+    if (!this.props.me || this.props.me.id) {
+      return null
     }
 
     return (

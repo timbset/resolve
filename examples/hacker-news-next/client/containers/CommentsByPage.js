@@ -9,11 +9,7 @@ import { ITEMS_PER_PAGE } from '../constants'
 
 class CommentsByPage extends React.PureComponent {
   render() {
-    const {
-      match: {
-        params: { page }
-      }
-    } = this.props
+    const { page } = this.props
 
     return page && !Number.isInteger(Number(page)) ? (
       <Redirect push to={`/error?text=No such page`} />

@@ -28,11 +28,7 @@ const AskByPage = ({
 
 const mapStateToOptions = (
   state,
-  {
-    match: {
-      params: { page }
-    }
-  }
+  { page }
 ) => ({
   readModelName: 'HackerNews',
   resolverName: 'askStories',
@@ -45,9 +41,7 @@ const mapStateToOptions = (
 const mapStateToProps = (
   state,
   {
-    match: {
-      params: { page }
-    },
+    page,
     isLoading,
     data
   }

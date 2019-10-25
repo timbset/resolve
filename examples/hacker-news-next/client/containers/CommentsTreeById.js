@@ -8,9 +8,8 @@ import CommentsNotification from '../components/CommentsNotification'
 export class CommentsTreeById extends React.PureComponent {
   render() {
     const {
-      match: {
-        params: { storyId, commentId }
-      },
+      storyId,
+      commentId,
       authorId
     } = this.props
 

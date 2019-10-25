@@ -1,11 +1,11 @@
 const appConfig = {
-  apiHandlers: [
-    {
-      path: '/:page*',
-      method: 'GET',
-      controller: 'common/api-handlers/client.js'
-    }
-  ],
+  // apiHandlers: [
+  //   {
+  //     path: '/:page*',
+  //     method: 'GET',
+  //     controller: 'common/api-handlers/client.js'
+  //   }
+  // ],
   aggregates: [
     {
       name: 'Story',

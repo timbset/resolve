@@ -5,7 +5,6 @@ import Link from 'next/link'
 
 import reduxStore from '../reduxStore'
 import Splitter from '../components/Splitter'
-import Header from './Header'
 import LoginInfo from './LoginInfo'
 import Image from './Image'
 import Search from './Search'
@@ -76,11 +75,6 @@ const FooterLink = styled.a`
 const App = ({ children }) => (
   <Provider store={reduxStore}>
     <div>
-      <Header
-        title="reSolve Hacker News"
-        favicon="/favicon.ico"
-        css={['/style.css']}
-      />
       <ContentRoot>
         <PageHeader>
           <Link href="/">

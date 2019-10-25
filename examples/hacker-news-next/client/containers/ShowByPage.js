@@ -28,11 +28,7 @@ const ShowByPage = ({
 
 export const mapStateToOptions = (
   state,
-  {
-    match: {
-      params: { page }
-    }
-  }
+  { page }
 ) => ({
   readModelName: 'HackerNews',
   resolverName: 'showStories',
@@ -45,9 +41,7 @@ export const mapStateToOptions = (
 export const mapStateToProps = (
   state,
   {
-    match: {
-      params: { page }
-    },
+    page,
     data,
     isLoading
   }
